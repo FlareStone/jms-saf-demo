@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="jms-saf:jar">
+  <artifact type="jar" name="jms-saf:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/jms_saf_jar</output-path>
     <root id="archive" name="jms-saf.jar">
       <element id="module-output" name="jms-saf" />

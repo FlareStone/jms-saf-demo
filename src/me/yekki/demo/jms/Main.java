@@ -65,14 +65,12 @@ public class Main {
 
         if (null == configFile || "".equals(configFile)) configFile = Constants.DEFAULT_CONFIG_FILE;
 
-
-        boolean isHelp = false;
-
         if (cmd.hasOption("r")) {
 
             String role = cmd.getOptionValue("r");
 
             if (role.equals("s")) {
+
                 Producer producer = JMSClient.newProducer(configFile);
 
                 int count = 1;
@@ -91,8 +89,11 @@ public class Main {
 
                 producer.send(msg, count, interval);
 
+                producer.close();
+
                 logger.info(String.format("sent %d messages.", count));
             } else if (role.equals("r")) {
+
                 logger.info("starting receiver...");
                 Consumer consumer = JMSClient.newConsumer(configFile);
                 final AtomicInteger counter = new AtomicInteger();
@@ -109,8 +110,17 @@ public class Main {
 
                 new java.io.InputStreamReader(System.in).read();
 
+                consumer.close();
+
                 logger.info(String.format("got %d messages.", counter.get()));
-            } else {
+            } else if (role.equals("b")) {
+
+                logger.info("starting browser...");
+                Browser browser = JMSClient.newBrowser(configFile);
+                logger.info("message count:" + browser.getQueueSize());
+                browser.close();
+            }
+            else {
                 help(options);
             }
         } else {

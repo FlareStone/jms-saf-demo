@@ -3,10 +3,11 @@ package me.yekki.demo.jms.impl;
 import me.yekki.demo.jms.Consumer;
 
 import javax.jms.JMSConsumer;
+import javax.jms.JMSException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsumerImpl extends  AbstractJMSClient implements Consumer {
+public class ConsumerImpl extends JMSClientImpl implements Consumer {
 
     protected JMSConsumer consumer;
 
@@ -48,5 +49,10 @@ public class ConsumerImpl extends  AbstractJMSClient implements Consumer {
 
     public String receiveNoWait() {
         return consumer.receiveBodyNoWait(String.class);
+    }
+
+    public void close() throws JMSException {
+        consumer.close();
+        super.close();
     }
 }

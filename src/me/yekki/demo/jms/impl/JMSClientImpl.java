@@ -3,7 +3,6 @@ package me.yekki.demo.jms.impl;
 import me.yekki.demo.jms.Constants;
 import me.yekki.demo.jms.JMSClient;
 
-import javax.annotation.PreDestroy;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
@@ -18,9 +17,9 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-public class AbstractJMSClient implements JMSClient, Constants, AutoCloseable {
+public class JMSClientImpl implements JMSClient, Constants, AutoCloseable {
 
-    protected static Logger logger = Logger.getLogger(AbstractJMSClient.class.getName());
+    protected static Logger logger = Logger.getLogger(JMSClientImpl.class.getName());
 
     protected ConnectionFactory connectionFactory;
     protected Destination destination;
@@ -30,7 +29,7 @@ public class AbstractJMSClient implements JMSClient, Constants, AutoCloseable {
 
     protected long batchIntervalInMillis;
 
-    protected AbstractJMSClient() {
+    protected JMSClientImpl() {
         setBatchIntervalInMillis(BATCH_INTERVAL_IN_MILLIS);
     }
 
@@ -81,8 +80,6 @@ public class AbstractJMSClient implements JMSClient, Constants, AutoCloseable {
         return connectionFactory;
     }
 
-    @PreDestroy
-    @Override
     public void close() throws JMSException {
 
         context.close();

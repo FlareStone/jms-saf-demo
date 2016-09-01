@@ -6,7 +6,7 @@ import me.yekki.demo.jms.Utils;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 
-public class ProducerImpl extends AbstractJMSClient implements Producer {
+public class ProducerImpl extends JMSClientImpl implements Producer {
 
 
     protected JMSProducer producer;

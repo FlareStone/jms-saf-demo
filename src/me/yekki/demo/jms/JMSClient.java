@@ -1,5 +1,6 @@
 package me.yekki.demo.jms;
 
+import me.yekki.demo.jms.impl.BrowserImpl;
 import me.yekki.demo.jms.impl.ConsumerImpl;
 import me.yekki.demo.jms.impl.ProducerImpl;
 
@@ -44,5 +45,17 @@ public interface JMSClient {
     public static Consumer newConsumer() {
 
         return newConsumer(DEFAULT_CONFIG_FILE);
+    }
+
+    public static Browser newBrowser(String configFile) {
+
+        Browser browser = new BrowserImpl(configFile);
+
+        return browser;
+    }
+
+    public static Browser newBrowser() {
+
+        return newBrowser(DEFAULT_CONFIG_FILE);
     }
 }
