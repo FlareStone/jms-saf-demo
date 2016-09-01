@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<weblogic-client-jms xmlns="http://xmlns.oracle.com/weblogic/weblogic-jms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-jms http://xmlns.oracle.com/weblogic/weblogic-jms/1.1/weblogic-jms.xsd">
+    <persistent-store>
+        <directory-path>/Users/gniu/Dropbox/Workspaces/jms-saf/store</directory-path>
+    </persistent-store>
+    <connection-factory name="DemoConnectionFactory">
+        <default-targeting-enabled>true</default-targeting-enabled>
+        <jndi-name>democf</jndi-name>
+        <client-params>
+            <client-id-policy>Restricted</client-id-policy>
+            <subscription-sharing-policy>Exclusive</subscription-sharing-policy>
+            <messages-maximum>10</messages-maximum>
+        </client-params>
+        <transaction-params>
+            <xa-connection-factory-enabled>true</xa-connection-factory-enabled>
+        </transaction-params>
+        <security-params>
+            <attach-jmsx-user-id>false</attach-jmsx-user-id>
+            <security-policy>ThreadBased</security-policy>
+        </security-params>
+    </connection-factory>
+    <saf-imported-destinations name="demosystemmodule">
+        <saf-queue name="queue1">
+            <remote-jndi-name>queue1</remote-jndi-name>
+            <local-jndi-name>queue1</local-jndi-name>
+        </saf-queue>
+        <saf-remote-context>RemoteContext0</saf-remote-context>
+    </saf-imported-destinations>
+    <saf-remote-context name="RemoteContext0">
+        <saf-login-context>
+            <loginURL>t3://localhost:7001</loginURL>
+            <username>weblogic</username>
+            <password-encrypted>{Algorithm}AES/CBC/PKCS5Padding{Salt}CQVFtE5nmHo={IV}RW4GQpzqqYcG2kMXKas9pA=={Data}YajmURDNN5avCTqJgTiEbgjqr6Fh29+djfvStAY+//Y=</password-encrypted>
+        </saf-login-context>
+    </saf-remote-context>
+</weblogic-client-jms>
