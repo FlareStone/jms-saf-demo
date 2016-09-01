@@ -3,6 +3,9 @@
     <persistent-store>
         <directory-path>/Users/gniu/Dropbox/Workspaces/jms-saf/store</directory-path>
     </persistent-store>
+    <saf-agent>
+        <paging-directory>/Users/gniu/Dropbox/Workspaces/jms-saf/paging</paging-directory>
+    </saf-agent>
     <connection-factory name="DemoConnectionFactory">
         <default-targeting-enabled>true</default-targeting-enabled>
         <jndi-name>democf</jndi-name>

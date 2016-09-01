@@ -11,6 +11,8 @@ Usage: $0 [p/c/u/h]
 p: Generate Encrypted Passwords
 c: Generating a JMS SAF Client Configuration File
 u: Update domain to create JMS resources
+z: Compact store
+a: Store admin tools
 h: Help
     """
 }
@@ -28,6 +30,12 @@ c)
 
 u)
     $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/update_domain.py
+    ;;
+a)
+    $JAVA_HOME/bin/java weblogic.store.Admin
+    ;;
+z)
+    $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/compact_store.py
     ;;
 *)
     usage

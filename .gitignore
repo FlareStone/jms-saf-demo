@@ -3,3 +3,4 @@ jms-saf.jar
 out
 lib/*
 store/*
+paging/*
