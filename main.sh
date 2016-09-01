@@ -13,6 +13,7 @@ c: Generating a JMS SAF Client Configuration File
 u: Update domain to create JMS resources
 z: Compact store
 a: Store admin tools
+g: Generate WebLogic full client jar
 h: Help
     """
 }
@@ -36,6 +37,11 @@ a)
     ;;
 z)
     $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/compact_store.py
+    ;;
+g)
+    cd $MW_HOME/wlserver/server/lib
+    $JAVA_HOME/bin/java -jar wljarbuilder.jar
+    mv $MW_HOME/wlserver/server/lib/wlfullclient.jar $APP_HOME/lib
     ;;
 *)
     usage

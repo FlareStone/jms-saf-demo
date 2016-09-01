@@ -35,7 +35,7 @@ public class ProducerImpl extends AbstractJMSClient implements Producer {
 
         for ( int i = 0; i < count; i++ ) {
             send(msg);
-            Utils.sleep(intervalTimeInMillis);
+            if ( intervalTimeInMillis != 0 ) Utils.sleep(intervalTimeInMillis);
         }
     }
 }
