@@ -1,4 +1,7 @@
-package me.yekki.demo.jms;
+package me.yekki.demo.jms.impl;
+
+import me.yekki.demo.jms.Constants;
+import me.yekki.demo.jms.JMSClient;
 
 import javax.annotation.PreDestroy;
 import javax.jms.ConnectionFactory;
@@ -10,15 +13,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-public class Client implements Constants, AutoCloseable {
+public class AbstractJMSClient implements JMSClient, Constants, AutoCloseable {
 
-    protected static Logger logger = Logger.getLogger(Client.class.getName());
+    protected static Logger logger = Logger.getLogger(AbstractJMSClient.class.getName());
 
     protected ConnectionFactory connectionFactory;
     protected Destination destination;
@@ -28,7 +30,7 @@ public class Client implements Constants, AutoCloseable {
 
     protected long batchIntervalInMillis;
 
-    protected Client() {
+    protected AbstractJMSClient() {
         setBatchIntervalInMillis(BATCH_INTERVAL_IN_MILLIS);
     }
 
@@ -42,7 +44,7 @@ public class Client implements Constants, AutoCloseable {
         return batchIntervalInMillis;
     }
 
-    protected void init(String configFile) {
+    public void init(String configFile) {
 
         env = getEnvironment(configFile);
 
@@ -64,7 +66,7 @@ public class Client implements Constants, AutoCloseable {
         }
     }
 
-    public Context getContext() {
+    public Context getInitialContext() {
 
         return ctx;
     }
@@ -72,14 +74,6 @@ public class Client implements Constants, AutoCloseable {
     public JMSContext getJMSContext() {
 
         return context;
-    }
-
-    public static void sleep(long time) {
-        try {
-            Thread.sleep(time);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public ConnectionFactory getConnectionFactory() {
