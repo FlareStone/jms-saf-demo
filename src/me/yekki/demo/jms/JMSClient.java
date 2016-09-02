@@ -8,21 +8,17 @@ import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.naming.Context;
-import java.util.Hashtable;
+import java.util.Properties;
 
-import static me.yekki.demo.jms.Constants.DEFAULT_CONFIG_FILE;
-
-public interface JMSClient extends AutoCloseable {
+public interface JMSClient extends AutoCloseable, Constants {
 
     public void init(String configFile);
     public void close() throws JMSException;
 
-    public void setBatchIntervalInMillis(long batchIntervalInMillis);
-    public long getBatchIntervalInMillis();
     public Context getInitialContext();
     public JMSContext getJMSContext();
     public ConnectionFactory getConnectionFactory();
-    public Hashtable<String, String> getEnvironment(String configFile);
+    public Properties getProperties();
 
     public static Producer newProducer(String configFile) {
 
@@ -32,7 +28,7 @@ public interface JMSClient extends AutoCloseable {
 
     public static Producer newProducer() {
 
-        return newProducer(DEFAULT_CONFIG_FILE);
+        return newProducer(JMS_CONFIG_FILE);
     }
 
     public static Consumer newConsumer(String configFile) {
@@ -44,7 +40,7 @@ public interface JMSClient extends AutoCloseable {
 
     public static Consumer newConsumer() {
 
-        return newConsumer(DEFAULT_CONFIG_FILE);
+        return newConsumer(JMS_CONFIG_FILE);
     }
 
     public static Browser newBrowser(String configFile) {
@@ -56,6 +52,6 @@ public interface JMSClient extends AutoCloseable {
 
     public static Browser newBrowser() {
 
-        return newBrowser(DEFAULT_CONFIG_FILE);
+        return newBrowser(JMS_CONFIG_FILE);
     }
 }

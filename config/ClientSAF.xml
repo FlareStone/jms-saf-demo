@@ -5,6 +5,8 @@
     </persistent-store>
     <saf-agent>
         <paging-directory>/Users/gniu/Dropbox/Workspaces/jms-saf-demo/paging</paging-directory>
+        <window-size>100</window-size>
+        <window-interval>500</window-interval>
     </saf-agent>
     <connection-factory name="DemoConnectionFactory">
         <default-targeting-enabled>true</default-targeting-enabled>

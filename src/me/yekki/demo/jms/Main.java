@@ -7,6 +7,8 @@ import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -21,7 +23,7 @@ public class Main {
 
         options = buildOptions();
         cmd = (new DefaultParser()).parse(options, args);
-        configFile = cmd.hasOption("c") ? cmd.getOptionValue("c") : Constants.DEFAULT_CONFIG_FILE;
+        configFile = cmd.hasOption("c") ? cmd.getOptionValue("c") : Constants.JMS_CONFIG_FILE;
 
         if (cmd.hasOption("r")) {
 
@@ -56,7 +58,11 @@ public class Main {
 
     private static void clear() {
 
+        logger.info("starting cleaner...");
+
         int count = 0;
+
+        Instant start = Instant.now();
 
         try(Consumer consumer = JMSClient.newConsumer(configFile);) {
             JMSConsumer jconsumer = consumer.getConsumer();
@@ -68,7 +74,9 @@ public class Main {
             je.printStackTrace();
         }
 
-        logger.info(String.format("cleaned up %d messages.", count));
+        Instant end = Instant.now();
+
+        logger.info(String.format("cleaned up %d messages, elapsed:%sms", count, Duration.between(start, end).toMillis()));
     }
 
     private static void browse() {
@@ -90,14 +98,11 @@ public class Main {
 
         try(Consumer consumer = JMSClient.newConsumer(configFile);) {
 
+            long verbosePerMsgCount = Utils.getProperty(consumer.getProperties(), Constants.VERBOSE_PER_MSG_COUNT_KEY, Constants.DEFAULT_VERBOSE_PER_MSG_COUNT);
+
             consumer.getConsumer().setMessageListener(msg -> {
 
-                try {
-                    System.out.println(msg.getBody(String.class));
-                    counter.incrementAndGet();
-                } catch (JMSException je) {
-                    je.printStackTrace();
-                }
+                if ( counter.incrementAndGet() % verbosePerMsgCount == 0 ) logger.info(String.format("%d messages are received.", verbosePerMsgCount));
             });
 
             new java.io.InputStreamReader(System.in).read();
@@ -109,7 +114,7 @@ public class Main {
 
         }
 
-        logger.info(String.format("got %d messages.", counter.get()));
+        logger.info(String.format("all %d messages are received.", counter.get()));
     }
 
     private static void send() {
@@ -122,22 +127,23 @@ public class Main {
 
         if (cmd.hasOption("m")) msg = cmd.getOptionValue("m");
 
-        long interval = Constants.BATCH_INTERVAL_IN_MILLIS;
 
-        if (cmd.hasOption("i")) interval = Long.parseLong(cmd.getOptionValue("i"));
+        logger.info(String.format("starting sender...(message count:%d)", count));
 
-        logger.info(String.format("starting sender...(count:%d, interval:%dms)", count, interval));
+        Instant start = Instant.now();
 
         try (Producer producer = JMSClient.newProducer(configFile);){
-            producer.send(msg, count, interval);
+            producer.send(msg, count);
         }
         catch (JMSException je ) {
+
             je.printStackTrace();
         }
 
-        logger.info(String.format("sent %d messages.", count));
-    }
+        Instant end = Instant.now();
 
+        logger.info(String.format("all %d messages are sent finished. elapsed:%sms", count, Duration.between(start, end).toMillis()));
+    }
 
     private static Options buildOptions () {
 
@@ -171,20 +177,12 @@ public class Main {
                 .desc("config file")
                 .build();
 
-        Option intervalOpt = Option.builder("i")
-                .hasArg()
-                .type(Long.class)
-                .longOpt("interval-in-millis")
-                .desc("interval in millis for batch operations")
-                .build();
-
         Options options = new Options();
-        options.addOption(intervalOpt)
+        options.addOption(configOpt)
                 .addOption(receiverOpt)
                 .addOption(countOpt)
                 .addOption(msgOpt)
-                .addOption(helpOpt)
-                .addOption(configOpt);
+                .addOption(helpOpt);
 
         return options;
     }
