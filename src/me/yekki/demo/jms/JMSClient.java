@@ -12,7 +12,7 @@ import java.util.Hashtable;
 
 import static me.yekki.demo.jms.Constants.DEFAULT_CONFIG_FILE;
 
-public interface JMSClient {
+public interface JMSClient extends AutoCloseable {
 
     public void init(String configFile);
     public void close() throws JMSException;

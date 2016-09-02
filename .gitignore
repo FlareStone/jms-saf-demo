@@ -1,6 +1,9 @@
 .DS_Store
-jms-saf.jar
-out
-lib/*
-store/*
-paging/*
+*.jar
+out/
+paging/
+lib/
+store/
+config/paging/
+
+

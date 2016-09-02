@@ -38,3 +38,6 @@ Tested on WLS12.2.1.1.0.
 ## Known Issues
 
 1. paging setting doesn't work
+
+## TODO
+1. add timestamps
