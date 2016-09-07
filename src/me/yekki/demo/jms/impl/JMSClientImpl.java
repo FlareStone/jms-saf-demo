@@ -22,17 +22,12 @@ public class JMSClientImpl implements JMSClient {
     protected Destination destination;
     protected JMSContext context;
     protected Context ctx;
-    protected Properties properties;
+    protected Properties properties = Utils.loadProperties(APP_CONFIG_FILE);
 
-    protected JMSClientImpl() {
-
-    }
-
+    @Override
     public void init(String configFile) {
 
         Hashtable<String, String> env = getEnvironment(configFile);
-
-        properties = Utils.loadProperties(APP_CONFIG_FILE);
 
         try {
             ctx = new InitialContext(env);
@@ -52,26 +47,31 @@ public class JMSClientImpl implements JMSClient {
         }
     }
 
+    @Override
     public Properties getProperties() {
 
         return properties;
     }
 
+    @Override
     public Context getInitialContext() {
 
         return ctx;
     }
 
+    @Override
     public JMSContext getJMSContext() {
 
         return context;
     }
 
+    @Override
     public ConnectionFactory getConnectionFactory() {
 
         return connectionFactory;
     }
 
+    @Override
     public void close() throws JMSException {
 
         context.close();

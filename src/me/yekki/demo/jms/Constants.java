@@ -3,19 +3,21 @@ package me.yekki.demo.jms;
 public interface Constants {
 
     //keys
-    static final String PRINCIPAL_KEY="PRINCIPAL";
-    static final String CREDENTIAL_KEY="CREDENTIAL";
-    static final String PROVIDER_URL_KEY="PROVIDER_URL";
-    static final String CONNECTON_FACTORY_KEY="CONNECTION_FACTORY";
-    static final String DESTINATION_KEY="DESTINATION";
-    static final String BATCH_INTERVAL_IN_MILLIS_KEY="BATCH_INTERVAL_IN_MILLIS";
-    static final String VERBOSE_PER_MSG_COUNT_KEY="VERBOSE_PER_MSG_COUNT";
+    static final String PRINCIPAL_KEY = "PRINCIPAL";
+    static final String CREDENTIAL_KEY = "CREDENTIAL";
+    static final String PROVIDER_URL_KEY = "PROVIDER_URL";
+    static final String CONNECTON_FACTORY_KEY = "CONNECTION_FACTORY";
+    static final String DESTINATION_KEY = "DESTINATION";
+
+    static final String BATCH_INTERVAL_IN_MILLIS_KEY = "BATCH_INTERVAL_IN_MILLIS";
+    static final String MESSAGE_VERBOSE_INTERVAL_IN_COUNT_KEY = "MESSAGE_VERBOSE_INTERVAL_IN_COUNT";
+    static final String MESSAGE_SIZE_KEY = "MESSAGE_SIZE";
+    static final String MESSAGE_CONTENT_KEY = "MESSAGE_CONTENT";
+    static final String SENDER_CONFIG_FILE_KEY = "SENDER_CONFIG_FILE";
+    static final String RECEIVER_CONFIG_FILE_KEY = "RECEIVER_CONFIG_FILE";
+
+    static final String APP_CONFIG_FILE = "app.properties";
 
     //config files
-    static final String JMS_CONFIG_FILE="jms.properties";
-    static final String APP_CONFIG_FILE="app.properties";
-
-    //default values
-    static final long DEFAULT_BATCH_INTERVAL_IN_MILLIS=10;
-    static final long DEFAULT_VERBOSE_PER_MSG_COUNT=10000;
+    static final String JMS_CONFIG_FILE = "jms.properties";
 }

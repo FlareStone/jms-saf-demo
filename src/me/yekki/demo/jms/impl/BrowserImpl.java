@@ -14,9 +14,9 @@ public class BrowserImpl extends JMSClientImpl implements Browser {
 
     protected QueueBrowser browser;
 
-    public BrowserImpl(String configFile) {
+    public BrowserImpl() {
 
-        super.init(configFile);
+        super.init(getProperties().getProperty(RECEIVER_CONFIG_FILE_KEY));
 
         if ( !(destination instanceof Queue)) throw new RuntimeException("the browser doesn't support topic.");
 

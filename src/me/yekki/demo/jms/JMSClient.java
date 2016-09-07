@@ -20,38 +20,25 @@ public interface JMSClient extends AutoCloseable, Constants {
     public ConnectionFactory getConnectionFactory();
     public Properties getProperties();
 
-    public static Producer newProducer(String configFile) {
-
-        Producer producer = new ProducerImpl(configFile);
-        return producer;
-    }
-
     public static Producer newProducer() {
 
-        return newProducer(JMS_CONFIG_FILE);
-    }
-
-    public static Consumer newConsumer(String configFile) {
-
-        Consumer consumer = new ConsumerImpl(configFile);
-
-        return consumer;
+        Producer producer = new ProducerImpl();
+        return producer;
     }
 
     public static Consumer newConsumer() {
 
-        return newConsumer(JMS_CONFIG_FILE);
+        Consumer consumer = new ConsumerImpl();
+
+        return consumer;
     }
 
-    public static Browser newBrowser(String configFile) {
 
-        Browser browser = new BrowserImpl(configFile);
+    public static Browser newBrowser() {
+
+        Browser browser = new BrowserImpl();
 
         return browser;
     }
 
-    public static Browser newBrowser() {
-
-        return newBrowser(JMS_CONFIG_FILE);
-    }
 }

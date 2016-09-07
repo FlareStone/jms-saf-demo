@@ -1,12 +1,11 @@
 package me.yekki.demo.jms;
 
 import org.apache.commons.cli.*;
-import weblogic.ejbgen.JMS;
 
 import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
-import javax.jms.Message;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,13 +16,11 @@ public class Main {
     private static Logger logger = Logger.getLogger(Main.class.getName());
     private static CommandLine cmd;
     private static Options options;
-    private static String configFile;
 
     public static void main(String... args) throws Exception {
 
         options = buildOptions();
         cmd = (new DefaultParser()).parse(options, args);
-        configFile = cmd.hasOption("c") ? cmd.getOptionValue("c") : Constants.JMS_CONFIG_FILE;
 
         if (cmd.hasOption("r")) {
 
@@ -64,7 +61,7 @@ public class Main {
 
         Instant start = Instant.now();
 
-        try(Consumer consumer = JMSClient.newConsumer(configFile);) {
+        try(Consumer consumer = JMSClient.newConsumer();) {
             JMSConsumer jconsumer = consumer.getConsumer();
             while( jconsumer.receiveNoWait() != null ) {
                 count++;
@@ -82,7 +79,7 @@ public class Main {
     private static void browse() {
 
         logger.info("starting browser...");
-        try(Browser browser = JMSClient.newBrowser(configFile);) {
+        try(Browser browser = JMSClient.newBrowser();) {
             logger.info("message count:" + browser.getQueueSize());
         }
         catch (JMSException je) {
@@ -96,15 +93,9 @@ public class Main {
 
         final AtomicInteger counter = new AtomicInteger();
 
-        try(Consumer consumer = JMSClient.newConsumer(configFile);) {
+        try(Consumer consumer = JMSClient.newConsumer();) {
 
-            long verbosePerMsgCount = Utils.getProperty(consumer.getProperties(), Constants.VERBOSE_PER_MSG_COUNT_KEY, Constants.DEFAULT_VERBOSE_PER_MSG_COUNT);
-
-            consumer.getConsumer().setMessageListener(msg -> {
-
-                if ( counter.incrementAndGet() % verbosePerMsgCount == 0 ) logger.info(String.format("%d messages are received.", verbosePerMsgCount));
-            });
-
+            consumer.getConsumer().setMessageListener(new DefaultListener(consumer, counter));
             new java.io.InputStreamReader(System.in).read();
         }
         catch (JMSException je) {
@@ -123,16 +114,22 @@ public class Main {
 
         if (cmd.hasOption("n")) count = Integer.parseInt(cmd.getOptionValue("n"));
 
-        String msg = "";
-
-        if (cmd.hasOption("m")) msg = cmd.getOptionValue("m");
-
 
         logger.info(String.format("starting sender...(message count:%d)", count));
 
         Instant start = Instant.now();
 
-        try (Producer producer = JMSClient.newProducer(configFile);){
+        try (Producer producer = JMSClient.newProducer();){
+
+            long size = Utils.getProperty(producer.getProperties(), Constants.MESSAGE_SIZE_KEY);
+            Serializable msg = null;
+
+            if (size == -1l) {
+                msg = producer.getProperties().getProperty(Constants.MESSAGE_CONTENT_KEY);
+            } else {
+                msg = SizableObject.buildObject(size);
+            }
+
             producer.send(msg, count);
         }
         catch (JMSException je ) {
