@@ -2,14 +2,13 @@ package me.yekki.demo.jms;
 
 import org.apache.commons.cli.*;
 
-import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.*;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -30,20 +29,13 @@ public class Main {
                 case "s":
                     send();
                     break;
-                case "r":
-                    receive();
-                    break;
-                case "b":
-                    browse();
-                    break;
                 case "c":
                     clear();
                     break;
                 default:
                     help();
             }
-        }
-        else {
+        } else {
             help();
         }
     }
@@ -55,86 +47,86 @@ public class Main {
 
     private static void clear() {
 
-        logger.info("starting cleaner...");
+        AppConfig config = AppConfig.newConfig(Constants.RECEIVER_CONFIG_FILE_KEY);
+        int threads = config.getProperty(Constants.CLEANER_THREADS_KEY, 1);
 
-        int count = 0;
+        logger.info(String.format("starting cleaner with %d threads...", threads));
+
+        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorCompletionService<Integer> service = new ExecutorCompletionService<Integer>(es);
 
         Instant start = Instant.now();
 
-        try(Consumer consumer = JMSClient.newConsumer();) {
-            JMSConsumer jconsumer = consumer.getConsumer();
-            while( jconsumer.receiveNoWait() != null ) {
-                count++;
-            }
+        IntStream.range(0, threads).forEach( i->{
+            service.submit(new CleanCommand(config));
+        });
+
+        int finished = 0;
+        int total = 0;
+        try {
+            do {
+                total += service.take().get();
+                finished++;
+
+            } while (finished < threads);
         }
-        catch (JMSException je) {
-            je.printStackTrace();
+        catch(ExecutionException ee) {
+            ee.printStackTrace();
         }
+        catch(InterruptedException ie) {
+
+        }
+
+        es.shutdown();
 
         Instant end = Instant.now();
 
-        logger.info(String.format("cleaned up %d messages, elapsed:%sms", count, Duration.between(start, end).toMillis()));
-    }
-
-    private static void browse() {
-
-        logger.info("starting browser...");
-        try(Browser browser = JMSClient.newBrowser();) {
-            logger.info("message count:" + browser.getQueueSize());
-        }
-        catch (JMSException je) {
-            je.printStackTrace();
-        }
-    }
-
-    private static void receive() {
-
-        logger.info("starting receiver...");
-
-        final AtomicInteger counter = new AtomicInteger();
-
-        try(Consumer consumer = JMSClient.newConsumer();) {
-
-            consumer.getConsumer().setMessageListener(new DefaultListener(consumer, counter));
-            new java.io.InputStreamReader(System.in).read();
-        }
-        catch (JMSException je) {
-            je.printStackTrace();
-        }
-        catch (IOException io) {
-
-        }
-
-        logger.info(String.format("all %d messages are received.", counter.get()));
+        logger.info(String.format("cleaned up %d messages, elapsed:%sms", total, Duration.between(start, end).toMillis()));
     }
 
     private static void send() {
 
         int count = 1;
+        AppConfig config = AppConfig.newConfig(Constants.SENDER_CONFIG_FILE_KEY);
+        String msgType = config.getProperty(Constants.MESSAGE_TYPE_KEY, "string");
 
         if (cmd.hasOption("n")) count = Integer.parseInt(cmd.getOptionValue("n"));
 
+        final Serializable msg = config.getMessageContent();
 
-        logger.info(String.format("starting sender...(message count:%d)", count));
+        int threads = config.getProperty(Constants.SENDER_THREADS_KEY, 1);
+        int msgCountPerThread = count / threads;
+
+        final int left = count - threads * msgCountPerThread;
+
+        logger.info(String.format("starting sender with %d threads...", threads));
 
         Instant start = Instant.now();
 
-        try (Producer producer = JMSClient.newProducer();){
+        try {
 
-            long size = Utils.getProperty(producer.getProperties(), Constants.MESSAGE_SIZE_KEY);
-            Serializable msg = null;
+            ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-            if (size == -1l) {
-                msg = producer.getProperties().getProperty(Constants.MESSAGE_CONTENT_KEY);
-            } else {
-                msg = SizableObject.buildObject(size);
-            }
+            IntStream.range(0, threads).forEach( i->{
 
-            producer.send(msg, count);
+                SendCommand cmd = null;
+
+                if ( i == threads && left != 0)
+                    cmd = new SendCommand(config, msg, left);
+                else
+                    cmd = new SendCommand(config, msg, msgCountPerThread);
+
+
+                es.submit(cmd);
+            });
+
+            es.shutdown();
+
+            es.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+
         }
-        catch (JMSException je ) {
-
-            je.printStackTrace();
+        catch (InterruptedException ie) {
         }
 
         Instant end = Instant.now();
@@ -142,17 +134,17 @@ public class Main {
         logger.info(String.format("all %d messages are sent finished. elapsed:%sms", count, Duration.between(start, end).toMillis()));
     }
 
-    private static Options buildOptions () {
+    private static Options buildOptions() {
 
         Option helpOpt = Option.builder("h")
                 .longOpt("help")
                 .desc("shows this message")
                 .build();
 
-        Option receiverOpt = Option.builder("r")
+        Option roleOpt = Option.builder("r")
                 .longOpt("role")
                 .hasArg()
-                .desc("role: s:sender, r:receiver, c:cleaner")
+                .desc("role: s:sender, c:cleaner")
                 .build();
 
         Option countOpt = Option.builder("n")
@@ -162,24 +154,10 @@ public class Main {
                 .desc("count of messages")
                 .build();
 
-        Option msgOpt = Option.builder("m")
-                .hasArg()
-                .longOpt("message")
-                .desc("text message content")
-                .build();
-
-        Option configOpt = Option.builder("c")
-                .hasArg()
-                .longOpt("config")
-                .desc("config file")
-                .build();
-
         Options options = new Options();
-        options.addOption(configOpt)
-                .addOption(receiverOpt)
-                .addOption(countOpt)
-                .addOption(msgOpt)
-                .addOption(helpOpt);
+        options.addOption(helpOpt)
+                .addOption(roleOpt)
+                .addOption(countOpt);
 
         return options;
     }

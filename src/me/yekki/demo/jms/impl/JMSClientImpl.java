@@ -1,7 +1,7 @@
 package me.yekki.demo.jms.impl;
 
+import me.yekki.demo.jms.AppConfig;
 import me.yekki.demo.jms.JMSClient;
-import me.yekki.demo.jms.Utils;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -11,23 +11,20 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Hashtable;
-import java.util.Properties;
-import java.util.logging.Logger;
 
 public class JMSClientImpl implements JMSClient {
-
-    protected static Logger logger = Logger.getLogger(JMSClientImpl.class.getName());
 
     protected ConnectionFactory connectionFactory;
     protected Destination destination;
     protected JMSContext context;
     protected Context ctx;
-    protected Properties properties = Utils.loadProperties(APP_CONFIG_FILE);
+    protected AppConfig config;
 
-    @Override
-    public void init(String configFile) {
+    public JMSClientImpl(AppConfig config) {
 
-        Hashtable<String, String> env = getEnvironment(configFile);
+        this.config = config;
+
+        Hashtable<String, String> env = config.getEnvironment();
 
         try {
             ctx = new InitialContext(env);
@@ -48,9 +45,9 @@ public class JMSClientImpl implements JMSClient {
     }
 
     @Override
-    public Properties getProperties() {
+    public AppConfig getAppConfig() {
 
-        return properties;
+        return config;
     }
 
     @Override
@@ -75,29 +72,5 @@ public class JMSClientImpl implements JMSClient {
     public void close() throws JMSException {
 
         context.close();
-    }
-
-    protected Hashtable<String, String> getEnvironment(String configFile) {
-
-        Properties props = Utils.loadProperties(configFile);
-
-        Hashtable<String, String> env = new Hashtable<>();
-
-        String providerUrl = props.getProperty(PROVIDER_URL_KEY);
-
-        if ( null != providerUrl && providerUrl.startsWith("file:")) {
-            env.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jms.safclient.jndi.InitialContextFactoryImpl");
-        }
-        else {
-            env.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-        }
-
-        env.put(Context.PROVIDER_URL, props.getProperty(PROVIDER_URL_KEY));
-        env.put(Context.SECURITY_PRINCIPAL, props.getProperty(PRINCIPAL_KEY));
-        env.put(Context.SECURITY_CREDENTIALS, props.getProperty(CREDENTIAL_KEY));
-        env.put(CONNECTON_FACTORY_KEY, props.getProperty(CONNECTON_FACTORY_KEY));
-        env.put(DESTINATION_KEY, props.getProperty(DESTINATION_KEY));
-
-        return env;
     }
 }

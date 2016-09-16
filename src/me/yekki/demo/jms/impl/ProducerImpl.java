@@ -1,9 +1,9 @@
 package me.yekki.demo.jms.impl;
 
+import me.yekki.demo.jms.AppConfig;
 import me.yekki.demo.jms.Producer;
-import me.yekki.demo.jms.Utils;
+import weblogic.jms.extensions.WLMessageProducer;
 
-import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import java.io.Serializable;
@@ -12,16 +12,36 @@ public class ProducerImpl extends JMSClientImpl implements Producer {
 
     protected JMSProducer producer;
     protected long batchIntervalInMillis;
-    protected long messageVerboseIntervalInCount;
 
-    public ProducerImpl() {
+    // The compression threshold value can be set to zero or higher. Setting it to zero will cause every message body to be compressed.
+    protected int compressionThreshold;
 
-        super.init(getProperties().getProperty(SENDER_CONFIG_FILE_KEY));
+    //NON_PERSISTENT=1, PERSISTENT=2
+    protected int deliveryMode;
+
+    public ProducerImpl(AppConfig config) {
+
+        super(config);
+
+        batchIntervalInMillis = config.getProperty(BATCH_INTERVAL_IN_MILLIS_KEY, 0);
+        compressionThreshold = config.getProperty(COMPRESSION_THRESHOLD_KEY, -1);
+        deliveryMode = config.getProperty(DELIVERY_MODE_KEY, 1);
+
 
         producer = context.createProducer();
-        producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-        batchIntervalInMillis = Utils.getProperty(getProperties(), BATCH_INTERVAL_IN_MILLIS_KEY);
-        messageVerboseIntervalInCount = Utils.getProperty(getProperties(), MESSAGE_VERBOSE_INTERVAL_IN_COUNT_KEY);
+
+        producer.setDeliveryMode(deliveryMode);
+
+        try {
+            if (compressionThreshold >= 0 ) {
+
+                ((WLMessageProducer)producer).setCompressionThreshold(compressionThreshold);
+            }
+        }
+        catch (JMSException je) {
+
+            je.printStackTrace();
+        }
     }
 
     @Override
@@ -44,11 +64,14 @@ public class ProducerImpl extends JMSClientImpl implements Producer {
     @Override
     public void send(Serializable msg, int count, long intervalTimeInMillis) throws JMSException {
 
-        for ( int i = 0; i < count; i++ ) {
+        for ( int i = 1; i <= count; i++ ) {
             send(msg);
-            if ( intervalTimeInMillis != 0 ) Utils.sleep(intervalTimeInMillis);
-
-            if ( ( messageVerboseIntervalInCount != 0 ) && (i % messageVerboseIntervalInCount == 0) && i > messageVerboseIntervalInCount ) logger.info(String.format("sent %d messages.", messageVerboseIntervalInCount));
+            if ( intervalTimeInMillis != 0 ) {
+                try {
+                    Thread.sleep(intervalTimeInMillis);
+                }
+                catch (InterruptedException ie) {}
+            }
         }
     }
 }

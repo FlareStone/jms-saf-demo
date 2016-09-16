@@ -1,5 +1,6 @@
 package me.yekki.demo.jms.impl;
 
+import me.yekki.demo.jms.AppConfig;
 import me.yekki.demo.jms.Consumer;
 
 import javax.jms.JMSConsumer;
@@ -13,9 +14,8 @@ public class ConsumerImpl extends JMSClientImpl implements Consumer {
 
     protected JMSConsumer consumer;
 
-    public ConsumerImpl() {
-
-        super.init(getProperties().getProperty(RECEIVER_CONFIG_FILE_KEY));
+    public ConsumerImpl(AppConfig config) {
+        super(config);
         consumer = context.createConsumer(destination);
     }
 
