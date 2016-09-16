@@ -24,24 +24,12 @@ public class ProducerImpl extends JMSClientImpl implements Producer {
         super(config);
 
         batchIntervalInMillis = config.getProperty(BATCH_INTERVAL_IN_MILLIS_KEY, 0);
-        compressionThreshold = config.getProperty(COMPRESSION_THRESHOLD_KEY, -1);
         deliveryMode = config.getProperty(DELIVERY_MODE_KEY, 1);
 
 
         producer = context.createProducer();
 
         producer.setDeliveryMode(deliveryMode);
-
-        try {
-            if (compressionThreshold >= 0 ) {
-
-                ((WLMessageProducer)producer).setCompressionThreshold(compressionThreshold);
-            }
-        }
-        catch (JMSException je) {
-
-            je.printStackTrace();
-        }
     }
 
     @Override

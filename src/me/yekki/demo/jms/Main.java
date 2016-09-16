@@ -52,7 +52,7 @@ public class Main {
 
         logger.info(String.format("starting cleaner with %d threads...", threads));
 
-        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService es = Executors.newCachedThreadPool();
         ExecutorCompletionService<Integer> service = new ExecutorCompletionService<Integer>(es);
 
         Instant start = Instant.now();
@@ -105,7 +105,7 @@ public class Main {
 
         try {
 
-            ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            ExecutorService es = Executors.newCachedThreadPool();
 
             IntStream.range(0, threads).forEach( i->{
 
