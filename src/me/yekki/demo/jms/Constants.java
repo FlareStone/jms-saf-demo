@@ -1,5 +1,7 @@
 package me.yekki.demo.jms;
 
+import org.apache.openjpa.util.UnsupportedException;
+
 public interface Constants {
 
     //keys
@@ -24,4 +26,20 @@ public interface Constants {
 
     //config files
     static final String JMS_CONFIG_FILE = "jms.properties";
+
+    public static enum Role {
+        Sender, Cleaner, Helper;
+
+        public static Role getRole(String optArg) {
+
+            switch (optArg) {
+                case "s":
+                    return Sender;
+                case "c":
+                    return Cleaner;
+                default:
+                    return Helper;
+            }
+        }
+    }
 }

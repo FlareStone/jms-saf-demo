@@ -10,6 +10,9 @@ import java.util.concurrent.*;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
+import static me.yekki.demo.jms.Constants.Role;
+import static me.yekki.demo.jms.JMSClient.MessageCalculator;
+
 public class Main {
 
     private static Logger logger = Logger.getLogger(Main.class.getName());
@@ -21,22 +24,17 @@ public class Main {
         options = buildOptions();
         cmd = (new DefaultParser()).parse(options, args);
 
-        if (cmd.hasOption("r")) {
+        Role role = Role.getRole(cmd.getOptionValue("r"));
 
-            String role = cmd.getOptionValue("r");
-
-            switch (role) {
-                case "s":
-                    send();
-                    break;
-                case "c":
-                    clear();
-                    break;
-                default:
-                    help();
-            }
-        } else {
-            help();
+        switch (role) {
+            case Sender:
+                send();
+                break;
+            case Cleaner:
+                clear();
+                break;
+            default:
+                help();
         }
     }
 
@@ -94,12 +92,9 @@ public class Main {
 
         final Serializable msg = config.getMessageContent();
 
-        int threads = config.getProperty(Constants.SENDER_THREADS_KEY, 1);
-        int msgCountPerThread = count / threads;
 
-        final int left = count - threads * msgCountPerThread;
-
-        logger.info(String.format("starting sender with %d threads...", threads));
+        MessageCalculator calculator = MessageCalculator.newInstance(count, config.getProperty(Constants.SENDER_THREADS_KEY, 1));
+        logger.info(String.format("starting sender with %d threads...", calculator.getThreadCount()));
 
         Instant start = Instant.now();
 
@@ -107,24 +102,23 @@ public class Main {
 
             ExecutorService es = Executors.newCachedThreadPool();
 
-            IntStream.range(0, threads).forEach( i->{
+            for ( int i = 1; i <= calculator.getThreadCount(); i++ ) {
 
                 SendCommand cmd = null;
 
-                if ( i == threads && left != 0)
-                    cmd = new SendCommand(config, msg, left);
-                else
-                    cmd = new SendCommand(config, msg, msgCountPerThread);
-
+                if ( i == calculator.getThreadCount() && calculator.getLeftMessageCount() != 0) {
+                    cmd = new SendCommand(config, msg, calculator.getLeftMessageCount());
+                }
+                else {
+                    cmd = new SendCommand(config, msg, calculator.getMessageCountPerThread());
+                }
 
                 es.submit(cmd);
-            });
+            }
 
             es.shutdown();
 
             es.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-
-
         }
         catch (InterruptedException ie) {
         }
