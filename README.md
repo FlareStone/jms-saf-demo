@@ -24,11 +24,7 @@ Show help:
 
 Send messages example:
 
-    java -jar jms-saf-demo.jar -r s -c saf.properties -n 100000 -m hello
-
-Receive message example:
-    
-    java -jar jms-saf-demo.jar -r r
+    java -jar jms-saf-demo.jar -r s -n 100000
 
 Cleanup destination example:
 
@@ -41,14 +37,10 @@ Compact store:
 Tested on WLS12.2.1.1.0.
 
 ## Known Issues
-
 1. paging setting doesn't work
-2. tuning cleanup command
-3. If the message less VERBOSE_PER_MSG_COUNT, it should echo the extract count number. 
 
 ## TODO
 1. add stream support
 2. add no-wait receiver
-3. add multi-threads support
-4. add welcome window
+3. add welcome window
 

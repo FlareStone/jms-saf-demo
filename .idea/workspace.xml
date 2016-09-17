@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="157f50f2-6e66-4a79-ab69-b3731abad7fa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/update_domain.py" afterPath="$PROJECT_DIR$/bin/update_domain.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.properties" afterPath="$PROJECT_DIR$/config/app.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/jms.properties" afterPath="$PROJECT_DIR$/config/jms.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/demo/jms/Constants.java" afterPath="$PROJECT_DIR$/src/me/yekki/demo/jms/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/demo/jms/JMSClient.java" afterPath="$PROJECT_DIR$/src/me/yekki/demo/jms/JMSClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/demo/jms/Main.java" afterPath="$PROJECT_DIR$/src/me/yekki/demo/jms/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="jms-saf-demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +23,24 @@
     <favorites_list name="jms-saf-demo" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="386">
+                <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+          <provider editor-type-id="MarkdownFxPreviewEditor">
+            <state />
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -61,7 +72,6 @@
         <option value="$USER_HOME$/.jenv/versions/1.8/src.zip!/java/lang/String.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/demo/jms/Consumer.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/demo/jms/impl/BrowserImpl.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/me/yekki/demo/jms/DefaultListener.java" />
         <option value="$PROJECT_DIR$/config/1m.txt" />
         <option value="$PROJECT_DIR$/config/saf.properties" />
@@ -81,6 +91,7 @@
         <option value="$PROJECT_DIR$/src/me/yekki/demo/jms/Main.java" />
         <option value="$PROJECT_DIR$/config/app.properties" />
         <option value="$PROJECT_DIR$/src/me/yekki/demo/jms/JMSClient.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -959,16 +970,16 @@
       <workItem from="1473733699818" duration="403000" />
       <workItem from="1474014668077" duration="12000" />
       <workItem from="1474105825327" duration="377000" />
-      <workItem from="1474124138386" duration="3998000" />
+      <workItem from="1474124138386" duration="4112000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40136000" />
+    <option name="totallyTimeSpent" value="40250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="17" y="0" width="1245" height="764" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -984,7 +995,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19196787" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19196787" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1158,7 +1169,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/bin/compact_store.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1349,6 +1359,20 @@
             <element signature="imports" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="386">
+            <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
       </provider>
     </entry>
   </component>
