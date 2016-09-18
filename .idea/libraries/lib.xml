@@ -3,8 +3,13 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/wlfullclient.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/commons-cli-1.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Oracle/mw12c/wlserver/modules/features/wlst.wls.classpath.jar!/" />
+      <root url="jar://$USER_HOME$/Oracle/mw12c/wlserver/common/wlst/modules/jython-modules.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Oracle/mw12c/wlserver/common/wlst/modules/jython-modules.jar!/Lib" />
+      <root url="jar://$USER_HOME$/Oracle/mw12c/wlserver/common/wlst/modules/jython-modules.jar!/Lib/test" />
+    </SOURCES>
   </library>
 </component>

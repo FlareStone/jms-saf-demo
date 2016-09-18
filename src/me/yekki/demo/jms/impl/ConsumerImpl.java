@@ -28,13 +28,13 @@ public class ConsumerImpl extends JMSClientImpl implements Consumer {
     @Override
     public Serializable receive() {
 
-        return consumer.receiveBody(String.class);
+        return consumer.receiveBody(Serializable.class);
     }
 
     @Override
     public Serializable receive(long timeoutInMillis) {
 
-        return consumer.receiveBody(String.class, timeoutInMillis);
+        return consumer.receiveBody(Serializable.class, timeoutInMillis);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ConsumerImpl extends JMSClientImpl implements Consumer {
 
     @Override
     public Serializable receiveNoWait() {
-        return consumer.receiveBodyNoWait(String.class);
+        return consumer.receiveBodyNoWait(Serializable.class);
     }
 
     @Override

@@ -1,5 +1,9 @@
-package me.yekki.demo.jms;
+package me.yekki.demo.jms.cmd;
 
+
+import me.yekki.demo.jms.AppConfig;
+import me.yekki.demo.jms.JMSClient;
+import me.yekki.demo.jms.Producer;
 
 import javax.jms.JMSException;
 import java.io.Serializable;

@@ -23,12 +23,24 @@ public interface Constants {
     static final String CLEANER_THREADS_KEY = "CLEANER_THREADS";
     static final String DELIVERY_MODE_KEY = "DELIVERY_MODE";
     static final String APP_CONFIG_FILE = "app.properties";
+    static final String STORE_PATH_KEY="STORE_PATH";
 
     //config files
     static final String JMS_CONFIG_FILE = "jms.properties";
 
     public static enum Role {
-        Sender, Cleaner, Helper;
+        Sender(Constants.SENDER_CONFIG_FILE_KEY), Cleaner(RECEIVER_CONFIG_FILE_KEY), Helper(null), Installer(RECEIVER_CONFIG_FILE_KEY), Uninstaller(RECEIVER_CONFIG_FILE_KEY), StoreAdmin(null);
+
+        private String configFileKey;
+
+        Role(String configFileKey) {
+            this.configFileKey = configFileKey;
+        }
+
+        public String getConfigFileKey() {
+
+            return configFileKey;
+        }
 
         public static Role getRole(String optArg) {
 
@@ -37,6 +49,12 @@ public interface Constants {
                     return Sender;
                 case "c":
                     return Cleaner;
+                case "a":
+                    return StoreAdmin;
+                case "u":
+                    return Uninstaller;
+                case "i":
+                    return Installer;
                 default:
                     return Helper;
             }

@@ -8,12 +8,12 @@ function usage {
 
     echo """
 Usage: $0 [p/c/u/h]
-p: Generate Encrypted Passwords
+g: Generate Encrypted Passwords
 c: Generating a JMS SAF Client Configuration File
 u: Update domain to create JMS resources
 z: Compact store
 a: Store admin tools
-g: Generate WebLogic full client jar
+l: Generate WebLogic full client jar
 h: Help
     """
 }
@@ -22,7 +22,7 @@ h: Help
 
 case $cmd in
 
-p)
+g)
     $JAVA_HOME/bin/java -Dweblogic.management.allowPasswordEcho=true weblogic.jms.extensions.ClientSAFEncrypt
     ;;
 c)
@@ -38,10 +38,13 @@ a)
 z)
     $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/compact_store.py
     ;;
-g)
+l)
     cd $MW_HOME/wlserver/server/lib
     $JAVA_HOME/bin/java -jar wljarbuilder.jar
     mv $MW_HOME/wlserver/server/lib/wlfullclient.jar $APP_HOME/lib
+    ;;
+p)
+    $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/purge_dest.py
     ;;
 *)
     usage

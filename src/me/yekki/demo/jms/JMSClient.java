@@ -1,7 +1,14 @@
 package me.yekki.demo.jms;
 
+import me.yekki.demo.jms.cmd.*;
 import me.yekki.demo.jms.impl.ConsumerImpl;
 import me.yekki.demo.jms.impl.ProducerImpl;
+import me.yekki.demo.jms.impl.WLSTClientImpl;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.python.core.PyException;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
@@ -79,5 +86,41 @@ public interface JMSClient extends AutoCloseable, Constants {
             return String.format("threads=%d, messages per thread=%d, left messages=%d", getThreadCount(), getMessageCountPerThread(), getLeftMessageCount());
         }
 
+    }
+
+    public static void execute(Constants.Role role, CommandLine cmd) {
+
+        AppConfig config = AppConfig.newConfig(role);
+        Thread thread = null;
+
+        switch (role) {
+            case Sender:
+                int total = 1;
+                if (cmd.hasOption("n")) total = Integer.parseInt(cmd.getOptionValue("n"));
+                thread = new ConSendCommand(config, total);
+                break;
+            case Cleaner:
+                thread =  new CleanWLSTCommand(config);
+                break;
+            case Uninstaller:
+                thread =  new UninstallWLSTCommand(config);
+                break;
+            case StoreAdmin:
+                thread =  new StoreAdminCommand();
+                break;
+            case Installer:
+                thread = new InstallWLSTCommand(config);
+                break;
+            default:
+                thread = new HelpCommand(cmd);
+        }
+
+        thread.start();
+
+        try {
+            thread.join();
+        }
+        catch( InterruptedException ie) {
+        }
     }
 }

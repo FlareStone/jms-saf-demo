@@ -19,9 +19,9 @@ public class AppConfig implements Constants {
 
     private Properties properties;
 
-    public static AppConfig newConfig(String configFile) {
+    public static AppConfig newConfig(Role role) {
 
-        return new AppConfig(configFile);
+        return new AppConfig(role.getConfigFileKey());
     }
 
     private AppConfig(String configFileKey) {
@@ -171,5 +171,11 @@ public class AppConfig implements Constants {
         }
 
         return msg;
+    }
+
+    public static void main(String... args) {
+
+        Role role = Role.getRole("c");
+        System.out.println(role.name());
     }
 }
