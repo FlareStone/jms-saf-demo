@@ -1,11 +1,6 @@
 package me.yekki.demo.jms;
 
-import org.python.util.InteractiveInterpreter;
-import weblogic.management.scripting.utils.WLSTInterpreter;
-
 import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
@@ -14,11 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
-import java.util.concurrent.Callable;
 
-/**
- * Created by gniu on 16/9/18.
- */
 public class MBeanClient {
 
     protected String url;
