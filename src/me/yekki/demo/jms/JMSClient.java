@@ -95,7 +95,7 @@ public interface JMSClient extends AutoCloseable, Constants {
                 thread = new SendCommand(config, total);
                 break;
             case Cleaner:
-                thread =  new CleanWLSTCommand(config);
+                thread =  new CleanMBeanClient(config);
                 break;
             case Uninstaller:
                 thread =  new UninstallWLSTCommand(config);

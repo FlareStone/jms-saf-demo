@@ -16,12 +16,14 @@ public class CleanWLSTCommand extends Thread {
     public void run() {
 
         WLSTClient wlst = WLSTClient.newWLSTClient(config);
-        StringBuffer script = new StringBuffer("serverRuntime()\n");
-        script.append("cd('/JMSRuntime/AdminServer.jms/JMSServers/DemoJMSServer/Destinations/DemoSystemModule!DemoQueue')\n")
-                .append("cmo.deleteMessages('')\n");
 
+        String script = String.join("\n",
+                "serverRuntime()",
+                "cd('/JMSRuntime/AdminServer.jms/JMSServers/DemoJMSServer/Destinations/DemoSystemModule!DemoQueue')",
+                "cmo.deleteMessages('')"
+                );
         wlst.connect();
-        wlst.execute(script.toString());
+        wlst.execute(script);
         wlst.disConnect();
     }
 }

@@ -17,13 +17,14 @@ public class UninstallWLSTCommand extends Thread {
     public void run() {
 
         WLSTClient wlst = WLSTClient.newWLSTClient(config);
-        StringBuffer script = new StringBuffer("cd('/')\n");
-        script.append("cmo.destroyJMSSystemResource(getMBean('/SystemResources/DemoSystemModule'))\n")
-                .append("cmo.destroyJMSServer(getMBean('/Deployments/DemoJMSServer'))\n");
 
+        String script = String.join("\n",
+                "cmo.destroyJMSSystemResource(getMBean('/SystemResources/DemoSystemModule'))",
+                "cmo.destroyJMSServer(getMBean('/Deployments/DemoJMSServer'))"
+                );
         wlst.connect();
         wlst.startEdit();
-        wlst.execute(script.toString());
+        wlst.execute(script);
         wlst.active();
         wlst.disConnect();
     }

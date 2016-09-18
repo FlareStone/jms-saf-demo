@@ -10,9 +10,7 @@ function usage {
 Usage: $0 [p/c/u/h]
 g: Generate Encrypted Passwords
 c: Generating a JMS SAF Client Configuration File
-u: Update domain to create JMS resources
 z: Compact store
-a: Store admin tools
 l: Generate WebLogic full client jar
 h: Help
     """
@@ -28,13 +26,6 @@ g)
 c)
     $JAVA_HOME/bin/java weblogic.jms.extensions.ClientSAFGenerate -moduleFile $DOMAIN_HOME/config/jms/demosystemmodule-jms.xml -outputFile $APP_HOME/config/ClientSAF_temp.xml
     ;;
-
-u)
-    $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/update_domain.py
-    ;;
-a)
-    $JAVA_HOME/bin/java weblogic.store.Admin
-    ;;
 z)
     $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/compact_store.py
     ;;
@@ -42,9 +33,6 @@ l)
     cd $MW_HOME/wlserver/server/lib
     $JAVA_HOME/bin/java -jar wljarbuilder.jar
     mv $MW_HOME/wlserver/server/lib/wlfullclient.jar $APP_HOME/lib
-    ;;
-p)
-    $MW_HOME/oracle_common/common/bin/wlst.sh $APP_HOME/bin/purge_dest.py
     ;;
 *)
     usage
