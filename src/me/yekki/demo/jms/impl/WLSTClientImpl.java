@@ -25,43 +25,43 @@ public class WLSTClientImpl implements WLSTClient {
         url = env.get(Context.PROVIDER_URL);
     }
 
-    public boolean validateConnection() throws Exception {
+    @Override
+    public boolean validateConnection() {
         try {
             this.connect();
             this.disConnect();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            throw e;
+            return false;
         }
     }
 
+    @Override
     public void startEdit() {
 
         execute("edit()\nstartEdit()\n");
     }
 
+    @Override
     public void active() {
         execute("save()\nactivate(block='true')\n");
     }
 
+    @Override
     public void connect() {
 
         execute(String.format("connect('%s','%s','%s')\n", username, password, url));
     }
 
+    @Override
     public void disConnect() {
         execute("disconnect(force='true')\n");
     }
 
+    @Override
     public void execute(String script) {
 
         interpreter.exec(script);
-    }
-
-    public static void main(String... args ) {
-
-
-        System.out.println("finished!");
     }
 }

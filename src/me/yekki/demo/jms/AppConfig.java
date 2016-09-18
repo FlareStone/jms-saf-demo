@@ -28,13 +28,16 @@ public class AppConfig implements Constants {
 
         properties = loadProperties(APP_CONFIG_FILE);
 
+        if (configFileKey == null || "".equals(configFileKey)) return;
+
         String configFile = properties.getProperty(configFileKey);
 
         if (Files.exists(Paths.get("config/" + configFile))) {
             properties.putAll(loadProperties(configFile));
-        }
-        else {
-            throw new RuntimeException(String.format("failed to load properties file=[%s]", configFile));
+            String providerUrl = properties.getProperty(PROVIDER_URL_KEY, "");
+
+            //saf only support single thread
+            if (providerUrl.startsWith("file:")) properties.setProperty(SENDER_THREADS_KEY, "1");
         }
     }
 
@@ -111,11 +114,6 @@ public class AppConfig implements Constants {
         }
     }
 
-    public void showSettings() {
-
-
-    }
-
     public Hashtable<String, String> getEnvironment() {
 
 
@@ -151,16 +149,14 @@ public class AppConfig implements Constants {
                 msg = getProperty(Constants.MESSAGE_CONTENT_KEY, "");
                 break;
             case "binary":
-                long size = getProperty(Constants.MESSAGE_SIZE_KEY, -1l);
+                int size = getProperty(Constants.MESSAGE_SIZE_KEY, 1);
                 msg = SizableObject.buildObject(size);
                 break;
             case "file":
 
                 try {
-                    //TODO: check file exist
                     msg = new String(Files.readAllBytes(Paths.get(getProperty(Constants.MESSAGE_FILENAME_KEY, null))));
                 } catch (IOException io) {
-
                     io.printStackTrace();
                 }
 
@@ -171,11 +167,5 @@ public class AppConfig implements Constants {
         }
 
         return msg;
-    }
-
-    public static void main(String... args) {
-
-        Role role = Role.getRole("c");
-        System.out.println(role.name());
     }
 }

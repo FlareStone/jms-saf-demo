@@ -3,12 +3,7 @@ package me.yekki.demo.jms;
 import me.yekki.demo.jms.cmd.*;
 import me.yekki.demo.jms.impl.ConsumerImpl;
 import me.yekki.demo.jms.impl.ProducerImpl;
-import me.yekki.demo.jms.impl.WLSTClientImpl;
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.python.core.PyException;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
@@ -97,7 +92,7 @@ public interface JMSClient extends AutoCloseable, Constants {
             case Sender:
                 int total = 1;
                 if (cmd.hasOption("n")) total = Integer.parseInt(cmd.getOptionValue("n"));
-                thread = new ConSendCommand(config, total);
+                thread = new SendCommand(config, total);
                 break;
             case Cleaner:
                 thread =  new CleanWLSTCommand(config);

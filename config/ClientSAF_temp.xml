@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<weblogic-client-jms xmlns="http://xmlns.oracle.com/weblogic/weblogic-jms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-jms http://xmlns.oracle.com/weblogic/weblogic-jms/1.1/weblogic-jms.xsd">
+  <connection-factory name="DemoConnectionFactory">
+    <default-targeting-enabled>true</default-targeting-enabled>
+    <jndi-name>democf</jndi-name>
+    <client-params>
+      <client-id-policy>Restricted</client-id-policy>
+      <subscription-sharing-policy>Exclusive</subscription-sharing-policy>
+      <messages-maximum>10</messages-maximum>
+    </client-params>
+    <transaction-params>
+      <xa-connection-factory-enabled>true</xa-connection-factory-enabled>
+    </transaction-params>
+    <security-params>
+      <attach-jmsx-user-id>false</attach-jmsx-user-id>
+      <security-policy>ThreadBased</security-policy>
+    </security-params>
+  </connection-factory>
+  <saf-imported-destinations name="demosystemmodule">
+    <saf-queue name="DemoQueue">
+      <remote-jndi-name>demoqueue</remote-jndi-name>
+      <local-jndi-name>demoqueue</local-jndi-name>
+    </saf-queue>
+  </saf-imported-destinations>
+</weblogic-client-jms>

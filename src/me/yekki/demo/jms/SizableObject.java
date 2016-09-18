@@ -22,7 +22,7 @@ public class SizableObject implements Serializable{
         return payload.size();
     }
 
-    public static SizableObject buildObject(long sizeInKB) {
+    public static SizableObject buildObject(int sizeInKB) {
 
         List<byte[]> payload = new ArrayList<byte[]>();
 

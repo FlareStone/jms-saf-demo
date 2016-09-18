@@ -41,7 +41,16 @@ public class InstallWLSTCommand extends Thread {
                 .append("cd('/JMSSystemResources/DemoSystemModule/JMSResource/DemoSystemModule/ConnectionFactories/DemoConnectionFactory/TransactionParams/DemoConnectionFactory')\n")
                 .append("cmo.setXAConnectionFactoryEnabled(true)\n")
                 .append("cd('/JMSSystemResources/DemoSystemModule/JMSResource/DemoSystemModule/ConnectionFactories/DemoConnectionFactory')\n")
-                .append("cmo.setDefaultTargetingEnabled(true)\n");
+                .append("cmo.setDefaultTargetingEnabled(true)\n")
+                .append("cd('/JMSSystemResources/DemoSystemModule')\n")
+                .append("cmo.createSubDeployment('DemoQueue')\n")
+                .append("cd('/JMSSystemResources/DemoSystemModule/JMSResource/DemoSystemModule')\n")
+                .append("cmo.createQueue('DemoQueue')\n")
+                .append("cd('/JMSSystemResources/DemoSystemModule/JMSResource/DemoSystemModule/Queues/DemoQueue')\n")
+                .append("cmo.setJNDIName('demoqueue')\n")
+                .append("cmo.setSubDeploymentName('DemoQueue')\n")
+                .append("cd('/JMSSystemResources/DemoSystemModule/SubDeployments/DemoQueue')\n")
+                .append("set('Targets',jarray.array([ObjectName('com.bea:Name=DemoJMSServer,Type=JMSServer')], ObjectName))\n");
 
         wlst.connect();
         wlst.startEdit();

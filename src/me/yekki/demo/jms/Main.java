@@ -43,7 +43,7 @@ public class Main {
         Option roleOpt = Option.builder("r")
                 .longOpt("role")
                 .hasArg()
-                .desc("role: s:sender, c:cleaner")
+                .desc("s:sender, c:cleaner, h:helper, i:installer, u:uninstaller, a:storeadmin")
                 .build();
 
         Option countOpt = Option.builder("n")

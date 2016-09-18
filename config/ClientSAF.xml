@@ -25,9 +25,9 @@
         </security-params>
     </connection-factory>
     <saf-imported-destinations name="demosystemmodule">
-        <saf-queue name="queue1">
-            <remote-jndi-name>queue1</remote-jndi-name>
-            <local-jndi-name>queue1</local-jndi-name>
+        <saf-queue name="DemoQueue">
+            <remote-jndi-name>demoqueue</remote-jndi-name>
+            <local-jndi-name>demoqueue</local-jndi-name>
         </saf-queue>
         <saf-remote-context>RemoteContext0</saf-remote-context>
     </saf-imported-destinations>

@@ -14,6 +14,8 @@ public interface WLSTClient extends Constants {
 
     public void startEdit();
 
+    public boolean validateConnection();
+
     public void active();
 
     public static WLSTClient newWLSTClient(AppConfig config) {
