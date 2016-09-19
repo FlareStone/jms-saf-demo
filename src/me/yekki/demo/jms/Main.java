@@ -22,15 +22,16 @@ public class Main {
         options = buildOptions();
         cmd = (new DefaultParser()).parse(options, args);
 
-        Role role = Role.getRole(cmd.getOptionValue("r"));
-
         Instant start = Instant.now();
+
+        Role role = Role.getRole(cmd.getOptionValue("r"));
 
         JMSClient.execute(role, cmd);
 
         Instant end = Instant.now();
 
         logger.info(String.format("%s executed, elapsed:%sms", role, Duration.between(start, end).toMillis()));
+
     }
 
     private static Options buildOptions() {

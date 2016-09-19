@@ -1,11 +1,11 @@
 package me.yekki.demo.jms.cmd;
 
 import me.yekki.demo.jms.AppConfig;
+import me.yekki.demo.jms.ClientFactory;
 import me.yekki.demo.jms.Constants;
 import me.yekki.demo.jms.JMSClient;
-import me.yekki.demo.jms.Producer;
+import me.yekki.demo.jms.utils.MessageCalculator;
 
-import javax.jms.JMSException;
 import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,7 +29,7 @@ public class SendCommand extends Thread {
 
         final Serializable msg = config.getMessageContent();
 
-        JMSClient.MessageCalculator calculator = JMSClient.MessageCalculator.newInstance(total, config.getProperty(Constants.SENDER_THREADS_KEY, 1));
+        MessageCalculator calculator = MessageCalculator.newInstance(total, config.getProperty(Constants.SENDER_THREADS_KEY, 1));
 
         try {
 
@@ -37,7 +37,7 @@ public class SendCommand extends Thread {
 
             for ( int i = 1; i <= calculator.getThreadCount(); i++ ) {
 
-                Sender cmd = null;
+                Runnable cmd = null;
 
                 if ( i == calculator.getThreadCount() && calculator.getLeftMessageCount() != 0) {
                     cmd = new Sender(config, msg, calculator.getLeftMessageCount());
@@ -73,13 +73,9 @@ public class SendCommand extends Thread {
         @Override
         public void run() {
 
-            try (Producer p = JMSClient.newProducer(config)) {
-
-                p.send(msg, count);
-
-            } catch (JMSException je) {
-                je.printStackTrace();
-            }
+            JMSClient client = ClientFactory.newJMSClient(config);
+            for (int i = 0; i < count; i++) client.send(msg);
+            client.close();
         }
     }
 }

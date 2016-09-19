@@ -1,6 +1,8 @@
 package me.yekki.demo.jms;
 
 
+import me.yekki.demo.jms.utils.SizableObject;
+import org.apache.commons.cli.CommandLine;
 import org.apache.openjpa.util.UnsupportedException;
 
 import javax.naming.Context;
@@ -12,25 +14,29 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Hashtable;
 import java.util.Properties;
-import java.util.logging.Logger;
-;
+
 
 public class AppConfig implements Constants {
 
     private Properties properties;
+    private CommandLine cmd;
+    private Role role;
 
-    public static AppConfig newConfig(Role role) {
+    public static AppConfig newConfig(Role role, CommandLine c) {
 
-        return new AppConfig(role.getConfigFileKey());
+        return new AppConfig(role, c);
     }
 
-    private AppConfig(String configFileKey) {
+    private AppConfig(Role aRole, CommandLine aCmd) {
+
+        this.cmd = aCmd;
+        this.role = aRole;
 
         properties = loadProperties(APP_CONFIG_FILE);
 
-        if (configFileKey == null || "".equals(configFileKey)) return;
+        if (role.getConfigFileKey() == null || "".equals(role.getConfigFileKey())) return;
 
-        String configFile = properties.getProperty(configFileKey);
+        String configFile = properties.getProperty(role.getConfigFileKey());
 
         if (Files.exists(Paths.get("config/" + configFile))) {
             properties.putAll(loadProperties(configFile));
@@ -39,6 +45,16 @@ public class AppConfig implements Constants {
             //saf only support single thread
             if (providerUrl.startsWith("file:")) properties.setProperty(SENDER_THREADS_KEY, "1");
         }
+    }
+
+    public Role getRole() {
+
+        return role;
+    }
+
+    public CommandLine getCommandLine() {
+
+        return cmd;
     }
 
     private Properties loadProperties(String configFile) {

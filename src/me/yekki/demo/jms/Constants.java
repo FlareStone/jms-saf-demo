@@ -26,7 +26,7 @@ public interface Constants {
     static final String JMS_CONFIG_FILE = "jms.properties";
 
     public static enum Role {
-        Sender(Constants.SENDER_CONFIG_FILE_KEY), Cleaner(RECEIVER_CONFIG_FILE_KEY), Helper(null), Installer(RECEIVER_CONFIG_FILE_KEY), Uninstaller(RECEIVER_CONFIG_FILE_KEY), StoreAdmin(null);
+        Sender(Constants.SENDER_CONFIG_FILE_KEY), Receiver(RECEIVER_CONFIG_FILE_KEY), Cleaner(RECEIVER_CONFIG_FILE_KEY), Helper(null), Installer(RECEIVER_CONFIG_FILE_KEY), Uninstaller(RECEIVER_CONFIG_FILE_KEY), StoreAdmin(null);
 
         private String configFileKey;
 
@@ -42,6 +42,8 @@ public interface Constants {
         public static Role getRole(String optArg) {
 
             switch (optArg) {
+                case "r":
+                    return Receiver;
                 case "s":
                     return Sender;
                 case "c":

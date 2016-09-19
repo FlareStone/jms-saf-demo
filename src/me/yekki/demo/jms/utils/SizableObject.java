@@ -1,11 +1,8 @@
-package me.yekki.demo.jms;
+package me.yekki.demo.jms.utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 public class SizableObject implements Serializable{

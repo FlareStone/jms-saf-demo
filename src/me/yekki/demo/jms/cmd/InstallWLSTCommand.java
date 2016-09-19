@@ -6,7 +6,6 @@ import me.yekki.demo.jms.WLSTClient;
 
 public class InstallWLSTCommand extends Thread {
 
-
     private AppConfig config;
 
     public InstallWLSTCommand(AppConfig config) {
