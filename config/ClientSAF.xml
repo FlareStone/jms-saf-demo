@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <weblogic-client-jms xmlns="http://xmlns.oracle.com/weblogic/weblogic-jms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-jms http://xmlns.oracle.com/weblogic/weblogic-jms/1.1/weblogic-jms.xsd">
     <persistent-store>
-        <directory-path>/Users/gniu/Dropbox/Workspaces/jms-saf-demo/store</directory-path>
+        <directory-path>../store</directory-path>
     </persistent-store>
     <saf-agent>
-        <paging-directory>/Users/gniu/Dropbox/Workspaces/jms-saf-demo/paging</paging-directory>
-        <window-size>100</window-size>
+        <paging-directory>../paging</paging-directory>
         <window-interval>500</window-interval>
+        <window-size>100</window-size>
     </saf-agent>
     <connection-factory name="DemoConnectionFactory">
         <default-targeting-enabled>true</default-targeting-enabled>

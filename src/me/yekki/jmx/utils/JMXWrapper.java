@@ -1,22 +1,21 @@
 /**
  * WebLogic Automation Book Source Code (JMX sources)
- * 
- * This file is part of the WLS-Automation book sourcecode software distribution. 
+ * <p>
+ * This file is part of the WLS-Automation book sourcecode software distribution.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @author Martin Heinzl
  * Copyright (C) 2013 MH-EnterpriseConsulting, All rights reserved.
- *
  */
 package me.yekki.jmx.utils;
 
@@ -28,8 +27,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 
-public interface JMXWrapper
-{
+public interface JMXWrapper {
 
     /**
      *
@@ -38,7 +36,7 @@ public interface JMXWrapper
      * @return Object
      * @throws Exception
      */
-    public Object getAttribute(ObjectName name, String attributeName)   throws Exception;
+    public Object getAttribute(ObjectName name, String attributeName) throws Exception;
 
     /**
      * Set an attribute on the MBean
@@ -46,8 +44,8 @@ public interface JMXWrapper
      * @param myAttribute
      * @throws Exception
      */
-    public void setAttribute(ObjectName name, Attribute myAttribute)  throws Exception;
-    
+    public void setAttribute(ObjectName name, Attribute myAttribute) throws Exception;
+
     /**
      *
      * @param name ObjectName
@@ -57,8 +55,7 @@ public interface JMXWrapper
      * @return Object
      * @throws Exception
      */
-    public Object invoke(ObjectName name, String operationName, Object[] params, String[] signature)  throws Exception;
-
+    public Object invoke(ObjectName name, String operationName, Object[] params, String[] signature) throws Exception;
 
 
     /**
@@ -73,7 +70,7 @@ public interface JMXWrapper
      * @return Hashtable<String,String>
      * @throws Exception
      */
-    public Hashtable<String,String> getMainServerDomainValues() throws Exception;
+    public Hashtable<String, String> getMainServerDomainValues() throws Exception;
 
 
     /**
@@ -97,9 +94,9 @@ public interface JMXWrapper
      * @return String
      * @throws Exception
      */
-    public String getServerState(String serverName)  throws Exception;
+    public String getServerState(String serverName) throws Exception;
 
-    public ObjectName getServerRuntime(String serverName)  throws Exception;
+    public ObjectName getServerRuntime(String serverName) throws Exception;
 
 
     /**

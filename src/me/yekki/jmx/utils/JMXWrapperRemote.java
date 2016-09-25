@@ -69,8 +69,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
 
     /**
-     *
-     * @param name ObjectName
+     * @param name          ObjectName
      * @param attributeName Attribute
      * @return Object
      * @throws Exception
@@ -89,6 +88,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Set an attribute on the MBean
+     *
      * @param name
      * @param myAttribute
      * @throws Exception
@@ -107,11 +107,10 @@ public class JMXWrapperRemote implements JMXWrapper {
 
 
     /**
-     *
-     * @param name ObjectName
+     * @param name          ObjectName
      * @param operationName String
-     * @param params Object[]
-     * @param signature String[]
+     * @param params        Object[]
+     * @param signature     String[]
      * @return Object
      * @throws Exception
      */
@@ -138,7 +137,7 @@ public class JMXWrapperRemote implements JMXWrapper {
      * Init and open connection to an MBean server
      *
      * @param editmode boolean  Edit mode or not (this determines the MBEanserver instance !)
-     * @param url String connection URL
+     * @param url      String connection URL
      * @param username String User
      * @param password String Password
      * @throws Exception
@@ -206,6 +205,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Start an edit session.
+     *
      * @return ObjectName
      * @throws Exception
      */
@@ -233,6 +233,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Start a NON-edit session
+     *
      * @return ObjectName
      * @throws Exception
      */
@@ -253,10 +254,10 @@ public class JMXWrapperRemote implements JMXWrapper {
     /**
      * Conect to an admin server
      *
-     * @param edit boolean
+     * @param edit     boolean
      * @param username String
      * @param password String
-     * @param url String
+     * @param url      String
      * @throws Exception
      */
     public void connectToAdminServer(boolean edit,
@@ -288,6 +289,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Disconnect from Admin server
+     *
      * @throws Exception
      */
     public void disconnectFromAdminServer() throws Exception {
@@ -311,6 +313,7 @@ public class JMXWrapperRemote implements JMXWrapper {
      * The activate operation returns an ActivationTaskMBean.
      * You can use the ActivationTaskMBean to track the progress
      * of activating changes in the domain
+     *
      * @return ObjectName
      * @throws Exception
      */
@@ -339,6 +342,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Disconnect from Admin server
+     *
      * @throws Exception
      */
     public void disconnectFromAdminServer(boolean activate) throws Exception {
@@ -366,6 +370,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Get the main Values for the connected domain
+     *
      * @return Hashtable<String,String>
      * @throws Exception
      */
@@ -405,6 +410,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Get the list of managed Server MBEANS (here the ObjectNames) without the adminserver
+     *
      * @return Hashtable<String,String>
      * @throws Exception
      */
@@ -431,6 +437,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Get the list of managed Server MBEANS (here the ObjectNames) without the adminserver
+     *
      * @return ArrayList<String>
      * @throws Exception
      */
@@ -498,6 +505,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Get the actual connector
+     *
      * @return JMXConnector
      */
     public JMXConnector getConnector() {
@@ -506,6 +514,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Get the service object name
+     *
      * @return ObjectName
      */
     public ObjectName getService() {
@@ -514,6 +523,7 @@ public class JMXWrapperRemote implements JMXWrapper {
 
     /**
      * Returns the JMX-ObjectName for the domain root MBean
+     *
      * @return ObjectName
      */
     public ObjectName getDomainConfigRoot() {

@@ -1,22 +1,21 @@
 /**
  * WebLogic Automation Book Source Code (JMX sources)
- * 
- * This file is part of the WLS-Automation book sourcecode software distribution. 
+ * <p>
+ * This file is part of the WLS-Automation book sourcecode software distribution.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @author Martin Heinzl
  * Copyright (C) 2013 MH-EnterpriseConsulting, All rights reserved.
- *
  */
 package me.yekki.jmx.utils;
 
@@ -36,16 +35,14 @@ import java.util.Collections;
  * @author Martin Heinzl
  * @version 1.0
  */
-public class FileUtils
-{
+public class FileUtils {
 
     /**
      * Check if this file/directory exist
      * @param p_filename String
      * @return boolean
      */
-    public static boolean fileExist(String p_filename)
-    {
+    public static boolean fileExist(String p_filename) {
         return (new File(p_filename)).exists();
     }
 
@@ -56,8 +53,7 @@ public class FileUtils
      * @param p_filename String
      * @return boolean
      */
-    public static boolean deleteFile(String p_filename)
-    {
+    public static boolean deleteFile(String p_filename) {
         return (new File(p_filename)).delete();
     }
 
@@ -67,8 +63,7 @@ public class FileUtils
      * @param p_path String
      * @return boolean
      */
-    public static boolean isDirectory(String p_path)
-    {
+    public static boolean isDirectory(String p_path) {
         File f = new File(p_path);
         return f.isDirectory();
     }
@@ -79,8 +74,7 @@ public class FileUtils
      * @param p_path String
      * @return boolean
      */
-    public static boolean isFile(String p_path)
-    {
+    public static boolean isFile(String p_path) {
         File f = new File(p_path);
         return f.isFile();
     }
@@ -91,8 +85,7 @@ public class FileUtils
      * @param p_path String
      * @return boolean
      */
-    public static boolean createSubDirectories(String p_path)
-    {
+    public static boolean createSubDirectories(String p_path) {
         return createSubDirectories(p_path, false);
     }
 
@@ -105,19 +98,14 @@ public class FileUtils
      * @param p_isfile boolean
      * @return boolean
      */
-    public static boolean createSubDirectories(String p_path, boolean p_isfile)
-    {
-        if (p_isfile)
-        {
+    public static boolean createSubDirectories(String p_path, boolean p_isfile) {
+        if (p_isfile) {
             p_path = getDirectory(p_path, "/");
         }
         File f = new File(p_path);
-        if (!f.exists())
-        {
+        if (!f.exists()) {
             return f.mkdirs();
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
@@ -129,15 +117,11 @@ public class FileUtils
      * @param p_separator String
      * @return String
      */
-    public static String getDirectory(String p_filename, String p_separator)
-    {
+    public static String getDirectory(String p_filename, String p_separator) {
         int index = p_filename.lastIndexOf(p_separator);
-        if (index == -1)
-        {
+        if (index == -1) {
             return "";
-        }
-        else
-        {
+        } else {
             return p_filename.substring(0, index);
         }
     }
@@ -147,19 +131,14 @@ public class FileUtils
      * Delete temp files
      * @param p_dir String
      */
-    protected static void cleanupTemp(String p_dir)
-    {
+    protected static void cleanupTemp(String p_dir) {
         File f = new File(p_dir);
-        if (!f.exists())
-        {
+        if (!f.exists()) {
             return;
         }
-        if (f.isDirectory())
-        {
+        if (f.isDirectory()) {
             recursiveDelete(p_dir, true);
-        }
-        else
-        {
+        } else {
             f.delete();
         }
     }
@@ -171,35 +150,28 @@ public class FileUtils
      * @param p_deletemetoo boolean
      * @return boolean
      */
-    public static boolean recursiveDelete(String p_path, boolean p_deletemetoo)
-    {
-         if (p_path == null)
-        {
+    public static boolean recursiveDelete(String p_path, boolean p_deletemetoo) {
+        if (p_path == null) {
             return true;
         }
         String path = p_path;
-        if (path.endsWith("\\") || path.endsWith("/"))
-        {
+        if (path.endsWith("\\") || path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
         }
         File f = new File(path);
-        if (f.isFile())
-        {
+        if (f.isFile()) {
             return p_deletemetoo ? f.delete() : true;
         }
         String contents[] = f.list();
         int len = contents != null ? contents.length : 0;
         boolean result = true;
-        for (int i = 0; i < len; i++)
-        {
-            if (!recursiveDelete(path + File.separator + contents[i], true))
-            {
+        for (int i = 0; i < len; i++) {
+            if (!recursiveDelete(path + File.separator + contents[i], true)) {
                 result = false;
             }
         }
 
-        if (p_deletemetoo && !f.delete())
-        {
+        if (p_deletemetoo && !f.delete()) {
             result = false;
         }
         return result;
@@ -214,27 +186,21 @@ public class FileUtils
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public static String readFile(String p_filename) throws IOException, FileNotFoundException
-    {
+    public static String readFile(String p_filename) throws IOException, FileNotFoundException {
         int len = (int) (new File(p_filename)).length();
         StringBuffer buf = new StringBuffer(len);
         BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(p_filename)));
-        try
-        {
-            do
-            {
+        try {
+            do {
                 String data = r.readLine();
-                if (data == null)
-                {
+                if (data == null) {
                     break;
                 }
                 buf.append(data);
                 buf.append('\n');
             }
             while (true);
-        }
-        finally
-        {
+        } finally {
             r.close();
         }
         return buf.toString();
@@ -249,30 +215,23 @@ public class FileUtils
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public static ArrayList<String> readFileAsListOfLines(String p_filename) throws IOException, FileNotFoundException
-    {
+    public static ArrayList<String> readFileAsListOfLines(String p_filename) throws IOException, FileNotFoundException {
         ArrayList<String> result = new ArrayList<String>();
         BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(p_filename)));
-        try
-        {
-            do
-            {
+        try {
+            do {
                 String data = r.readLine();
-                if (data == null)
-                {
+                if (data == null) {
                     break;
                 }
                 result.add(data);
             }
             while (true);
-        }
-        finally
-        {
+        } finally {
             r.close();
         }
         return result;
     }
-
 
 
     /**
@@ -281,8 +240,7 @@ public class FileUtils
      * @param filePath      name of file to open. The file can reside
      *                      anywhere in the classpath
      */
-    public static String readFileFromResource(@SuppressWarnings("rawtypes") Class refClass, String filePath) throws IOException
-    {
+    public static String readFileFromResource(@SuppressWarnings("rawtypes") Class refClass, String filePath) throws IOException {
         StringBuffer fileData = new StringBuffer(1000);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(refClass.getResourceAsStream(filePath)));
@@ -303,23 +261,17 @@ public class FileUtils
      * @param p_buffer String
      * @throws IOException
      */
-    public static void writeFile(String p_filename, String p_buffer) throws IOException
-    {
+    public static void writeFile(String p_filename, String p_buffer) throws IOException {
         FileOutputStream os = null;
-        try
-        {
+        try {
             os = new FileOutputStream(p_filename);
-            if (p_buffer != null)
-            {
+            if (p_buffer != null) {
                 os.write(p_buffer.getBytes());
             }
             os.close();
             os = null;
-        }
-        finally
-        {
-            if (os != null)
-            {
+        } finally {
+            if (os != null) {
                 os.close();
             }
         }
@@ -333,23 +285,17 @@ public class FileUtils
      * @param p_buffer byte[]
      * @throws IOException
      */
-    public static void writeBINFile(String p_filename, byte[] p_buffer) throws IOException
-    {
+    public static void writeBINFile(String p_filename, byte[] p_buffer) throws IOException {
         FileOutputStream os = null;
-        try
-        {
+        try {
             os = new FileOutputStream(p_filename);
-            if (p_buffer != null)
-            {
+            if (p_buffer != null) {
                 os.write(p_buffer);
             }
             os.close();
             os = null;
-        }
-        finally
-        {
-            if (os != null)
-            {
+        } finally {
+            if (os != null) {
                 os.close();
             }
         }
@@ -364,8 +310,7 @@ public class FileUtils
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public static byte[] readBINFile(String p_filename) throws IOException, FileNotFoundException
-    {
+    public static byte[] readBINFile(String p_filename) throws IOException, FileNotFoundException {
         int len = (int) (new File(p_filename)).length();
         byte[] result = new byte[len];
 
@@ -382,16 +327,12 @@ public class FileUtils
      * @param directory String
      * @return boolean
      */
-    public static boolean createDirectory(String directory)
-    {
+    public static boolean createDirectory(String directory) {
         File f = new File(directory);
 
-        if (!f.exists())
-        {
+        if (!f.exists()) {
             return f.mkdirs();
-        }
-        else
-        {
+        } else {
             // already exists, therefore true
             return true;
         }
@@ -406,40 +347,33 @@ public class FileUtils
      * @param sort boolean
      * @return ArrayList
      */
-    public static ArrayList<String> getDirectoryList(String rootDir, boolean directory, boolean sort)
-    {
+    public static ArrayList<String> getDirectoryList(String rootDir, boolean directory, boolean sort) {
         ArrayList<String> result = new ArrayList<String>();
-        if (rootDir == null)
-        {
+        if (rootDir == null) {
             return result;
         }
 
         File f = new File(rootDir);
 
-        if (!f.exists())
-        {
+        if (!f.exists()) {
             return result;
         }
 
-        if (f.isFile())
-        {
+        if (f.isFile()) {
             return result;
         }
 
         String contents[] = f.list();
         int len = contents != null ? contents.length : 0;
 
-        for (int i = 0; i < len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             File tmp = new File(rootDir + File.separator + contents[i]);
-            if (tmp.isDirectory() == directory)
-            {
+            if (tmp.isDirectory() == directory) {
                 result.add(contents[i]);
             }
         }
 
-        if (sort)
-        {
+        if (sort) {
             Collections.sort(result);
         }
 
@@ -455,31 +389,26 @@ public class FileUtils
      * @param sort boolean
      * @return ArrayList
      */
-    public static ArrayList<String> getDirectoryCompleteContentList(String rootDir, boolean includeRootInResult)
-    {
+    public static ArrayList<String> getDirectoryCompleteContentList(String rootDir, boolean includeRootInResult) {
         ArrayList<String> result = new ArrayList<String>();
-        if (rootDir == null)
-        {
+        if (rootDir == null) {
             return result;
         }
 
         File f = new File(rootDir);
 
-        if (!f.exists())
-        {
+        if (!f.exists()) {
             return result;
         }
 
-        if (f.isFile())
-        {
+        if (f.isFile()) {
             return result;
         }
 
         String contents[] = f.list();
         int len = contents != null ? contents.length : 0;
 
-        for (int i = 0; i < len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             if (includeRootInResult)
                 result.add(rootDir + File.separator + contents[i]);
             else
@@ -497,88 +426,67 @@ public class FileUtils
      * @param toFileName String
      * @throws IOException
      */
-    public static void copy(String fromFileName, String toFileName) throws IOException
-    {
+    public static void copy(String fromFileName, String toFileName) throws IOException {
         File fromFile = new File(fromFileName);
         File toFile = new File(toFileName);
 
-        if (!fromFile.exists())
-        {
+        if (!fromFile.exists()) {
             throw new IOException("FileCopy: " + "no such source file: "
-                                  + fromFileName);
+                    + fromFileName);
         }
-        if (!fromFile.isFile())
-        {
+        if (!fromFile.isFile()) {
             throw new IOException("FileCopy: " + "can't copy directory: "
-                                  + fromFileName);
+                    + fromFileName);
         }
-        if (!fromFile.canRead())
-        {
+        if (!fromFile.canRead()) {
             throw new IOException("FileCopy: " + "source file is unreadable: "
-                                  + fromFileName);
+                    + fromFileName);
         }
 
-        if (toFile.isDirectory())
-        {
+        if (toFile.isDirectory()) {
             toFile = new File(toFile, fromFile.getName());
         }
 
         String parent = toFile.getParent();
-        if (parent == null)
-        {
+        if (parent == null) {
             parent = System.getProperty("user.dir");
         }
         File dir = new File(parent);
-        if (!dir.exists())
-        {
+        if (!dir.exists()) {
             throw new IOException("FileCopy: "
-                                  + "destination directory doesn't exist: " + parent);
+                    + "destination directory doesn't exist: " + parent);
         }
-        if (dir.isFile())
-        {
+        if (dir.isFile()) {
             throw new IOException("FileCopy: "
-                                  + "destination is not a directory: " + parent);
+                    + "destination is not a directory: " + parent);
         }
-        if (!dir.canWrite())
-        {
+        if (!dir.canWrite()) {
             throw new IOException("FileCopy: "
-                                  + "destination directory is unwriteable: " + parent);
+                    + "destination directory is unwriteable: " + parent);
         }
         FileInputStream from = null;
         FileOutputStream to = null;
-        try
-        {
+        try {
             from = new FileInputStream(fromFile);
             to = new FileOutputStream(toFile);
             byte[] buffer = new byte[4096];
             int bytesRead;
 
-            while ((bytesRead = from.read(buffer)) != -1)
-            {
+            while ((bytesRead = from.read(buffer)) != -1) {
                 to.write(buffer, 0, bytesRead); // write
             }
-        }
-        finally
-        {
-            if (from != null)
-            {
-                try
-                {
+        } finally {
+            if (from != null) {
+                try {
                     from.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     ;
                 }
             }
-            if (to != null)
-            {
-                try
-                {
+            if (to != null) {
+                try {
                     to.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     ;
                 }
             }

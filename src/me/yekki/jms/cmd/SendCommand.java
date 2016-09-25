@@ -1,9 +1,8 @@
 package me.yekki.jms.cmd;
 
-import me.yekki.jms.AppConfig;
-import me.yekki.jms.ClientFactory;
-import me.yekki.jms.Constants;
-import me.yekki.jms.JMSClient;
+import me.yekki.jms.app.AppConfig;
+import me.yekki.jms.app.Constants;
+import me.yekki.jms.app.JMSClient;
 import me.yekki.jms.utils.MessageCalculator;
 
 import java.io.Serializable;
@@ -73,7 +72,7 @@ public class SendCommand extends Thread {
         @Override
         public void run() {
 
-            JMSClient client = ClientFactory.newJMSClient(config);
+            JMSClient client = JMSClient.newJMSClient(config);
             for (int i = 0; i < count; i++) client.send(msg);
             client.close();
         }

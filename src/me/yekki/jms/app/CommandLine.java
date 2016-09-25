@@ -1,6 +1,5 @@
-package me.yekki.jms;
+package me.yekki.jms.app;
 
-import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -9,10 +8,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.logging.Logger;
 
-public class Main {
+public class CommandLine {
 
-    private static Logger logger = Logger.getLogger(Main.class.getName());
-    private static CommandLine cmd;
+    private static Logger logger = Logger.getLogger(CommandLine.class.getName());
+    private static org.apache.commons.cli.CommandLine cmd;
     private static Options options;
 
     public static void main(String... args) throws Exception {

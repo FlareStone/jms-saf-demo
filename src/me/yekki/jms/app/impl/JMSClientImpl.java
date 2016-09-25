@@ -1,7 +1,7 @@
-package me.yekki.jms.impl;
+package me.yekki.jms.app.impl;
 
-import me.yekki.jms.AppConfig;
-import me.yekki.jms.JMSClient;
+import me.yekki.jms.app.AppConfig;
+import me.yekki.jms.app.JMSClient;
 
 import javax.jms.*;
 import javax.naming.Context;

@@ -1,4 +1,4 @@
-package me.yekki.jms;
+package me.yekki.jms.app;
 
 
 import me.yekki.jms.utils.SizableObject;

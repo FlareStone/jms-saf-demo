@@ -1,16 +1,11 @@
-package me.yekki.jms.impl;
+package me.yekki.jms.app.impl;
 
 import me.yekki.JMSClientException;
-import me.yekki.jms.AppConfig;
-import me.yekki.jms.JMXCommand;
-import me.yekki.jmx.utils.JMXWrapper;
+import me.yekki.jms.app.AppConfig;
+import me.yekki.jms.app.JMXCommand;
 import me.yekki.jmx.utils.JMXWrapperRemote;
 
-import javax.management.ObjectName;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
 import javax.naming.Context;
-import java.net.URL;
 import java.util.Hashtable;
 
 public abstract class JMXCommandImpl extends Thread implements JMXCommand {

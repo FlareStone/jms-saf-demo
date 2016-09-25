@@ -1,6 +1,7 @@
-package me.yekki.jms;
+package me.yekki.jms.app;
 
 import me.yekki.jms.cmd.*;
+import me.yekki.jms.app.impl.JMSClientImpl;
 import org.apache.commons.cli.CommandLine;
 
 import javax.jms.ConnectionFactory;
@@ -55,5 +56,10 @@ public interface JMSClient extends AutoCloseable, Constants {
         }
         catch( InterruptedException ie) {
         }
+    }
+
+    public static JMSClient newJMSClient(AppConfig config) {
+
+        return new JMSClientImpl(config);
     }
 }

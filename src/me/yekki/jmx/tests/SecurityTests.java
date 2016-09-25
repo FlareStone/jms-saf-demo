@@ -29,7 +29,7 @@ public class SecurityTests
 	public static void main(String[] args) throws Exception
 	{
 		JMXWrapperRemote myJMXWrapperRemote = new JMXWrapperRemote();
-		myJMXWrapperRemote.connectToAdminServer(false,true,"weblogic", "<password>", "t3://testhost.wlsautomation.de:7001");
+		myJMXWrapperRemote.connectToAdminServer(false,true,"weblogic", "welcome1", "t3://localhost:7001");
 		
 		UserGroupManagement myUserGroupManagement = new UserGroupManagement(myJMXWrapperRemote);
 		

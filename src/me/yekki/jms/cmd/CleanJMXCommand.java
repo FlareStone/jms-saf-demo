@@ -1,7 +1,7 @@
 package me.yekki.jms.cmd;
 
-import me.yekki.jms.*;
-import me.yekki.jms.impl.JMXCommandImpl;
+import me.yekki.jms.app.AppConfig;
+import me.yekki.jms.app.impl.JMXCommandImpl;
 import me.yekki.jmx.administration.JMSAdministration;
 
 import javax.management.ObjectName;
