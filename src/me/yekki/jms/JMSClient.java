@@ -1,16 +1,17 @@
-package me.yekki.jms.app.impl;
+package me.yekki.jms;
 
-import me.yekki.jms.app.AppConfig;
-import me.yekki.jms.app.JMSClient;
+import me.yekki.jms.cmd.*;
+import org.apache.commons.cli.CommandLine;
 
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.util.Hashtable;
 
-public class JMSClientImpl implements JMSClient {
+public class JMSClient implements AutoCloseable, Constants {
 
     protected ConnectionFactory connectionFactory;
     protected Destination destination;
@@ -20,7 +21,33 @@ public class JMSClientImpl implements JMSClient {
     protected JMSConsumer consumer;
     protected JMSProducer producer;
 
-    public JMSClientImpl(AppConfig config) {
+    public static Role execute(CommandLine cmd) {
+
+        AppConfig config = AppConfig.newConfig(cmd);
+
+        Thread thread = null;
+
+        Class clz = config.getRole().getCommandClass();
+
+        try {
+            if (clz == null) {
+                thread = new Thread(new HelpCommand(config));
+            }
+            else {
+                Constructor constructor = clz.getConstructor(AppConfig.class);
+                thread = new Thread((Runnable) constructor.newInstance(config));
+            }
+            thread.start();
+            thread.join();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return config.getRole();
+    }
+
+    public JMSClient(AppConfig config) {
 
         this.config = config;
 
@@ -54,43 +81,36 @@ public class JMSClientImpl implements JMSClient {
         }
     }
 
-    @Override
     public AppConfig getAppConfig() {
 
         return config;
     }
 
-    @Override
     public Context getInitialContext() {
 
         return ctx;
     }
 
-    @Override
     public JMSContext getJMSContext() {
 
         return context;
     }
 
-    @Override
     public ConnectionFactory getConnectionFactory() {
 
         return connectionFactory;
     }
 
-    @Override
     public JMSConsumer getConsumer() {
 
         return consumer;
     }
 
-    @Override
     public JMSProducer getProducer() {
 
         return producer;
     }
 
-    @Override
     public void send(Serializable msg) {
 
         if (producer != null) {
@@ -98,7 +118,6 @@ public class JMSClientImpl implements JMSClient {
         }
     }
 
-    @Override
     public void close(){
 
         if (consumer != null) consumer.close();

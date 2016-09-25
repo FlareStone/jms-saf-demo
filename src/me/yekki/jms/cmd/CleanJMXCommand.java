@@ -1,30 +1,30 @@
 package me.yekki.jms.cmd;
 
-import me.yekki.jms.app.AppConfig;
-import me.yekki.jms.app.impl.JMXCommandImpl;
+import me.yekki.JMSClientException;
+import me.yekki.jms.AppConfig;
+import me.yekki.jms.JMXCommand;
 import me.yekki.jmx.administration.JMSAdministration;
 
 import javax.management.ObjectName;
 
-public class CleanJMXCommand extends JMXCommandImpl {
+public class CleanJMXCommand extends JMXCommand {
 
     public CleanJMXCommand(AppConfig config) {
 
         super(config);
+        super.init(false, true);
     }
 
     @Override
-    public void run() {
+    public void execute() throws JMSClientException {
 
         try {
-            connect(false, true);
             JMSAdministration jmsadmin = new JMSAdministration(jmxWrapper);
             ObjectName dest = jmsadmin.getJMSDestinationRuntime("AdminServer", "DemoJMSServer", "DemoSystemModule!DemoQueue");
             jmsadmin.deleteMessagesFromJmsDestination(dest, "");
-            disconnect();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            throw new JMSClientException("Failed to execute clean command:" + e.getMessage());
         }
 
     }

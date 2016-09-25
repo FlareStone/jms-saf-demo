@@ -1,4 +1,4 @@
-package me.yekki.jms.app;
+package me.yekki.jms;
 
 
 import me.yekki.jms.utils.SizableObject;
@@ -21,9 +21,11 @@ public class AppConfig implements Constants {
     private CommandLine cmd;
     private Role role;
 
-    public static AppConfig newConfig(Role role, CommandLine c) {
+    public static AppConfig newConfig(CommandLine cmd) {
 
-        return new AppConfig(role, c);
+        Constants.Role role = Constants.Role.getRole(cmd.getOptionValue("r"));
+
+        return new AppConfig(role, cmd);
     }
 
     private AppConfig(Role aRole, CommandLine aCmd) {

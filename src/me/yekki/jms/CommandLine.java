@@ -1,4 +1,4 @@
-package me.yekki.jms.app;
+package me.yekki.jms;
 
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
@@ -21,9 +21,7 @@ public class CommandLine {
 
         Instant start = Instant.now();
 
-        Constants.Role role = Constants.Role.getRole(cmd.getOptionValue("r"));
-
-        JMSClient.execute(role, cmd);
+        Constants.Role role = JMSClient.execute(cmd);
 
         Instant end = Instant.now();
 
@@ -41,7 +39,7 @@ public class CommandLine {
         Option roleOpt = Option.builder("r")
                 .longOpt("role")
                 .hasArg()
-                .desc("s:sender, c:cleaner, h:helper, i:installer, u:uninstaller, a:storeadmin")
+                .desc("s:sender, c:cleaner, h:helper, i:installer, m:monitor, u:uninstaller, a:storeadmin")
                 .build();
 
         Option countOpt = Option.builder("n")

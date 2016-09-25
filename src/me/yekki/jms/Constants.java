@@ -1,4 +1,4 @@
-package me.yekki.jms.app;
+package me.yekki.jms;
 
 import me.yekki.jms.cmd.*;
 

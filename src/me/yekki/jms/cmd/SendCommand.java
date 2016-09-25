@@ -1,8 +1,10 @@
 package me.yekki.jms.cmd;
 
-import me.yekki.jms.app.AppConfig;
-import me.yekki.jms.app.Constants;
-import me.yekki.jms.app.JMSClient;
+import me.yekki.JMSClientException;
+import me.yekki.jms.AppConfig;
+import me.yekki.jms.Constants;
+import me.yekki.jms.JMSClient;
+import me.yekki.jms.JMSCommand;
 import me.yekki.jms.utils.MessageCalculator;
 
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class SendCommand extends Thread {
+public class SendCommand extends JMSCommand {
 
     private AppConfig config;
     private int total;
@@ -26,7 +28,7 @@ public class SendCommand extends Thread {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         final Serializable msg = config.getMessageContent();
 
@@ -74,7 +76,7 @@ public class SendCommand extends Thread {
         @Override
         public void run() {
 
-            JMSClient client = JMSClient.newJMSClient(config);
+            JMSClient client = new JMSClient(config);
             for (int i = 0; i < count; i++) client.send(msg);
             client.close();
         }

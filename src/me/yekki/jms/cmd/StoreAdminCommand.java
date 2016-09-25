@@ -1,9 +1,10 @@
 package me.yekki.jms.cmd;
 
 
-import me.yekki.jms.app.AppConfig;
+import me.yekki.jms.AppConfig;
+import me.yekki.jms.JMSCommand;
 
-public class StoreAdminCommand extends Thread {
+public class StoreAdminCommand extends JMSCommand {
 
     private AppConfig config;
 
@@ -13,7 +14,7 @@ public class StoreAdminCommand extends Thread {
     }
 
     @Override
-    public void run() {
+    public void execute() {
         weblogic.store.Admin.main(null);
     }
 }

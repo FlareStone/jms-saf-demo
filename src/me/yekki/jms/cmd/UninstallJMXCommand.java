@@ -1,29 +1,31 @@
 package me.yekki.jms.cmd;
 
-import me.yekki.jms.app.AppConfig;
-import me.yekki.jms.app.impl.JMXCommandImpl;
+import me.yekki.JMSClientException;
+import me.yekki.jms.AppConfig;
+import me.yekki.jms.JMXCommand;
 import me.yekki.jmx.creation_extension.JMSConfiguration;
+import me.yekki.jmx.utils.WLSJMXException;
 
-public class UninstallJMXCommand extends JMXCommandImpl {
+public class UninstallJMXCommand extends JMXCommand {
 
     public UninstallJMXCommand(AppConfig config) {
 
         super(config);
+        super.init(true, false);
     }
 
     @Override
-    public void run() {
+    public void execute() throws JMSClientException {
 
         try {
-            connect(true, false);
+
             JMSConfiguration jc = new JMSConfiguration(jmxWrapper);
             jc.destroyJMSModule("DemoSystemModule");
             jc.destroyJMSServer("DemoJMSServer");
             jc.destroyFileStore("DemoFileStore");
-            disconnect();
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (WLSJMXException e) {
+           throw new JMSClientException(e.getMessage());
         }
     }
 }

@@ -1,13 +1,14 @@
 package me.yekki.jms.cmd;
 
 
-import me.yekki.jms.app.AppConfig;
-import org.apache.commons.cli.CommandLine;
+import me.yekki.JMSClientException;
+import me.yekki.jms.AppConfig;
+import me.yekki.jms.JMSCommand;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-public class HelpCommand extends Thread {
+public class HelpCommand extends JMSCommand {
 
     private AppConfig config;
 
@@ -17,7 +18,7 @@ public class HelpCommand extends Thread {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         HelpFormatter formatter = new HelpFormatter();
 

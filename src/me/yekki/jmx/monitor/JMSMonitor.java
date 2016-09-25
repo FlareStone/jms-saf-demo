@@ -8,7 +8,6 @@ import me.yekki.jmx.utils.WLSJMXException;
 import javax.management.ObjectName;
 import java.io.PrintStream;
 import java.util.Arrays;
-import java.util.Hashtable;
 
 public class JMSMonitor extends AbstractMonitor {
 
