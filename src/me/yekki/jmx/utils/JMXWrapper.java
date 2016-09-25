@@ -25,106 +25,47 @@ import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.function.Predicate;
 
 
 public interface JMXWrapper {
 
-    /**
-     *
-     * @param name ObjectName
-     * @param attributeName Attribute
-     * @return Object
-     * @throws Exception
-     */
+
     public Object getAttribute(ObjectName name, String attributeName) throws Exception;
 
-    /**
-     * Set an attribute on the MBean
-     * @param name
-     * @param myAttribute
-     * @throws Exception
-     */
+    public void setAttribute(ObjectName name, String attributeName, Object attributeValue) throws Exception;
+
     public void setAttribute(ObjectName name, Attribute myAttribute) throws Exception;
 
-    /**
-     *
-     * @param name ObjectName
-     * @param operationName String
-     * @param params Object[]
-     * @param signature String[]
-     * @return Object
-     * @throws Exception
-     */
+
     public Object invoke(ObjectName name, String operationName, Object[] params, String[] signature) throws Exception;
 
-
-    /**
-     * Disconnect from Admin server
-     * @throws Exception
-     */
     public void disconnectFromAdminServer() throws Exception;
 
-
-    /**
-     * Get the main Values for the connected domain
-     * @return Hashtable<String,String>
-     * @throws Exception
-     */
     public Hashtable<String, String> getMainServerDomainValues() throws Exception;
 
 
-    /**
-     * Get the list of managed Server MBEANS (here the ObjectNames) without the adminserver
-     * @return Hashtable<String,String>
-     * @throws Exception
-     */
     public ArrayList<ObjectName> getManagedServerObjectNames() throws Exception;
 
-    /**
-     * Get the list of managed Server MBEANS (here the ObjectNames) without the adminserver
-     * @return ArrayList<String>
-     * @throws Exception
-     */
+
     public ArrayList<String> getManagedServerNames() throws Exception;
 
-    /**
-     * Get the runtime state of one managed server.
-     *
-     * @param serverName String
-     * @return String
-     * @throws Exception
-     */
     public String getServerState(String serverName) throws Exception;
 
     public ObjectName getServerRuntime(String serverName) throws Exception;
 
 
-    /**
-     * Returns connection
-     *
-     * @return MBeanServerConnection
-     */
     public MBeanServerConnection getConnection();
 
-    /**
-     * Get the actual connector
-     * @return JMXConnector
-     */
+
     public JMXConnector getConnector();
 
-    /**
-     * Get the service object name
-     * @return ObjectName
-     */
     public ObjectName getService();
 
-    /**
-     * Returns the JMX-ObjectName for the domain root MBean
-     * @return ObjectName
-     */
+
     public ObjectName getDomainConfigRoot();
 
     public ObjectName getDomainRuntimeRoot();
 
-
+    public Predicate<ObjectName> getNamePredicate(String name);
 }

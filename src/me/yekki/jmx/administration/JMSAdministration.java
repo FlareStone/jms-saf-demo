@@ -23,6 +23,12 @@ import me.yekki.jmx.utils.JMXWrapper;
 import me.yekki.jmx.utils.WLSAutomationException;
 
 import javax.management.ObjectName;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.stream;
 
 
 public class JMSAdministration {
@@ -33,8 +39,6 @@ public class JMSAdministration {
         myJMXWrapper = _wrapper;
     }
 
-
-    // ********************* GEneral ! **********************************************************
     public ObjectName getJMSServerRuntime(String jmsServerName, String wlsServerName) throws WLSAutomationException {
         try {
             // get the runtime of the server
@@ -43,50 +47,35 @@ public class JMSAdministration {
             // the the jms runtime
             ObjectName jmsRuntime = (ObjectName) myJMXWrapper.getAttribute(serverRuntime, "JMSRuntime");
 
-            if (jmsRuntime != null) {
-                ObjectName[] jmsServerRuntimes = (ObjectName[]) myJMXWrapper.getAttribute(jmsRuntime, "JMSServers");
+            if (jmsRuntime == null) throw new WLSAutomationException("No JMSRuntime found on server " + wlsServerName + " ! ");
 
-                for (int i = 0; i < jmsServerRuntimes.length; i++)
-                    if (jmsServerName.equals((String) myJMXWrapper.getAttribute(jmsServerRuntimes[i], "Name")))
-                        return jmsServerRuntimes[i];
+            ObjectName jmsServerRuntime = Arrays.stream((ObjectName[]) myJMXWrapper.getAttribute((ObjectName) myJMXWrapper.getAttribute(serverRuntime, "JMSRuntime"), "JMSServers")).filter(myJMXWrapper.getNamePredicate(jmsServerName)).findFirst().get();
 
+            if (jmsServerRuntime == null)
                 throw new WLSAutomationException("JMSServer " + jmsServerName + " not found on server " + wlsServerName + " ! ");
-            } else
-                throw new WLSAutomationException("No JMSRuntime found on server " + wlsServerName + " ! ");
-
+            else
+                return jmsServerRuntime;
         } catch (Exception ex) {
             throw new WLSAutomationException("Error in getJMSServerRuntime : " + ex.getMessage());
         }
     }
 
-
     public ObjectName getJMSDestinationRuntime(String destinationName, String jmsServerName, String wlsServerName) throws WLSAutomationException {
         try {
-            // get the runtime of the server
-            ObjectName serverRuntime = myJMXWrapper.getServerRuntime(wlsServerName);
 
-            // the the jms runtime
-            ObjectName jmsRuntime = (ObjectName) myJMXWrapper.getAttribute(serverRuntime, "JMSRuntime");
+            ObjectName jmsServerRuntime = getJMSServerRuntime(jmsServerName, wlsServerName);
 
-            if (jmsRuntime != null) {
-                ObjectName[] jmsServerRuntimes = (ObjectName[]) myJMXWrapper.getAttribute(jmsRuntime, "JMSServers");
+            ObjectName destination = Arrays.stream((ObjectName[]) myJMXWrapper.getAttribute(jmsServerRuntime, "Destinations")).filter(myJMXWrapper.getNamePredicate(destinationName)).findFirst().get();
 
-                for (int i = 0; i < jmsServerRuntimes.length; i++)
-                    if (jmsServerName.equals((String) myJMXWrapper.getAttribute(jmsServerRuntimes[i], "Name"))) {
-                        // found jms server
-                        ObjectName[] destinationRuntimes = (ObjectName[]) myJMXWrapper.getAttribute(jmsServerRuntimes[i], "Destinations");
-                        for (int d = 0; d < destinationRuntimes.length; d++)
-                            if (destinationName.equals((String) myJMXWrapper.getAttribute(destinationRuntimes[d], "Name")))
-                                return destinationRuntimes[d];
-                    }
-
-                throw new WLSAutomationException("JMSServer " + jmsServerName + " or destination " + destinationName + " not found on server " + wlsServerName + " ! ");
-            } else
+            if (destination != null)
+                return destination;
+            else
                 throw new WLSAutomationException("No JMSRuntime found on server " + wlsServerName + " ! ");
 
         } catch (Exception ex) {
             throw new WLSAutomationException("Error in getJMSDestinationRuntime : " + ex.getMessage());
         }
+
     }
 
 

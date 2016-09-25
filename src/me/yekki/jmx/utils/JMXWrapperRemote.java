@@ -28,26 +28,16 @@ import javax.management.remote.JMXServiceURL;
 import javax.naming.Context;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.function.Predicate;
 
 
-public class JMXWrapperRemote implements JMXWrapper {
-    // active (if any) mbean server connection
-    private MBeanServerConnection connection;
+public class JMXWrapperRemote extends AbstractJMXWrapper {
 
     // connector
     private JMXConnector connector;
 
-    private ObjectName service;
-
     // is wrapper initialized ?
     private boolean initialized = false;
-
-    // Root MBean for configurations
-    private ObjectName domainConfigRoot = null;
-
-    // Root MBean for configurations
-    private ObjectName domainRuntimeRoot = null;
-
 
     // protocol information: will be set during initialization
     private String protocol = null;
@@ -56,92 +46,9 @@ public class JMXWrapperRemote implements JMXWrapper {
     private String connectionuser = null;
     private String connectionpassword = null;
 
-
     private boolean isEdit = false;
-
     private boolean isDomainRuntime = false;
 
-    /**
-     * Init JMX Wrapper
-     */
-    public JMXWrapperRemote() {
-    }
-
-
-    /**
-     * @param name          ObjectName
-     * @param attributeName Attribute
-     * @return Object
-     * @throws Exception
-     */
-    public Object getAttribute(ObjectName name, String attributeName) throws Exception {
-        try {
-            // todo: logging  - JMXWrapperRemote:getAttribute called for "+name+" : "+ attributeName +" !");
-
-            // do INVOKE
-            return getConnection().getAttribute(name, attributeName);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new Exception("PROBLEM with JMXWrapperRemote:getAttribute: " + ex.getMessage());
-        }
-    }
-
-    /**
-     * Set an attribute on the MBean
-     *
-     * @param name
-     * @param myAttribute
-     * @throws Exception
-     */
-    public void setAttribute(ObjectName name, Attribute myAttribute) throws Exception {
-        try {
-            // todo: logging  - JMXWrapperRemote:setAttribute called for "+name+" : "+ attributeName +" !");
-
-            // do INVOKE
-            getConnection().setAttribute(name, myAttribute);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new Exception("PROBLEM with JMXWrapperRemote:getAttribute: " + ex.getMessage());
-        }
-    }
-
-
-    /**
-     * @param name          ObjectName
-     * @param operationName String
-     * @param params        Object[]
-     * @param signature     String[]
-     * @return Object
-     * @throws Exception
-     */
-    public Object invoke(ObjectName name, String operationName, Object[] params, String[] signature) throws Exception {
-        try {
-            // todo: logging  - JMXWrapperRemote:invoke called for "+name+" : "+ operationName +" !");
-
-            if (params == null)
-                params = new Object[0];
-            if (signature == null)
-                signature = new String[0];
-
-            // do INVOKE
-            return getConnection().invoke(name, operationName, params, signature);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new Exception("PROBLEM with JMXWrapperRemote:invoke: " + ex.getMessage());
-        }
-    }
-
-
-    /**
-     * Init and open connection to an MBean server
-     *
-     * @param editmode boolean  Edit mode or not (this determines the MBEanserver instance !)
-     * @param url      String connection URL
-     * @param username String User
-     * @param password String Password
-     * @throws Exception
-     */
     private void initConnection(boolean editmode,
                                 boolean domainRuntime,
                                 String url,
@@ -193,22 +100,10 @@ public class JMXWrapperRemote implements JMXWrapper {
         }
     }
 
-
-    /**
-     * Is wrapper initialized
-     *
-     * @return boolean
-     */
     public boolean isInitialized() {
         return initialized;
     }
 
-    /**
-     * Start an edit session.
-     *
-     * @return ObjectName
-     * @throws Exception
-     */
     private ObjectName startEditSession() throws Exception {
         try {
             // do not set domain runtime
@@ -231,12 +126,6 @@ public class JMXWrapperRemote implements JMXWrapper {
         }
     }
 
-    /**
-     * Start a NON-edit session
-     *
-     * @return ObjectName
-     * @throws Exception
-     */
     private ObjectName startNONEditSession() throws Exception {
         try {
             ObjectName domainMBean = (ObjectName) getAttribute(service, "DomainConfiguration");
@@ -251,15 +140,6 @@ public class JMXWrapperRemote implements JMXWrapper {
     }
 
 
-    /**
-     * Conect to an admin server
-     *
-     * @param edit     boolean
-     * @param username String
-     * @param password String
-     * @param url      String
-     * @throws Exception
-     */
     public void connectToAdminServer(boolean edit,
                                      boolean domainRuntime,
                                      String username,
@@ -286,12 +166,6 @@ public class JMXWrapperRemote implements JMXWrapper {
         }
     }
 
-
-    /**
-     * Disconnect from Admin server
-     *
-     * @throws Exception
-     */
     public void disconnectFromAdminServer() throws Exception {
         try {
             // Close the connection with the MBean server.
@@ -309,42 +183,17 @@ public class JMXWrapperRemote implements JMXWrapper {
     }
 
 
-    /**
-     * The activate operation returns an ActivationTaskMBean.
-     * You can use the ActivationTaskMBean to track the progress
-     * of activating changes in the domain
-     *
-     * @return ObjectName
-     * @throws Exception
-     */
     private ObjectName activate() throws Exception {
-        try {
-            ObjectName cfgMgr = (ObjectName) getAttribute(service, "ConfigurationManager");
-            invoke(cfgMgr, "save", null, null);
-            ObjectName result = (ObjectName) invoke(cfgMgr, "activate", new Object[]{new Long(120000)}, new String[]{"java.lang.Long"});
-            return result;
-        } catch (Exception ex) {
-            throw new Exception("PROBLEM with JMXWrapper:activate: " + ex.getMessage());
-        }
+
+        return (ObjectName)invoke((ObjectName) getAttribute(service, "ConfigurationManager"), "activate", new Object[]{new Long(120000)}, new String[]{"java.lang.Long"});
     }
 
     private ObjectName cancelChanges() throws Exception {
-        try {
 
-            ObjectName cfgMgr = (ObjectName) getAttribute(service, "ConfigurationManager");
-            invoke(cfgMgr, "save", null, null);
-            ObjectName result = (ObjectName) invoke(cfgMgr, "cancelEdit", new Object[]{}, new String[]{});
-            return result;
-        } catch (Exception ex) {
-            throw new Exception("PROBLEM with JMXWrapper:cancelChanges: " + ex.getMessage());
-        }
+        return (ObjectName)invoke((ObjectName) getAttribute(service, "ConfigurationManager"), "cancelEdit", new Object[]{}, new String[]{});
     }
 
-    /**
-     * Disconnect from Admin server
-     *
-     * @throws Exception
-     */
+
     public void disconnectFromAdminServer(boolean activate) throws Exception {
         try {
             if (isEdit)
@@ -368,120 +217,6 @@ public class JMXWrapperRemote implements JMXWrapper {
     }
 
 
-    /**
-     * Get the main Values for the connected domain
-     *
-     * @return Hashtable<String,String>
-     * @throws Exception
-     */
-    public Hashtable<String, String> getMainServerDomainValues() throws Exception {
-        try {
-            Hashtable<String, String> result = new Hashtable<String, String>();
-            ObjectName domainMBean = (ObjectName) getAttribute(service, "DomainConfiguration");
-
-            String serverName = (String) getAttribute(service, "ServerName");
-
-            String adminServerName = (String) getAttribute(domainMBean, "AdminServerName");
-            String domainName = domainMBean.getKeyProperty("Name");
-            String domainRoot = (String) getAttribute(domainMBean, "RootDirectory");
-
-            result.put("serverName", serverName);
-            result.put("adminServerName", adminServerName);
-            result.put("domainName", domainName);
-            result.put("domainRoot", domainRoot);
-            result.put("domainBase", domainRoot.substring(0, domainRoot.length() - (domainName.length() + 1)));
-
-            // check if server is adminserver
-            try {
-                ObjectName serverRuntime = (ObjectName) getAttribute(service, "ServerRuntime");
-                result.put("connectedToAdminServer", getAttribute(serverRuntime, "AdminServer").toString());
-            } catch (Exception ex) {
-                System.out.println("Uppps: Attribute AdminServer not found on (" + service.toString() + ")!\n");
-                result.put("connectedToAdminServer", "false");
-            }
-
-            return result;
-        } catch (Exception ex) {
-            //LogUtils.getLogger(LogUtils.JMX_LAYER).error("PROBLEM with JMXWrapperRemote:getMainServerDomainValues: " + ex.getMessage(), ex);
-            throw new Exception("PROBLEM with JMXWrapperRemote:getMainServerDomainValues: " + ex.getMessage());
-        }
-    }
-
-
-    /**
-     * Get the list of managed Server MBEANS (here the ObjectNames) without the adminserver
-     *
-     * @return Hashtable<String,String>
-     * @throws Exception
-     */
-    public ArrayList<ObjectName> getManagedServerObjectNames() throws Exception {
-        try {
-            ArrayList<ObjectName> result = new ArrayList<ObjectName>();
-
-
-            ObjectName domainMBean = (ObjectName) getAttribute(service, "DomainConfiguration");
-            String adminServerName = (String) getAttribute(domainMBean, "AdminServerName");
-
-            ObjectName[] serverRuntimes = (ObjectName[]) getAttribute(domainMBean, "Servers");
-            for (int i = 0; i < serverRuntimes.length; i++) {
-                String tmp = serverRuntimes[i].getKeyProperty("Name");
-                if (!tmp.equals(adminServerName))
-                    result.add(serverRuntimes[i]);
-            }
-
-            return result;
-        } catch (Exception ex) {
-            throw new Exception("PROBLEM with JMXWrapperRemote:getManagedServerObjectNames: " + ex.getMessage());
-        }
-    }
-
-    /**
-     * Get the list of managed Server MBEANS (here the ObjectNames) without the adminserver
-     *
-     * @return ArrayList<String>
-     * @throws Exception
-     */
-    public ArrayList<String> getManagedServerNames() throws Exception {
-        try {
-            ArrayList<String> result = new ArrayList<String>();
-
-
-            ObjectName domainMBean = (ObjectName) getAttribute(service, "DomainConfiguration");
-            String adminServerName = (String) getAttribute(domainMBean, "AdminServerName");
-
-            ObjectName[] serverRuntimes = (ObjectName[]) getAttribute(domainMBean, "Servers");
-            for (int i = 0; i < serverRuntimes.length; i++) {
-                String tmp = serverRuntimes[i].getKeyProperty("Name");
-                if (!tmp.equals(adminServerName))
-                    result.add(tmp);
-            }
-
-            return result;
-        } catch (Exception ex) {
-            throw new Exception("PROBLEM with JMXWrapperRemote:getManagedServerNames: " + ex.getMessage());
-        }
-    }
-
-    /**
-     * Get the runtime state of one managed server.
-     *
-     * @param serverName String
-     * @return String
-     * @throws Exception
-     */
-    public String getServerState(String serverName) throws Exception {
-        try {
-
-            //ObjectName serverRuntimeObjectName = new ObjectName("com.bea:Location=" +serverName + ",Name=" + serverName + ",Type=ServerRuntime");
-            ObjectName serverRuntimeObjectName = new ObjectName("com.bea:Name=" + serverName + ",Type=ServerLifeCycleRuntime");
-
-            return (String) getAttribute(serverRuntimeObjectName, "State");
-        } catch (Exception ex) {
-            return "_UNKNOWN_ERROR_";
-        }
-    }
-
-
     public ObjectName getServerRuntime(String serverName) throws Exception {
 
         try {
@@ -494,46 +229,10 @@ public class JMXWrapperRemote implements JMXWrapper {
         }
     }
 
-    /**
-     * Returns connection
-     *
-     * @return MBeanServerConnection
-     */
-    public MBeanServerConnection getConnection() {
-        return connection;
-    }
 
-    /**
-     * Get the actual connector
-     *
-     * @return JMXConnector
-     */
     public JMXConnector getConnector() {
         return connector;
     }
-
-    /**
-     * Get the service object name
-     *
-     * @return ObjectName
-     */
-    public ObjectName getService() {
-        return service;
-    }
-
-    /**
-     * Returns the JMX-ObjectName for the domain root MBean
-     *
-     * @return ObjectName
-     */
-    public ObjectName getDomainConfigRoot() {
-        return domainConfigRoot;
-    }
-
-    public ObjectName getDomainRuntimeRoot() {
-        return domainRuntimeRoot;
-    }
-
 
     public String getRemoteProtocol() {
         return protocol;
