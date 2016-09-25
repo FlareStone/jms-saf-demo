@@ -1,6 +1,5 @@
 package me.yekki.jms.cmd;
 
-
 import me.yekki.jms.AppConfig;
 import me.yekki.jms.JMSCommand;
 

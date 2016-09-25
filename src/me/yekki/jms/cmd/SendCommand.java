@@ -20,11 +20,7 @@ public class SendCommand extends JMSCommand {
     public SendCommand(AppConfig config) {
 
         this.config = config;
-        this.total = total;
-
-        if (total <= 0) total = 1;
-
-        if (config.getCommandLine().hasOption("n")) total = Integer.parseInt(config.getCommandLine().getOptionValue("n"));
+        this.total = config.getMessageCount();
     }
 
     @Override
@@ -76,7 +72,7 @@ public class SendCommand extends JMSCommand {
         @Override
         public void run() {
 
-            JMSClient client = new JMSClient(config);
+            JMSClient client = JMSClient.newJMSClient(config);
             for (int i = 0; i < count; i++) client.send(msg);
             client.close();
         }

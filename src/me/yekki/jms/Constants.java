@@ -13,27 +13,48 @@ public interface Constants {
     static final String MESSAGE_SIZE_KEY = "MESSAGE_SIZE";
     static final String FILE_STORE_PATH_KEY = "FILE_STORE_PATH";
     static final String MESSAGE_CONTENT_KEY = "MESSAGE_CONTENT";
-    static final String MESSAGE_TYPE_KEY="MESSAGE_TYPE";
-    static final String MESSAGE_FILENAME_KEY="MESSAGE_FILENAME";
+    static final String MESSAGE_TYPE_KEY = "MESSAGE_TYPE";
+    static final String MESSAGE_FILENAME_KEY = "MESSAGE_FILENAME";
     static final String SENDER_CONFIG_FILE_KEY = "SENDER_CONFIG_FILE";
     static final String RECEIVER_CONFIG_FILE_KEY = "RECEIVER_CONFIG_FILE";
-     static final String SENDER_THREADS_KEY = "SENDER_THREADS";
-     static final String DELIVERY_MODE_KEY = "DELIVERY_MODE";
+    static final String MONITOR_KEY="MONITOR";
+    static final String SENDER_THREADS_KEY = "SENDER_THREADS";
+    static final String DELIVERY_MODE_KEY = "DELIVERY_MODE";
     static final String APP_CONFIG_FILE = "app.properties";
 
     //config files
     static final String JMS_CONFIG_FILE = "jms.properties";
+
+    public static enum MessageType {
+
+        Text, Binary, File;
+
+        public static MessageType getMessageType(String type) {
+            switch (type) {
+                case "Text":
+                    return Text;
+                case "Binary":
+                    return Binary;
+                case "File":
+                    return File;
+                default:
+                    return Text;
+            }
+        }
+    }
 
     public static enum Role {
         Receiver(RECEIVER_CONFIG_FILE_KEY, null), Cleaner(RECEIVER_CONFIG_FILE_KEY, CleanJMXCommand.class), Sender(Constants.SENDER_CONFIG_FILE_KEY, SendCommand.class), Monitor(RECEIVER_CONFIG_FILE_KEY, MonitorJMXCommand.class), Helper(null, null), Installer(RECEIVER_CONFIG_FILE_KEY, InstallJMXCommand.class), Uninstaller(RECEIVER_CONFIG_FILE_KEY, UninstallJMXCommand.class), StoreAdmin(null, StoreAdminCommand.class);
 
         private String configFileKey;
         private Class commandClass;
+        private String description;
 
         Role(String configFileKey, Class commandClass) {
 
             this.configFileKey = configFileKey;
             this.commandClass = commandClass;
+            this.description = "";
         }
 
         public String getConfigFileKey() {
@@ -44,6 +65,20 @@ public interface Constants {
         public Class getCommandClass() {
 
             return commandClass;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+
+            return description;
+        }
+
+        public String toString() {
+
+            return super.toString() + description;
         }
 
         public static Role getRole(String optArg) {

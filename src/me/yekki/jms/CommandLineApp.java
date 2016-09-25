@@ -8,9 +8,11 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.logging.Logger;
 
-public class CommandLine {
+import static me.yekki.jms.Constants.Role.Sender;
 
-    private static Logger logger = Logger.getLogger(CommandLine.class.getName());
+public class CommandLineApp {
+
+    private static Logger logger = Logger.getLogger(CommandLineApp.class.getName());
     private static org.apache.commons.cli.CommandLine cmd;
     private static Options options;
 

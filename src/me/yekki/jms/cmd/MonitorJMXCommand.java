@@ -21,7 +21,7 @@ public class MonitorJMXCommand extends JMXCommand {
     public void execute() throws JMSClientException {
 
         try {
-            String m = config.getProperty("MONITOR", "");
+            String m = config.getProperty(MONITOR_KEY, "");
             String[] meta = m.split(":");
 
             if (null != meta && meta.length >= 1) {

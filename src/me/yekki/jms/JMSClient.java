@@ -1,22 +1,22 @@
 package me.yekki.jms;
 
-import me.yekki.jms.cmd.*;
+import me.yekki.jms.cmd.HelpCommand;
 import org.apache.commons.cli.CommandLine;
 
 import javax.jms.*;
 import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.Hashtable;
+
+import static me.yekki.jms.Constants.Role.Sender;
 
 public class JMSClient implements AutoCloseable, Constants {
 
     protected ConnectionFactory connectionFactory;
     protected Destination destination;
     protected JMSContext context;
-    protected Context ctx;
     protected AppConfig config;
     protected JMSConsumer consumer;
     protected JMSProducer producer;
@@ -24,10 +24,18 @@ public class JMSClient implements AutoCloseable, Constants {
     public static Role execute(CommandLine cmd) {
 
         AppConfig config = AppConfig.newConfig(cmd);
-
+        Role role = config.getRole();
         Thread thread = null;
 
         Class clz = config.getRole().getCommandClass();
+
+        if (role == Sender) {
+            MessageType msgType = config.getMessageType();
+            int msgCount = config.getMessageCount();
+            int threadCount = config.getProperty(Constants.SENDER_THREADS_KEY, -1);
+            String model = config.getDeliveryMode();
+            role.setDescription(String.format("(Type:%s, Mode:%s, Count:%d, Threads:%d)", msgType, model, msgCount, threadCount));
+        }
 
         try {
             if (clz == null) {
@@ -44,21 +52,21 @@ public class JMSClient implements AutoCloseable, Constants {
             e.printStackTrace();
         }
 
-        return config.getRole();
+        return role;
     }
 
-    public JMSClient(AppConfig config) {
+    public static JMSClient newJMSClient(AppConfig config) {
+
+        return new JMSClient(config);
+    }
+
+    private JMSClient(AppConfig config) {
 
         this.config = config;
 
         Role role = config.getRole();
         Hashtable<String, String> env = config.getEnvironment();
-
-        try {
-            ctx = new InitialContext(env);
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
+        Context ctx = config.getInitialContext();
 
         try {
             connectionFactory = (ConnectionFactory) ctx.lookup(env.get(CONNECTON_FACTORY_KEY));
@@ -84,11 +92,6 @@ public class JMSClient implements AutoCloseable, Constants {
     public AppConfig getAppConfig() {
 
         return config;
-    }
-
-    public Context getInitialContext() {
-
-        return ctx;
     }
 
     public JMSContext getJMSContext() {

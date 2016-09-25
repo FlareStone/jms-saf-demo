@@ -1,7 +1,5 @@
 package me.yekki.jms.cmd;
 
-
-import me.yekki.JMSClientException;
 import me.yekki.jms.AppConfig;
 import me.yekki.jms.JMSCommand;
 import org.apache.commons.cli.HelpFormatter;
