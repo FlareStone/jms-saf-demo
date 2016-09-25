@@ -1,4 +1,4 @@
-package me.yekki;
+package me.yekki.jms;
 
 
 public class JMSClientException extends Exception {

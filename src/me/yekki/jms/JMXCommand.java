@@ -1,7 +1,6 @@
 package me.yekki.jms;
 
 
-import me.yekki.JMSClientException;
 import me.yekki.jmx.utils.JMXWrapperRemote;
 
 import javax.naming.Context;

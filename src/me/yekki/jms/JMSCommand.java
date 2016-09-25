@@ -1,8 +1,6 @@
 package me.yekki.jms;
 
 
-import me.yekki.JMSClientException;
-
 public abstract class JMSCommand implements Command {
 
     @Override
