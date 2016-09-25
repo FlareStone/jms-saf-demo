@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -29,12 +29,12 @@ public class JNDIProviderConfiguration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public JNDIProviderConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public JNDIProviderConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
 
-    public void createForeignJNDIProvider(String providerName, ObjectName[] targets, java.util.Properties properties) throws WLSAutomationException {
+    public void createForeignJNDIProvider(String providerName, ObjectName[] targets, java.util.Properties properties) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -80,14 +80,14 @@ public class JNDIProviderConfiguration {
                 if (properties.containsKey("REMOTEJNDINAME"))
                     myJMXWrapper.setAttribute(myForeignLinkMBean, new Attribute("RemoteJNDIName", properties.get("REMOTEJNDINAME")));
             } else
-                throw new WLSAutomationException("Foreign JNDI provider " + providerName + " already exist  -  cannot create !");
+                throw new WLSJMXException("Foreign JNDI provider " + providerName + " already exist  -  cannot create !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
-    public void deleteForeignJNDIProvider(String providerName) throws WLSAutomationException {
+    public void deleteForeignJNDIProvider(String providerName) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -101,12 +101,12 @@ public class JNDIProviderConfiguration {
                 // Operation: java.lang.Void  destroyForeignJNDIProvider(provider:javax.management.ObjectName  )
                 myJMXWrapper.invoke(myDomainMBean, "destroyForeignJNDIProvider", new Object[]{new String(providerName)}, new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("Foreign JNDI provider " + providerName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("Foreign JNDI provider " + providerName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 

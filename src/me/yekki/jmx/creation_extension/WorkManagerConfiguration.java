@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -30,14 +30,14 @@ public class WorkManagerConfiguration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public WorkManagerConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public WorkManagerConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
 
     // Operation: javax.management.ObjectName  createMinThreadsConstraint(name:java.lang.String  )
     // Operation: javax.management.ObjectName  lookupMinThreadsConstraint(name:java.lang.String  )
-    public ObjectName createMinThreadsConstraint(String newName, int count, ObjectName[] targets) throws WLSAutomationException {
+    public ObjectName createMinThreadsConstraint(String newName, int count, ObjectName[] targets) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -59,18 +59,18 @@ public class WorkManagerConfiguration {
                 if (targets != null)
                     myJMXWrapper.setAttribute(myMinThreadsConstraint, new Attribute("Targets", targets));
             } else
-                throw new WLSAutomationException("MinThreadsConstraint with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("MinThreadsConstraint with name " + newName + " already exist  -  cannot create !");
 
             return myMinThreadsConstraint;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Operation: javax.management.ObjectName  createMaxThreadsConstraint(name:java.lang.String  )
     // Operation: javax.management.ObjectName  lookupMaxThreadsConstraint(name:java.lang.String  )
-    public ObjectName createMaxThreadsConstraint(String newName, int count, ObjectName[] targets) throws WLSAutomationException {
+    public ObjectName createMaxThreadsConstraint(String newName, int count, ObjectName[] targets) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -92,18 +92,18 @@ public class WorkManagerConfiguration {
                 if (targets != null)
                     myJMXWrapper.setAttribute(myMaxThreadsConstraint, new Attribute("Targets", targets));
             } else
-                throw new WLSAutomationException("MaxThreadsConstraint with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("MaxThreadsConstraint with name " + newName + " already exist  -  cannot create !");
 
             return myMaxThreadsConstraint;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Operation: javax.management.ObjectName  createResponseTimeRequestClass(name:java.lang.String  )
     // Operation: javax.management.ObjectName  lookupResponseTimeRequestClass(name:java.lang.String  )
-    public ObjectName createResponseTimeRequestClass(String newName, int goalMs, ObjectName[] targets) throws WLSAutomationException {
+    public ObjectName createResponseTimeRequestClass(String newName, int goalMs, ObjectName[] targets) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -125,18 +125,18 @@ public class WorkManagerConfiguration {
                 if (targets != null)
                     myJMXWrapper.setAttribute(myResponseTimeRequestClass, new Attribute("Targets", targets));
             } else
-                throw new WLSAutomationException("ResponseTimeRequestClass with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("ResponseTimeRequestClass with name " + newName + " already exist  -  cannot create !");
 
             return myResponseTimeRequestClass;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Operation: javax.management.ObjectName  createCapacity(name:java.lang.String  )
     // Operation: javax.management.ObjectName  lookupCapacity(name:java.lang.String  )
-    public ObjectName createCapacity(String newName, int count, ObjectName[] targets) throws WLSAutomationException {
+    public ObjectName createCapacity(String newName, int count, ObjectName[] targets) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -158,18 +158,18 @@ public class WorkManagerConfiguration {
                 if (targets != null)
                     myJMXWrapper.setAttribute(myCapacity, new Attribute("Targets", targets));
             } else
-                throw new WLSAutomationException("Capacity with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("Capacity with name " + newName + " already exist  -  cannot create !");
 
             return myCapacity;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Operation: javax.management.ObjectName  createFairShareRequestClass(name:java.lang.String  )
     // Operation: javax.management.ObjectName  lookupFairShareRequestClass(name:java.lang.String  )
-    public ObjectName createFairShareRequestClass(String newName, int fairShare, ObjectName[] targets) throws WLSAutomationException {
+    public ObjectName createFairShareRequestClass(String newName, int fairShare, ObjectName[] targets) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -191,18 +191,18 @@ public class WorkManagerConfiguration {
                 if (targets != null)
                     myJMXWrapper.setAttribute(myFairShareRequestClass, new Attribute("Targets", targets));
             } else
-                throw new WLSAutomationException("FairShareRequestClass with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("FairShareRequestClass with name " + newName + " already exist  -  cannot create !");
 
             return myFairShareRequestClass;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Operation: javax.management.ObjectName  createContextRequestClass(name:java.lang.String  )
     // Operation: javax.management.ObjectName  lookupContextRequestClass(name:java.lang.String  )
-    public ObjectName createContextRequestClass(String newName, ArrayList<ContextCaseData> myContextList, ObjectName[] targets) throws WLSAutomationException {
+    public ObjectName createContextRequestClass(String newName, ArrayList<ContextCaseData> myContextList, ObjectName[] targets) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -238,11 +238,11 @@ public class WorkManagerConfiguration {
                 if (targets != null)
                     myJMXWrapper.setAttribute(myContextRequestClass, new Attribute("Targets", targets));
             } else
-                throw new WLSAutomationException("ContextRequestClass with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("ContextRequestClass with name " + newName + " already exist  -  cannot create !");
 
             return myContextRequestClass;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
@@ -259,7 +259,7 @@ public class WorkManagerConfiguration {
                                         ObjectName myContextRequestClass,
                                         ObjectName myCapacity
                                         // !!!!!!!  WorkManagerShutdownTrigger missing
-    ) throws WLSAutomationException {
+    ) throws WLSJMXException {
         try {   // lookup selftuning
             ObjectName mySelfTuning = lookupSelfTuning();
 
@@ -300,23 +300,23 @@ public class WorkManagerConfiguration {
 
                 // WorkManagerShutdownTrigger MISSING !!!
             } else
-                throw new WLSAutomationException("WorkManager with name " + newName + " already exist  -  cannot create !");
+                throw new WLSJMXException("WorkManager with name " + newName + " already exist  -  cannot create !");
 
             return myWorkManager;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    private ObjectName lookupSelfTuning() throws WLSAutomationException {
+    private ObjectName lookupSelfTuning() throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
 
             return (ObjectName) myJMXWrapper.getAttribute(myDomainMBean, "SelfTuning");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 

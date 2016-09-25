@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -41,7 +41,7 @@ public class ServerAndMachineConfiguration {
      * Configure a new unix machine
      * @throws Exception
      */
-    public void createUnixMachine(String machinename) throws WLSAutomationException {
+    public void createUnixMachine(String machinename) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot(); // new ObjectName("com.bea:Name=" + domainName +",Type=Domain");
@@ -70,7 +70,7 @@ public class ServerAndMachineConfiguration {
             myJMXWrapper.setAttribute(myNodemanagerMBean, new Attribute("DebugEnabled", new Boolean("false")));
         } catch (Exception ex) {
             System.out.println("Error while createUnixMachine (" + machinename + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
@@ -143,12 +143,12 @@ public class ServerAndMachineConfiguration {
             myJMXWrapper.setAttribute(myManagedServerServerStartMBean, new Attribute("JavaHome", "/opt/jdks/jdk1.6"));
         } catch (Exception ex) {
             System.out.println("Error while createManagedServer (" + servername + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
-    public void renameMachineName() throws WLSAutomationException {
+    public void renameMachineName() throws WLSJMXException {
         // change machine names
         try {
             // get domain configuration mbean
@@ -266,7 +266,7 @@ public class ServerAndMachineConfiguration {
                         System.out.println("NO machine found for Server = " + serverName);
                 } catch (Exception ex) {
                     System.out.println("Problem in SwitchAllMachinesStep:executeStep " + ex);
-                    throw new WLSAutomationException(ex.getMessage());
+                    throw new WLSJMXException(ex.getMessage());
                 }
             }
 
@@ -281,14 +281,14 @@ public class ServerAndMachineConfiguration {
             }
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // utility function to check weather a machine still has
     // managed-server assigned to it
-    public boolean machineHostsManagedServer(String machineName) throws WLSAutomationException {
+    public boolean machineHostsManagedServer(String machineName) throws WLSJMXException {
         boolean machineHasServers = false;
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
@@ -311,13 +311,13 @@ public class ServerAndMachineConfiguration {
             return machineHasServers;
         } catch (Exception ex) {
             System.out.println("Error while machineHostsManagedServer (" + machineName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // utility function to get the servers hosted on a special machine
-    public ArrayList<ObjectName> getServersOfMachine(String machineName) throws WLSAutomationException {
+    public ArrayList<ObjectName> getServersOfMachine(String machineName) throws WLSJMXException {
         ArrayList<ObjectName> resultList = new ArrayList<ObjectName>();
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
@@ -338,13 +338,13 @@ public class ServerAndMachineConfiguration {
             return resultList;
         } catch (Exception ex) {
             System.out.println("Error while machineHostsManagedServer (" + machineName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // utility function to check weather a cluster still has members
-    public boolean clusterHasManagedServers(String clusterName) throws WLSAutomationException {
+    public boolean clusterHasManagedServers(String clusterName) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot(); // new ObjectName("com.bea:Name=" + domainName +",Type=Domain");
@@ -352,7 +352,7 @@ public class ServerAndMachineConfiguration {
             ObjectName myCluster = (ObjectName) myJMXWrapper.invoke(myDomainMBean, "lookupCluster", new Object[]{clusterName}, new String[]{String.class.getName()});
 
             if (myCluster == null)
-                throw new WLSAutomationException("Cluster " + clusterName + " does not exist !");
+                throw new WLSJMXException("Cluster " + clusterName + " does not exist !");
             else {
                 //  Attribute: Servers   of Type : [Ljavax.management.ObjectName;
                 ObjectName[] clusterMembers = (ObjectName[]) myJMXWrapper.getAttribute(myCluster, "Servers");
@@ -362,12 +362,12 @@ public class ServerAndMachineConfiguration {
                 else
                     return true;  // at least one member found;
             }
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             // just re-throw
             throw ex;
         } catch (Exception ex) {
             System.out.println("Error while clusterHasManagedServers (" + clusterName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
 
     }
@@ -391,7 +391,7 @@ public class ServerAndMachineConfiguration {
     // delete a specific managed-server or if 'None' is passed as argument delete all managed-servers
     // note that optionally the system can check if datasources, JMS providers or applications are still
     // hosted on this server - then it will not delete it unless you pass true for the second option
-    public void deleteManagedServer(String managedServerName, boolean deleteAlsoIfDependenciesExist) throws WLSAutomationException {
+    public void deleteManagedServer(String managedServerName, boolean deleteAlsoIfDependenciesExist) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot(); // new ObjectName("com.bea:Name=" + domainName +",Type=Domain");
@@ -400,15 +400,15 @@ public class ServerAndMachineConfiguration {
             ObjectName myServer = (ObjectName) myJMXWrapper.invoke(myDomainMBean, "lookupServer", new Object[]{managedServerName}, new String[]{String.class.getName()});
 
             if (myServer == null)
-                throw new WLSAutomationException("Server " + managedServerName + " does not exist !");
+                throw new WLSJMXException("Server " + managedServerName + " does not exist !");
             else {
                 // server exists
                 if (!deleteAlsoIfDependenciesExist) {
                     // check for dependencies
                     if (managedserverHostsApplications(managedServerName))
-                        throw new WLSAutomationException("Applications still deployed on server " + managedServerName + " - cannot delete !");
+                        throw new WLSJMXException("Applications still deployed on server " + managedServerName + " - cannot delete !");
                     if (managedserverHostsDatasources(managedServerName))
-                        throw new WLSAutomationException("Datasources still deployed on server " + managedServerName + " - cannot delete !");
+                        throw new WLSJMXException("Datasources still deployed on server " + managedServerName + " - cannot delete !");
                 }
 
                 // ok, can delete
@@ -423,12 +423,12 @@ public class ServerAndMachineConfiguration {
                 myJMXWrapper.invoke(myDomainMBean, "destroyServer", new Object[]{myServer}, new String[]{ObjectName.class.getName()});
             }
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             // just re-throw
             throw ex;
         } catch (Exception ex) {
             System.out.println("Error while deleteManagedServer (" + managedServerName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
 
     }
@@ -438,7 +438,7 @@ public class ServerAndMachineConfiguration {
     // note that optionally the system can check if managed-servers are still members of this cluster.
     // In this case it will not delete it unless you pass true for the second option. In the later case this
     // function has to detach the server(s) from the cluster first, otherwise it cannot be deleted
-    public void deleteCluster(String clusterName, boolean deleteAlsoIfDependenciesExist) throws WLSAutomationException {
+    public void deleteCluster(String clusterName, boolean deleteAlsoIfDependenciesExist) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot(); // new ObjectName("com.bea:Name=" + domainName +",Type=Domain");
@@ -446,13 +446,13 @@ public class ServerAndMachineConfiguration {
             ObjectName myCluster = (ObjectName) myJMXWrapper.invoke(myDomainMBean, "lookupCluster", new Object[]{clusterName}, new String[]{String.class.getName()});
 
             if (myCluster == null)
-                throw new WLSAutomationException("Cluster " + clusterName + " does not exist !");
+                throw new WLSJMXException("Cluster " + clusterName + " does not exist !");
             else {
                 // cluster exists
                 if (!deleteAlsoIfDependenciesExist) {
                     // check for dependencies
                     if (clusterHasManagedServers(clusterName))
-                        throw new WLSAutomationException("Cluster " + clusterName + " still has server members - cannot delete !");
+                        throw new WLSJMXException("Cluster " + clusterName + " still has server members - cannot delete !");
                 }
 
                 // ok delete cluster
@@ -468,12 +468,12 @@ public class ServerAndMachineConfiguration {
                 System.out.println("Cluster " + clusterName + " will be destroyed !");
                 myJMXWrapper.invoke(myDomainMBean, "destroyCluster", new Object[]{myCluster}, new String[]{ObjectName.class.getName()});
             }
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             // just re-throw
             throw ex;
         } catch (Exception ex) {
             System.out.println("Error while deleteCluster (" + clusterName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
 
     }
@@ -482,7 +482,7 @@ public class ServerAndMachineConfiguration {
     // delete a specific machine or if 'None' is passed as argument delete all machines
     // note that optionally the system can check if managed-servers are still hosted on this machine.
     // In this case it will not delete it unless you pass true for the second option
-    public void deleteMachine(String machineName, boolean deleteAlsoIfDependenciesExist) throws WLSAutomationException {
+    public void deleteMachine(String machineName, boolean deleteAlsoIfDependenciesExist) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot(); // new ObjectName("com.bea:Name=" + domainName +",Type=Domain");
@@ -490,13 +490,13 @@ public class ServerAndMachineConfiguration {
             ObjectName myMachine = (ObjectName) myJMXWrapper.invoke(myDomainMBean, "lookupMachine", new Object[]{machineName}, new String[]{String.class.getName()});
 
             if (myMachine == null)
-                throw new WLSAutomationException("Machine " + machineName + " does not exist !");
+                throw new WLSJMXException("Machine " + machineName + " does not exist !");
             else {
                 // cluster exists
                 if (!deleteAlsoIfDependenciesExist) {
                     // check for dependencies
                     if (machineHostsManagedServer(machineName))
-                        throw new WLSAutomationException("Machine " + machineName + " still has server members - cannot delete !");
+                        throw new WLSJMXException("Machine " + machineName + " still has server members - cannot delete !");
                 }
 
                 // ok delete machine
@@ -508,12 +508,12 @@ public class ServerAndMachineConfiguration {
                 System.out.println("Machine " + machineName + " will be destroyed !");
                 myJMXWrapper.invoke(myDomainMBean, "destroyMachine", new Object[]{myMachine}, new String[]{ObjectName.class.getName()});
             }
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             // just re-throw
             throw ex;
         } catch (Exception ex) {
             System.out.println("Error while deleteMachine (" + machineName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
 
     }

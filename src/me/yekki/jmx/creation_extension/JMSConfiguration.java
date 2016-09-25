@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -30,7 +30,7 @@ public class JMSConfiguration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public JMSConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public JMSConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
@@ -40,7 +40,7 @@ public class JMSConfiguration {
 
     //  create s filestore with a provided name
     // must be called on EDIT mbeanserver
-    public ObjectName createFileStore(String fileStoreName, String wlsServerName, String path) throws WLSAutomationException {
+    public ObjectName createFileStore(String fileStoreName, String wlsServerName, String path) throws WLSJMXException {
         try {
             // get the domain config root
             ObjectName domainRoot = myJMXWrapper.getDomainConfigRoot();
@@ -55,7 +55,7 @@ public class JMSConfiguration {
             return newFileStore;
         } catch (Exception ex) {
             System.out.println("Error while createFileStore (" + fileStoreName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class JMSConfiguration {
     // create a JMS server
     // defines a JMS server and target it
     // must be called on EDIT mbeanserver
-    public void createAnewJMSServer(String jmsServerName, ObjectName fileStoreName, String wlsServerName) throws WLSAutomationException {
+    public void createAnewJMSServer(String jmsServerName, ObjectName fileStoreName, String wlsServerName) throws WLSJMXException {
         try {
 
             // get the domain config root
@@ -101,13 +101,13 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(newJMSServerLogFile, new Attribute("FileName", new String(jmsServerName + ".log")));
         } catch (Exception ex) {
             System.out.println("Error while createAnewJMSServer (" + jmsServerName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // creating a JMS module
-    public void createJMSModule(String jmsModuleName, String targetType, String targetName) throws WLSAutomationException {
+    public void createJMSModule(String jmsModuleName, String targetType, String targetName) throws WLSJMXException {
         try {
             // get the domain config root
             ObjectName domainRoot = myJMXWrapper.getDomainConfigRoot();
@@ -119,13 +119,13 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(newJMSModule, new Attribute("Targets", new ObjectName[]{new ObjectName("com.bea:Name=" + targetName + ",Type=" + targetType)}));
         } catch (Exception ex) {
             System.out.println("Error while createJMSModule (" + jmsModuleName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // create a connection factory
-    public void createJmsConnectionFactory(String jmsModuleName, String connectionFactoryName, String jmsJNDIname) throws WLSAutomationException {
+    public void createJmsConnectionFactory(String jmsModuleName, String connectionFactoryName, String jmsJNDIname) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -154,12 +154,12 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(myJMSModuleConnDefaultDeliveryParams, new Attribute("DefaultPriority", new Integer(2)));
         } catch (Exception ex) {
             System.out.println("Error while createJmsConnectionFactory (" + jmsModuleName + ":" + connectionFactoryName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
-    public void createJms_XA_ConnectionFactory(String jmsModuleName, String connectionFactoryName, String jmsJNDIname) throws WLSAutomationException {
+    public void createJms_XA_ConnectionFactory(String jmsModuleName, String connectionFactoryName, String jmsJNDIname) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -186,13 +186,13 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(myJMSModuleConnTransactionParams, new Attribute("XAConnectionFactoryEnabled", new Boolean(true)));
         } catch (Exception ex) {
             System.out.println("Error while createJms_XA_ConnectionFactory (" + jmsModuleName + ":" + connectionFactoryName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // create a subdeployment
-    public void createJMSSubDeployment(String jmsModuleName, String subDeploymentName, String targetName) throws WLSAutomationException {
+    public void createJMSSubDeployment(String jmsModuleName, String subDeploymentName, String targetName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -208,13 +208,13 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(myJMSModuleSubDeploy, new Attribute("Targets", new ObjectName[]{new ObjectName("com.bea:Name=" + targetName + ",Type=JMSServer")}));
         } catch (Exception ex) {
             System.out.println("Error while createJMSSubDeployment (" + jmsModuleName + ":" + subDeploymentName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // Creating queue
-    public void createQueue(String jmsModuleName, String queueName, String jndiQueueName, String subDeploymentName) throws WLSAutomationException {
+    public void createQueue(String jmsModuleName, String queueName, String jndiQueueName, String subDeploymentName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -230,13 +230,13 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(myJMSQueue, new Attribute("SubDeploymentName", new String(subDeploymentName)));
         } catch (Exception ex) {
             System.out.println("Error while createQueue (" + jmsModuleName + ":" + queueName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // create queue with error handling
-    public void createQueueWithErrorHandling(String jmsModuleName, String queueName, String jndiQueueName, String subDeploymentName, String errorQueueName) throws WLSAutomationException {
+    public void createQueueWithErrorHandling(String jmsModuleName, String queueName, String jndiQueueName, String subDeploymentName, String errorQueueName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -264,13 +264,13 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(myQueueDeliveryFailureParams, new Attribute("ErrorDestination", errorQueue));
         } catch (Exception ex) {
             System.out.println("Error while createQueueWithErrorHandling (" + jmsModuleName + ":" + queueName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // Creating Topic
-    public void createTopic(String jmsModuleName, String topicName, String jndiTopicName, String subDeploymentName) throws WLSAutomationException {
+    public void createTopic(String jmsModuleName, String topicName, String jndiTopicName, String subDeploymentName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -286,14 +286,14 @@ public class JMSConfiguration {
             myJMXWrapper.setAttribute(myJMSTopic, new Attribute("SubDeploymentName", new String(subDeploymentName)));
         } catch (Exception ex) {
             System.out.println("Error while createTopic (" + jmsModuleName + ":" + topicName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // ###########################################  DESTROY #################################################
 
-    public void destroyFileStore(String fileStoreName) throws WLSAutomationException {
+    public void destroyFileStore(String fileStoreName) throws WLSJMXException {
         try {
             // get the domain config root
             ObjectName domainRoot = myJMXWrapper.getDomainConfigRoot();
@@ -305,12 +305,12 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(domainRoot, "destroyFileStore", new Object[]{myFileStore}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyFileStore (" + fileStoreName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
     // destroy a JMS server
-    public void destroyJMSServer(String jmsServerName) throws WLSAutomationException {
+    public void destroyJMSServer(String jmsServerName) throws WLSJMXException {
         try {
             // get the domain config root
             ObjectName domainRoot = myJMXWrapper.getDomainConfigRoot();
@@ -322,13 +322,13 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(domainRoot, "destroyJMSServer", new Object[]{myJMSServer}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyJMSServer (" + jmsServerName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // delete a JMS module
-    public void destroyJMSModule(String jmsModuleName) throws WLSAutomationException {
+    public void destroyJMSModule(String jmsModuleName) throws WLSJMXException {
         try {
             // get the domain config root
             ObjectName domainRoot = myJMXWrapper.getDomainConfigRoot();
@@ -340,13 +340,13 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(domainRoot, "destroyJMSSystemResource", new Object[]{myJMSModule}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyJMSModule (" + jmsModuleName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // destroy a connection factory
-    public void destroyJmsConnectionFactory(String jmsModuleName, String connectionFactoryName) throws WLSAutomationException {
+    public void destroyJmsConnectionFactory(String jmsModuleName, String connectionFactoryName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -361,13 +361,13 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(myJMSModuleResource, "destroyConnectionFactory", new Object[]{myJMSConnFactory}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyJmsConnectionFactory (" + jmsModuleName + ":" + connectionFactoryName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // destroy a subdeployment
-    public void destroyJMSSubDeployment(String jmsModuleName, String subDeploymentName) throws WLSAutomationException {
+    public void destroyJMSSubDeployment(String jmsModuleName, String subDeploymentName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -380,13 +380,13 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(myJMSModule, "destroySubDeployment", new Object[]{myJMSSubDeployment}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyJMSSubDeployment (" + jmsModuleName + ":" + subDeploymentName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // delete queue
-    public void destroyQueue(String jmsModuleName, String queueName) throws WLSAutomationException {
+    public void destroyQueue(String jmsModuleName, String queueName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -401,13 +401,13 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(myJMSModuleResource, "destroyQueue", new Object[]{myQueue}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyQueue (" + jmsModuleName + ":" + queueName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // delete Topic
-    public void destroyTopic(String jmsModuleName, String topicName) throws WLSAutomationException {
+    public void destroyTopic(String jmsModuleName, String topicName) throws WLSJMXException {
         try {
             // get the jmsModuleName config root
             ObjectName myJMSModule = new ObjectName("com.bea:Name=" + jmsModuleName + ",Type=JMSSystemResource");
@@ -422,7 +422,7 @@ public class JMSConfiguration {
             myJMXWrapper.invoke(myJMSModuleResource, "destroyTopic", new Object[]{myTopic}, new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while destroyTopic (" + jmsModuleName + ":" + topicName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 

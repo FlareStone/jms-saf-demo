@@ -20,7 +20,7 @@
 package me.yekki.jmx.security;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.ObjectName;
 
@@ -31,18 +31,18 @@ public class XACMLConfiguration {
 
     private String realmName = "myrealm";
 
-    public XACMLConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public XACMLConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
-    public XACMLConfiguration(JMXWrapper _wrapper, String _realmName) throws WLSAutomationException {
+    public XACMLConfiguration(JMXWrapper _wrapper, String _realmName) throws WLSJMXException {
         myJMXWrapper = _wrapper;
         realmName = _realmName;
     }
 
 
     // export authentication data based on XACML
-    public void addPolicySet(String securityProviderName, String myPolicySet) throws WLSAutomationException {
+    public void addPolicySet(String securityProviderName, String myPolicySet) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -58,17 +58,17 @@ public class XACMLConfiguration {
                         new Object[]{myPolicySet},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("AuthorizationProvider with name " + securityProviderName + "  does not exist !");
+                throw new WLSJMXException("AuthorizationProvider with name " + securityProviderName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // export authentication data based on XACML
-    public void addPolicy(String securityProviderName, String myPolicy) throws WLSAutomationException {
+    public void addPolicy(String securityProviderName, String myPolicy) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -97,12 +97,12 @@ public class XACMLConfiguration {
 
                 }
             } else
-                throw new WLSAutomationException("AuthorizationProvider with name " + securityProviderName + "  does not exist !");
+                throw new WLSJMXException("AuthorizationProvider with name " + securityProviderName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 

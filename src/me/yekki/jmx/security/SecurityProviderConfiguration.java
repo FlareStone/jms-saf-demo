@@ -20,7 +20,7 @@
 package me.yekki.jmx.security;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 import weblogic.security.providers.saml.registry.SAMLAssertingParty;
 import weblogic.security.providers.saml.registry.SAMLRelyingParty;
 
@@ -36,11 +36,11 @@ public class SecurityProviderConfiguration {
 
     private String realmName = "myrealm";
 
-    public SecurityProviderConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public SecurityProviderConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
-    public SecurityProviderConfiguration(JMXWrapper _wrapper, String _realmName) throws WLSAutomationException {
+    public SecurityProviderConfiguration(JMXWrapper _wrapper, String _realmName) throws WLSJMXException {
         myJMXWrapper = _wrapper;
         realmName = _realmName;
     }
@@ -49,7 +49,7 @@ public class SecurityProviderConfiguration {
     // Operation: javax.management.ObjectName  lookupAuthenticationProvider(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createAuthenticationProvider(name:java.lang.String  type:java.lang.String  )
     // Operation: javax.management.ObjectName  createAuthenticationProvider(type:java.lang.String  )
-    public ObjectName createAuthenticationProvider(String providerName, String providerType) throws WLSAutomationException {
+    public ObjectName createAuthenticationProvider(String providerName, String providerType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -75,12 +75,12 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myAuthenticationProviderMBean;
             } else
-                throw new WLSAutomationException("AuthenticationProvider with name " + providerName + " already exist  -  cannot create !");
+                throw new WLSJMXException("AuthenticationProvider with name " + providerName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
@@ -88,7 +88,7 @@ public class SecurityProviderConfiguration {
     // Operation: javax.management.ObjectName  lookupAuthorizer(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createAuthorizer(name:java.lang.String  type:java.lang.String  )
     // Operation: javax.management.ObjectName  createAuthorizer(type:java.lang.String  )
-    public ObjectName createAuthorizer(String providerName, String providerType) throws WLSAutomationException {
+    public ObjectName createAuthorizer(String providerName, String providerType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -114,18 +114,18 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myAuthorizerMBean;
             } else
-                throw new WLSAutomationException("Authorizer with name " + providerName + " already exist  -  cannot create !");
+                throw new WLSJMXException("Authorizer with name " + providerName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // Operation: javax.management.ObjectName  createAdjudicator(type:java.lang.String  )
     // Operation: javax.management.ObjectName  createAdjudicator(name:java.lang.String  type:java.lang.String  )
-    public ObjectName createAdjudicator(String providerName, String providerType) throws WLSAutomationException {
+    public ObjectName createAdjudicator(String providerName, String providerType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
             ObjectName myAdjudicatorMBean = null;
@@ -145,17 +145,17 @@ public class SecurityProviderConfiguration {
             // now do configuration
             // TO DO
             return myAdjudicatorMBean;
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // Operation: javax.management.ObjectName  lookupAuditor(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createAuditor(name:java.lang.String  type:java.lang.String  )
     // Operation: javax.management.ObjectName  createAuditor(type:java.lang.String  )
-    public ObjectName createAuditor(String providerName, String providerType) throws WLSAutomationException {
+    public ObjectName createAuditor(String providerName, String providerType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -181,19 +181,19 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myAuditorMBean;
             } else
-                throw new WLSAutomationException("Auditor with name " + providerName + " already exist  -  cannot create !");
+                throw new WLSJMXException("Auditor with name " + providerName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // Operation: javax.management.ObjectName  lookupCertPathProvider(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createCertPathProvider(type:java.lang.String  )
     // Operation: javax.management.ObjectName  createCertPathProvider(name:java.lang.String  type:java.lang.String  )
-    public ObjectName createCertPathProvider(String providerName, String providerType) throws WLSAutomationException {
+    public ObjectName createCertPathProvider(String providerName, String providerType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -219,19 +219,19 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myCertPathProviderMBean;
             } else
-                throw new WLSAutomationException("CertPathProvider with name " + providerName + " already exist  -  cannot create !");
+                throw new WLSJMXException("CertPathProvider with name " + providerName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // Operation: javax.management.ObjectName  lookupCredentialMapper(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createCredentialMapper(name:java.lang.String  type:java.lang.String  )
     // Operation: javax.management.ObjectName  createCredentialMapper(type:java.lang.String  )
-    public ObjectName createCredentialMapper(String mapperName, String mapperType) throws WLSAutomationException {
+    public ObjectName createCredentialMapper(String mapperName, String mapperType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -257,18 +257,18 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myCredentialMapperMBean;
             } else
-                throw new WLSAutomationException("CredentialMapper with name " + mapperName + " already exist  -  cannot create !");
+                throw new WLSJMXException("CredentialMapper with name " + mapperName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Creating a SAML 2 credential mapper
-    public ObjectName createSAML2CredentialMapper(String mapperName, String mapperType) throws WLSAutomationException {
+    public ObjectName createSAML2CredentialMapper(String mapperName, String mapperType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -292,12 +292,12 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myCredentialMapperMBean;
             } else
-                throw new WLSAutomationException("CredentialMapper with name " + mapperName + " already exist  -  cannot create !");
+                throw new WLSJMXException("CredentialMapper with name " + mapperName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
@@ -305,7 +305,7 @@ public class SecurityProviderConfiguration {
     // Operation: javax.management.ObjectName  lookupKeyStore(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createKeyStore(type:java.lang.String  )
     // Operation: javax.management.ObjectName  createKeyStore(name:java.lang.String  type:java.lang.String  )
-    public ObjectName createKeyStore(String keystoreName, String keystoreType) throws WLSAutomationException {
+    public ObjectName createKeyStore(String keystoreName, String keystoreType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -331,12 +331,12 @@ public class SecurityProviderConfiguration {
                 // TO DO
                 return myKeyStoreMBean;
             } else
-                throw new WLSAutomationException("KeyStore with name " + keystoreName + " already exist  -  cannot create !");
+                throw new WLSJMXException("KeyStore with name " + keystoreName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
@@ -344,7 +344,7 @@ public class SecurityProviderConfiguration {
     // Operation: javax.management.ObjectName  createPasswordValidator(name:java.lang.String  type:java.lang.String  )
     // Operation: javax.management.ObjectName  createPasswordValidator(subClass:java.lang.Class  name:java.lang.String  )
     // Operation: javax.management.ObjectName  createPasswordValidator(type:java.lang.String  )
-    public ObjectName createPasswordValidator(String passwordValidatorName, String passwordValidatorType) throws WLSAutomationException {
+    public ObjectName createPasswordValidator(String passwordValidatorName, String passwordValidatorType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -371,19 +371,19 @@ public class SecurityProviderConfiguration {
 
                 return myPasswordValidatorMBean;
             } else
-                throw new WLSAutomationException("PasswordValidator with name " + passwordValidatorName + " already exist  -  cannot create !");
+                throw new WLSJMXException("PasswordValidator with name " + passwordValidatorName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // Operation: javax.management.ObjectName  lookupRoleMapper(java.lang.String:java.lang.String  )
     // Operation: javax.management.ObjectName  createRoleMapper(type:java.lang.String  )
     // Operation: javax.management.ObjectName  createRoleMapper(name:java.lang.String  type:java.lang.String  )
-    public ObjectName createRoleMapper(String roleMapperName, String roleMapperType) throws WLSAutomationException {
+    public ObjectName createRoleMapper(String roleMapperName, String roleMapperType) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -410,17 +410,17 @@ public class SecurityProviderConfiguration {
 
                 return myRoleMapperMBean;
             } else
-                throw new WLSAutomationException("RoleMapper with name " + roleMapperName + " already exist  -  cannot create !");
+                throw new WLSJMXException("RoleMapper with name " + roleMapperName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void deleteAuthenticationProvider(String providerName) throws WLSAutomationException {
+    public void deleteAuthenticationProvider(String providerName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -436,17 +436,17 @@ public class SecurityProviderConfiguration {
                         new Object[]{providerName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("AuthenticationProvider with name " + providerName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("AuthenticationProvider with name " + providerName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void deleteAuthorizer(String authorizerName) throws WLSAutomationException {
+    public void deleteAuthorizer(String authorizerName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -462,17 +462,17 @@ public class SecurityProviderConfiguration {
                         new Object[]{authorizerName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("Authorizer with name " + authorizerName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("Authorizer with name " + authorizerName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void deleteAdjudicator(String adjudicatorName) throws WLSAutomationException {
+    public void deleteAdjudicator(String adjudicatorName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -488,17 +488,17 @@ public class SecurityProviderConfiguration {
                         new Object[]{adjudicatorName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("Adjudicator with name " + adjudicatorName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("Adjudicator with name " + adjudicatorName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void deleteAuditor(String auditorName) throws WLSAutomationException {
+    public void deleteAuditor(String auditorName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -514,16 +514,16 @@ public class SecurityProviderConfiguration {
                         new Object[]{auditorName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("Auditor with name " + auditorName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("Auditor with name " + auditorName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
-    public void deleteCertPathProvider(String providerName) throws WLSAutomationException {
+    public void deleteCertPathProvider(String providerName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -539,16 +539,16 @@ public class SecurityProviderConfiguration {
                         new Object[]{providerName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("CertPathProvider with name " + providerName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("CertPathProvider with name " + providerName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
-    public void deleteCredentialMapper(String mapperName) throws WLSAutomationException {
+    public void deleteCredentialMapper(String mapperName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -564,16 +564,16 @@ public class SecurityProviderConfiguration {
                         new Object[]{mapperName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("CredentialMapper with name " + mapperName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("CredentialMapper with name " + mapperName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
-    public void deleteKeyStore(String keystoreName) throws WLSAutomationException {
+    public void deleteKeyStore(String keystoreName) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName securityRealmMBean = myJMXWrapper.getDomainConfigRoot();
@@ -590,16 +590,16 @@ public class SecurityProviderConfiguration {
                         new Object[]{keystoreName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("KeyStore with name " + keystoreName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("KeyStore with name " + keystoreName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
-    public void deletePasswordValidator(String passwordValidatorName) throws WLSAutomationException {
+    public void deletePasswordValidator(String passwordValidatorName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -615,16 +615,16 @@ public class SecurityProviderConfiguration {
                         new Object[]{passwordValidatorName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("PasswordValidator with name " + passwordValidatorName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("PasswordValidator with name " + passwordValidatorName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
-    public void deleteRoleMapper(String roleMapperName) throws WLSAutomationException {
+    public void deleteRoleMapper(String roleMapperName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -640,12 +640,12 @@ public class SecurityProviderConfiguration {
                         new Object[]{roleMapperName},
                         new String[]{String.class.getName()});
             } else
-                throw new WLSAutomationException("RoleMapper with name " + roleMapperName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("RoleMapper with name " + roleMapperName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
@@ -655,7 +655,7 @@ public class SecurityProviderConfiguration {
     // ########################################################################################################
 
 
-    public void setControlFlagForAuthenticationProvider(String providerName, String controlFlag) throws WLSAutomationException {
+    public void setControlFlagForAuthenticationProvider(String providerName, String controlFlag) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -667,39 +667,39 @@ public class SecurityProviderConfiguration {
             if (myAuthenticationProviderMBean != null)
                 myJMXWrapper.setAttribute(myAuthenticationProviderMBean, new Attribute("ControlFlag", controlFlag));
             else
-                throw new WLSAutomationException("AuthenticationProvider with name " + providerName + " does not exist !");
+                throw new WLSJMXException("AuthenticationProvider with name " + providerName + " does not exist !");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public ObjectName createDefaultSAMLAuthenticationProvider(String providerName) throws WLSAutomationException {
+    public ObjectName createDefaultSAMLAuthenticationProvider(String providerName) throws WLSJMXException {
         try {
             // create identity asserter
             return createAuthenticationProvider(providerName, "weblogic.security.providers.saml.SAMLAuthenticator");
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public ObjectName createDefaultSAMLIdentityAsserter(String providerName) throws WLSAutomationException {
+    public ObjectName createDefaultSAMLIdentityAsserter(String providerName) throws WLSJMXException {
         try {
             // create identity asserter
             return createAuthenticationProvider(providerName, "weblogic.security.providers.saml.SAMLIdentityAsserterV2");
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // NOTE: THis must be called on the RUNTIME (not Edit !!!) mbean tree
-    public ObjectName createAssertingParty(String providerName, Properties myProps) throws WLSAutomationException {
+    public ObjectName createAssertingParty(String providerName, Properties myProps) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -723,16 +723,16 @@ public class SecurityProviderConfiguration {
             myJMXWrapper.invoke(myIdentityAsserter, "addAssertingParty", myValues, signature);
 
             return myIdentityAsserter;
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // NOTE: THis must be called on the RUNTIME (not Edit !!!) mbean tree
-    public ObjectName updateAssertingparty(String providerName, String partner_id, Properties myProps) throws WLSAutomationException {
+    public ObjectName updateAssertingparty(String providerName, String partner_id, Properties myProps) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -751,7 +751,7 @@ public class SecurityProviderConfiguration {
                     new String[]{"java.lang.String"});
 
             if (!ap_exists) {
-                throw new WLSAutomationException("Asserting party with partner_id = " + partner_id + " does not exist !!");
+                throw new WLSJMXException("Asserting party with partner_id = " + partner_id + " does not exist !!");
             }
 
 
@@ -774,15 +774,15 @@ public class SecurityProviderConfiguration {
             myJMXWrapper.invoke(myIdentityAsserter, "updateAssertingParty", values, signature);
 
             return myIdentityAsserter;
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    private void setAssertingPartyValues(SAMLAssertingParty mySAMLAssertingParty, Properties myProps) throws WLSAutomationException {
+    private void setAssertingPartyValues(SAMLAssertingParty mySAMLAssertingParty, Properties myProps) throws WLSJMXException {
         String nextValue = null;
         try {
             nextValue = (String) myProps.get("ASSERTERV2_ASSERTIONRETRIEVAL_URL");
@@ -844,12 +844,12 @@ public class SecurityProviderConfiguration {
                 mySAMLAssertingParty.setVirtualUserEnabled(new Boolean(nextValue));
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public ObjectName createDefaultSAMLCredentialMapper(String mapperName, Properties myProps) throws WLSAutomationException {
+    public ObjectName createDefaultSAMLCredentialMapper(String mapperName, Properties myProps) throws WLSJMXException {
         try {
             // create credential mapper
             ObjectName myCredentialMapper = createCredentialMapper(mapperName, "weblogic.security.providers.saml.SAMLCredentialMapperV2");
@@ -869,16 +869,16 @@ public class SecurityProviderConfiguration {
                 myJMXWrapper.setAttribute(myCredentialMapper, new Attribute("DefaultTimeToLiveDelta", Integer.parseInt((String) myProps.get("DefaultTimeToLiveDelta"))));
 
             return myCredentialMapper;
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // NOTE: THis must be called on the RUNTIME (not Edit !!!) mbean tree
-    public ObjectName createRelyingParty(String mapperName, Properties myProps) throws WLSAutomationException {
+    public ObjectName createRelyingParty(String mapperName, Properties myProps) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -902,16 +902,16 @@ public class SecurityProviderConfiguration {
             myJMXWrapper.invoke(myCredentialMapper, "addRelyingParty", myValues, signature);
 
             return myCredentialMapper;
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // NOTE: THis must be called on the RUNTIME (not Edit !!!) mbean tree
-    public ObjectName updateRelyingParty(String mapperName, String partner_id, Properties myProps) throws WLSAutomationException {
+    public ObjectName updateRelyingParty(String mapperName, String partner_id, Properties myProps) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -927,7 +927,7 @@ public class SecurityProviderConfiguration {
                     new String[]{"java.lang.String"});
 
             if (!ap_exists) {
-                throw new WLSAutomationException("Relying party with partner_id = " + partner_id + " does not exist !!");
+                throw new WLSJMXException("Relying party with partner_id = " + partner_id + " does not exist !!");
             }
 
 
@@ -947,15 +947,15 @@ public class SecurityProviderConfiguration {
             myJMXWrapper.invoke(myCredentialMapper, "updateRelyingParty", myValues, signature);
 
             return myCredentialMapper;
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    private void setRelyingPartyValues(SAMLRelyingParty mySAMLRelyingParty, Properties myProps) throws WLSAutomationException {
+    private void setRelyingPartyValues(SAMLRelyingParty mySAMLRelyingParty, Properties myProps) throws WLSJMXException {
         String nextValue = null;
         try {
             nextValue = (String) myProps.get("RELYING_PARTY_KEYINFO_INCLUDED");
@@ -1027,12 +1027,12 @@ public class SecurityProviderConfiguration {
                 mySAMLRelyingParty.setTimeToLiveOffset(Integer.parseInt(nextValue));
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void configureDefaultIdentityAsserterForX509() throws WLSAutomationException {
+    public void configureDefaultIdentityAsserterForX509() throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -1048,87 +1048,87 @@ public class SecurityProviderConfiguration {
                 myJMXWrapper.setAttribute(myAuthenticationProviderMBean, new Attribute("UseDefaultUserNameMapper", new Boolean(true)));
                 myJMXWrapper.setAttribute(myAuthenticationProviderMBean, new Attribute("DefaultUserNameMapperAttributeType", "CN"));
             } else
-                throw new WLSAutomationException("DefaultIdentityAsserter does not exist !");
+                throw new WLSJMXException("DefaultIdentityAsserter does not exist !");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Create an instance of the XACML authorization provider
-    public ObjectName createDefaultXACMLAuthorizationProvider(String providerName) throws WLSAutomationException {
+    public ObjectName createDefaultXACMLAuthorizationProvider(String providerName) throws WLSJMXException {
         try {
             // create identity asserter
             return createAuthorizer(providerName, "weblogic.security.providers.xacml.authorization.XACMLAuthorizer");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Create a password validator
-    public ObjectName createDefaultPasswordValidator(String providerName) throws WLSAutomationException {
+    public ObjectName createDefaultPasswordValidator(String providerName) throws WLSJMXException {
         try {
             // create identity asserter
             return createPasswordValidator(providerName, "com.bea.security.providers.authentication.passwordvalidator.SystemPasswordValidator");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Creating an adjudication provider
-    public ObjectName createDefaultAdjudicator(String providerName) throws WLSAutomationException {
+    public ObjectName createDefaultAdjudicator(String providerName) throws WLSJMXException {
         try {
             // create identity asserter
             return createAdjudicator(providerName, "weblogic.security.providers.authorization.DefaultAdjudicator");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // Creating a Role Mapping Provider
-    public ObjectName createDefaultRoleMapper(String mapperName) throws WLSAutomationException {
+    public ObjectName createDefaultRoleMapper(String mapperName) throws WLSJMXException {
         try {
             // create identity asserter
             return createRoleMapper(mapperName, "weblogic.security.providers.authorization.DefaultRoleMapper");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // creating the default credential mapper
-    public ObjectName createDefaultCredentialMapper(String mapperName) throws WLSAutomationException {
+    public ObjectName createDefaultCredentialMapper(String mapperName) throws WLSJMXException {
         try {
             // create identity asserter
             return createCredentialMapper(mapperName, "weblogic.security.providers.credentials.DefaultCredentialMapper");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // creating the PKI credential mapper
-    public ObjectName createPKICredentialMapper(String mapperName) throws WLSAutomationException {
+    public ObjectName createPKICredentialMapper(String mapperName) throws WLSJMXException {
         try {
             // create identity asserter
             return createCredentialMapper(mapperName, "weblogic.security.providers.credentials.PKICredentialMapper");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void reorderProviders(ObjectName[] providerRefs) throws WLSAutomationException {
+    public void reorderProviders(ObjectName[] providerRefs) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
             // reorder only means to set the list of providers as an array
             myJMXWrapper.setAttribute(securityRealmMBean, new Attribute("AuthenticationProviders", providerRefs));
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 

@@ -21,7 +21,7 @@ package me.yekki.jmx.administration;
 
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.ObjectName;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class ServerAdministration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public ServerAdministration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public ServerAdministration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
@@ -41,7 +41,7 @@ public class ServerAdministration {
      * @param serverName String
      * @throws Exception
      */
-    public void shutdownServer(String serverName) throws WLSAutomationException {
+    public void shutdownServer(String serverName) throws WLSJMXException {
         try {
             System.out.println("shutdownServer called !");
             String state = myJMXWrapper.getServerState(serverName);
@@ -57,12 +57,12 @@ public class ServerAdministration {
             myJMXWrapper.invoke(serverRuntimeObjectName, "forceShutdown", null, null);
         } catch (Exception ex) {
             System.out.println("PROBLEM with shutdownServer: " + ex.getMessage());
-            throw new WLSAutomationException("PROBLEM with shutdownServer: " + ex.getMessage());
+            throw new WLSJMXException("PROBLEM with shutdownServer: " + ex.getMessage());
         }
     }
 
 
-    public void startAllManagedServer() throws WLSAutomationException {
+    public void startAllManagedServer() throws WLSJMXException {
         try {
             System.out.println("startAllManagedServer called !");
 
@@ -72,7 +72,7 @@ public class ServerAdministration {
                 startManagedServer(serverNames.get(i));
         } catch (Exception ex) {
             System.out.println("PROBLEM with startAllManagedServer: " + ex.getMessage());
-            throw new WLSAutomationException("PROBLEM with startAllManagedServer: " + ex.getMessage());
+            throw new WLSJMXException("PROBLEM with startAllManagedServer: " + ex.getMessage());
         }
     }
 
@@ -82,7 +82,7 @@ public class ServerAdministration {
      * @param serverName String
      * @throws Exception
      */
-    public void startManagedServer(String serverName) throws WLSAutomationException {
+    public void startManagedServer(String serverName) throws WLSJMXException {
         try {
             System.out.println("startManagedServer called !");
 
@@ -104,7 +104,7 @@ public class ServerAdministration {
             System.out.println("   Server " + serverName + " started  !");
         } catch (Exception ex) {
             System.out.println("PROBLEM with startManagedServer: " + ex.getMessage());
-            throw new WLSAutomationException("PROBLEM with startManagedServer: " + ex.getMessage());
+            throw new WLSJMXException("PROBLEM with startManagedServer: " + ex.getMessage());
         }
     }
 
@@ -113,7 +113,7 @@ public class ServerAdministration {
      * @param serverName String
      * @throws Exception
      */
-    public void suspendServer(String serverName) throws WLSAutomationException {
+    public void suspendServer(String serverName) throws WLSJMXException {
         try {
             System.out.println("suspendServer called !");
             String state = myJMXWrapper.getServerState(serverName);
@@ -125,7 +125,7 @@ public class ServerAdministration {
             }
         } catch (Exception ex) {
             System.out.println("PROBLEM with suspendServer: " + ex.getMessage());
-            throw new WLSAutomationException("PROBLEM with suspendServer: " + ex.getMessage());
+            throw new WLSJMXException("PROBLEM with suspendServer: " + ex.getMessage());
         }
     }
 
@@ -135,7 +135,7 @@ public class ServerAdministration {
      * @param serverName String
      * @throws Exception
      */
-    public void resumeServer(String serverName) throws WLSAutomationException {
+    public void resumeServer(String serverName) throws WLSJMXException {
         try {
             System.out.println("resumeServer called !");
             String state = myJMXWrapper.getServerState(serverName);
@@ -147,14 +147,14 @@ public class ServerAdministration {
             }
         } catch (Exception ex) {
             System.out.println("PROBLEM with resumeServer: " + ex.getMessage());
-            throw new WLSAutomationException("PROBLEM with resumeServer: " + ex.getMessage());
+            throw new WLSJMXException("PROBLEM with resumeServer: " + ex.getMessage());
         }
     }
 
 
 // #########################  CLUSTER ###########################################################
 
-    public void startCluster(String clustername) throws WLSAutomationException {
+    public void startCluster(String clustername) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -168,15 +168,15 @@ public class ServerAdministration {
                 // start
                 myJMXWrapper.invoke(myClusterMBean, "start", new Object[]{}, new String[]{});
             } else
-                throw new WLSAutomationException("Cluster " + clustername + " does not exist  -  cannot start !");
+                throw new WLSJMXException("Cluster " + clustername + " does not exist  -  cannot start !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void stopCluster(String clustername) throws WLSAutomationException {
+    public void stopCluster(String clustername) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -190,10 +190,10 @@ public class ServerAdministration {
                 // start
                 myJMXWrapper.invoke(myClusterMBean, "kill", new Object[]{}, new String[]{});
             } else
-                throw new WLSAutomationException("Cluster " + clustername + " does not exist  -  cannot stop !");
+                throw new WLSJMXException("Cluster " + clustername + " does not exist  -  cannot stop !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 }

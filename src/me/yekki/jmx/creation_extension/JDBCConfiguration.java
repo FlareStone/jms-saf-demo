@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -30,7 +30,7 @@ public class JDBCConfiguration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public JDBCConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public JDBCConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
@@ -58,7 +58,7 @@ public class JDBCConfiguration {
                                  String username,
                                  String password,
                                  boolean useWallet,
-                                 String walletlocation) throws WLSAutomationException {
+                                 String walletlocation) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -141,7 +141,7 @@ public class JDBCConfiguration {
             // set target cluster.  Note that in thi example it is exactly one cluster, but this does not need to be.
             myJMXWrapper.setAttribute(mySystemResourceMBean, new Attribute("Targets", new ObjectName[]{new ObjectName("com.bea:Name=" + clustername + ",Type=Cluster")}));
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
@@ -161,9 +161,9 @@ public class JDBCConfiguration {
                 myJMXWrapper.invoke(myDomainMBean, "destroyJDBCSystemResource",
                         new Object[]{mySystemResourceMBean}, new String[]{ObjectName.class.getName()});
             } else
-                throw new WLSAutomationException("Datasource " + datasourcename + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("Datasource " + datasourcename + " does not exist  -  cannot delete !");
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 }

@@ -15,12 +15,14 @@ public class SendCommand extends Thread {
     private AppConfig config;
     private int total;
 
-    public SendCommand(AppConfig config, int total) {
+    public SendCommand(AppConfig config) {
 
         this.config = config;
         this.total = total;
 
         if (total <= 0) total = 1;
+
+        if (config.getCommandLine().hasOption("n")) total = Integer.parseInt(config.getCommandLine().getOptionValue("n"));
     }
 
     @Override

@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -34,7 +34,7 @@ public class NetworkResourceConfiguration {
     }
 
 
-    public void createHTTPNetworkChannel(String serverName, String channelName, int port) throws WLSAutomationException {
+    public void createHTTPNetworkChannel(String serverName, String channelName, int port) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -48,7 +48,7 @@ public class NetworkResourceConfiguration {
                     new String[]{String.class.getName()});
 
             if (myNewChannel != null)
-                throw new WLSAutomationException("NetworkChannel " + channelName + " already exists !");
+                throw new WLSJMXException("NetworkChannel " + channelName + " already exists !");
 
             // now create
             myNewChannel = (ObjectName) myJMXWrapper.invoke(myServerRuntime,
@@ -75,12 +75,12 @@ public class NetworkResourceConfiguration {
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("TwoWaySSLEnabled", new Boolean(false)));
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("ClientCertificateEnforced", new Boolean(false)));
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while createHTTPNetworkChannel (" + channelName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while createHTTPNetworkChannel (" + channelName + "): " + ex.getMessage());
         }
     }
 
 
-    public void createT3NetworkChannel(String serverName, String channelName, int port) throws WLSAutomationException {
+    public void createT3NetworkChannel(String serverName, String channelName, int port) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -94,7 +94,7 @@ public class NetworkResourceConfiguration {
                     new String[]{String.class.getName()});
 
             if (myNewChannel != null)
-                throw new WLSAutomationException("NetworkChannel " + channelName + " already exists !");
+                throw new WLSJMXException("NetworkChannel " + channelName + " already exists !");
 
             // now create
             myNewChannel = (ObjectName) myJMXWrapper.invoke(myServerRuntime,
@@ -121,11 +121,11 @@ public class NetworkResourceConfiguration {
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("TwoWaySSLEnabled", new Boolean(false)));
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("ClientCertificateEnforced", new Boolean(false)));
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while createT3NetworkChannel (" + channelName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while createT3NetworkChannel (" + channelName + "): " + ex.getMessage());
         }
     }
 
-    public void createIIOPNetworkChannel(String serverName, String channelName, int port) throws WLSAutomationException {
+    public void createIIOPNetworkChannel(String serverName, String channelName, int port) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -139,7 +139,7 @@ public class NetworkResourceConfiguration {
                     new String[]{String.class.getName()});
 
             if (myNewChannel != null)
-                throw new WLSAutomationException("NetworkChannel " + channelName + " already exists !");
+                throw new WLSJMXException("NetworkChannel " + channelName + " already exists !");
 
             // now create
             myNewChannel = (ObjectName) myJMXWrapper.invoke(myServerRuntime,
@@ -166,12 +166,12 @@ public class NetworkResourceConfiguration {
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("TwoWaySSLEnabled", new Boolean(false)));
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("ClientCertificateEnforced", new Boolean(false)));
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while createIIOPNetworkChannel (" + channelName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while createIIOPNetworkChannel (" + channelName + "): " + ex.getMessage());
         }
     }
 
 
-    public void createHTTPSNetworkChannel(String serverName, String channelName, int port, boolean enforceClientCert) throws WLSAutomationException {
+    public void createHTTPSNetworkChannel(String serverName, String channelName, int port, boolean enforceClientCert) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -185,7 +185,7 @@ public class NetworkResourceConfiguration {
                     new String[]{String.class.getName()});
 
             if (myNewChannel != null)
-                throw new WLSAutomationException("NetworkChannel " + channelName + " already exists !");
+                throw new WLSJMXException("NetworkChannel " + channelName + " already exists !");
 
             // now create
             myNewChannel = (ObjectName) myJMXWrapper.invoke(myServerRuntime,
@@ -214,12 +214,12 @@ public class NetworkResourceConfiguration {
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("TwoWaySSLEnabled", new Boolean(true)));
             myJMXWrapper.setAttribute(myNewChannel, new Attribute("ClientCertificateEnforced", new Boolean(enforceClientCert)));
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while createHTTPSNetworkChannel (" + channelName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while createHTTPSNetworkChannel (" + channelName + "): " + ex.getMessage());
         }
     }
 
 
-    public void deleteNetworkChannel(String serverName, String channelName) throws WLSAutomationException {
+    public void deleteNetworkChannel(String serverName, String channelName) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -239,15 +239,15 @@ public class NetworkResourceConfiguration {
                         new Object[]{myChannel},
                         new String[]{ObjectName.class.getName()});
             } else
-                throw new WLSAutomationException("NetworkChannel " + channelName + " already exists !");
+                throw new WLSJMXException("NetworkChannel " + channelName + " already exists !");
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while deleteNetworkChannel (" + channelName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while deleteNetworkChannel (" + channelName + "): " + ex.getMessage());
         }
     }
 
 
     // add an existing channel to a managed-server
-    public void addNetworkChannel(String serverName, ObjectName myChannel) throws WLSAutomationException {
+    public void addNetworkChannel(String serverName, ObjectName myChannel) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -260,13 +260,13 @@ public class NetworkResourceConfiguration {
                     new Object[]{myChannel},
                     new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while addNetworkChannel : " + ex.getMessage());
+            throw new WLSJMXException("Error while addNetworkChannel : " + ex.getMessage());
         }
     }
 
 
     // remove an existing channel to a managed-server
-    public void removeNetworkChannel(String serverName, ObjectName myChannel) throws WLSAutomationException {
+    public void removeNetworkChannel(String serverName, ObjectName myChannel) throws WLSJMXException {
         try {
             ObjectName myServerRuntime = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
                     "lookupServer",
@@ -279,7 +279,7 @@ public class NetworkResourceConfiguration {
                     new Object[]{myChannel},
                     new String[]{ObjectName.class.getName()});
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while addNetworkChannel : " + ex.getMessage());
+            throw new WLSJMXException("Error while addNetworkChannel : " + ex.getMessage());
         }
     }
 
@@ -290,7 +290,7 @@ public class NetworkResourceConfiguration {
                                   String channelName, // which networkchannel is attached
                                   String[] targetServerNames,  // targets
                                   String[] networkNames  // on which accept requests
-    ) throws WLSAutomationException {
+    ) throws WLSJMXException {
         try {
 
             // e.g.: com.bea:Name=TestDomain,Type=Domain
@@ -304,7 +304,7 @@ public class NetworkResourceConfiguration {
                     new String[]{String.class.getName()});
 
             if (myNewVirtualHost != null)
-                throw new WLSAutomationException("Virtual host " + virtualhostName + " already exists !");
+                throw new WLSJMXException("Virtual host " + virtualhostName + " already exists !");
 
             // create new virtual host with the provided name
             myNewVirtualHost = (ObjectName) myJMXWrapper.invoke(myDomainMBean,
@@ -329,12 +329,12 @@ public class NetworkResourceConfiguration {
             // set  VirtualHostNames
             myJMXWrapper.setAttribute(myNewVirtualHost, new Attribute("VirtualHostNames", networkNames));
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while createVirtualHost (" + virtualhostName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while createVirtualHost (" + virtualhostName + "): " + ex.getMessage());
         }
     }
 
 
-    public void deleteVirtualHost(String virtualhostName) throws WLSAutomationException {
+    public void deleteVirtualHost(String virtualhostName) throws WLSJMXException {
         try {
 
             // e.g.: com.bea:Name=TestDomain,Type=Domain
@@ -353,9 +353,9 @@ public class NetworkResourceConfiguration {
                         new Object[]{myVirtualHost},
                         new String[]{ObjectName.class.getName()});
             else
-                throw new WLSAutomationException("Virtual host " + virtualhostName + " does not exists !");
+                throw new WLSJMXException("Virtual host " + virtualhostName + " does not exists !");
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while destroyVirtualHost (" + virtualhostName + "): " + ex.getMessage());
+            throw new WLSJMXException("Error while destroyVirtualHost (" + virtualhostName + "): " + ex.getMessage());
         }
     }
 

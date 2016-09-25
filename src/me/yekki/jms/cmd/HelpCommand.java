@@ -1,6 +1,7 @@
 package me.yekki.jms.cmd;
 
 
+import me.yekki.jms.app.AppConfig;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
@@ -8,11 +9,11 @@ import org.apache.commons.cli.Options;
 
 public class HelpCommand extends Thread {
 
-    private CommandLine cmd;
+    private AppConfig config;
 
-    public HelpCommand(CommandLine cmd) {
+    public HelpCommand(AppConfig config) {
 
-        this.cmd = cmd;
+        this.config = config;
     }
 
     @Override
@@ -21,7 +22,7 @@ public class HelpCommand extends Thread {
         HelpFormatter formatter = new HelpFormatter();
 
         Options options = new Options();
-        org.apache.commons.cli.Option[] optionArray = cmd.getOptions();
+        org.apache.commons.cli.Option[] optionArray = config.getCommandLine().getOptions();
 
         for ( Option o:optionArray) {
 

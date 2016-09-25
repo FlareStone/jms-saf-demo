@@ -10,6 +10,7 @@ import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
 import javax.naming.Context;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 
 public interface JMSClient extends AutoCloseable, Constants {
 
@@ -27,34 +28,21 @@ public interface JMSClient extends AutoCloseable, Constants {
         AppConfig config = AppConfig.newConfig(role, cmd);
         Thread thread = null;
 
-        switch (role) {
-            case Sender:
-                int total = 1;
-                if (cmd.hasOption("n")) total = Integer.parseInt(cmd.getOptionValue("n"));
-                thread = new SendCommand(config, total);
-                break;
-            case Cleaner:
-                thread =  new CleanJMXCommand(config);
-                break;
-            case Uninstaller:
-                thread =  new UninstallJMXCommand(config);
-                break;
-            case StoreAdmin:
-                thread =  new StoreAdminCommand();
-                break;
-            case Installer:
-                thread = new InstallJMXCommand(config);
-                break;
-            default:
-                thread = new HelpCommand(cmd);
-        }
-
-        thread.start();
+        Class clz = role.getCommandClass();
 
         try {
+            if (clz == null) {
+                thread = new HelpCommand(config);
+            }
+            else {
+                Constructor constructor = clz.getConstructor(AppConfig.class);
+                thread = (Thread) constructor.newInstance(config);
+            }
+            thread.start();
             thread.join();
         }
-        catch( InterruptedException ie) {
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

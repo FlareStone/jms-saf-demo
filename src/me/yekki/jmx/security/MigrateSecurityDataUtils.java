@@ -21,7 +21,7 @@
 package me.yekki.jmx.security;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.ObjectName;
 import java.util.Properties;
@@ -33,17 +33,17 @@ public class MigrateSecurityDataUtils {
 
     private String realmName = "myrealm";
 
-    public MigrateSecurityDataUtils(JMXWrapper _wrapper) throws WLSAutomationException {
+    public MigrateSecurityDataUtils(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
-    public MigrateSecurityDataUtils(JMXWrapper _wrapper, String _realmName) throws WLSAutomationException {
+    public MigrateSecurityDataUtils(JMXWrapper _wrapper, String _realmName) throws WLSJMXException {
         myJMXWrapper = _wrapper;
         realmName = _realmName;
     }
 
     // export authentication data based on XACML
-    public void exportAuthenticatorData(String securityProviderName, String fileName) throws WLSAutomationException {
+    public void exportAuthenticatorData(String securityProviderName, String fileName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -59,17 +59,17 @@ public class MigrateSecurityDataUtils {
                         new Object[]{"DefaultAtn", fileName, new Properties()},
                         new String[]{String.class.getName(), String.class.getName(), Properties.class.getName()});
             } else
-                throw new WLSAutomationException("AuthenticationProvider with name " + securityProviderName + "  does not exist !");
+                throw new WLSJMXException("AuthenticationProvider with name " + securityProviderName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // import authentication data based on XACML
-    public void importAuthenticatorData(String securityProviderName, String fileName) throws WLSAutomationException {
+    public void importAuthenticatorData(String securityProviderName, String fileName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -85,17 +85,17 @@ public class MigrateSecurityDataUtils {
                         new Object[]{"DefaultAtn", fileName, new Properties()},
                         new String[]{String.class.getName(), String.class.getName(), Properties.class.getName()});
             } else
-                throw new WLSAutomationException("AuthenticationProvider with name " + securityProviderName + "  does not exist !");
+                throw new WLSJMXException("AuthenticationProvider with name " + securityProviderName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // export authorizer data based on XACML
-    public void exportAuthorizerData(String securityProviderName, String fileName) throws WLSAutomationException {
+    public void exportAuthorizerData(String securityProviderName, String fileName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -111,18 +111,18 @@ public class MigrateSecurityDataUtils {
                         new Object[]{"XACML", fileName, new Properties()},
                         new String[]{String.class.getName(), String.class.getName(), Properties.class.getName()});
             } else
-                throw new WLSAutomationException("Authorizer with name " + securityProviderName + "  does not exist !");
+                throw new WLSJMXException("Authorizer with name " + securityProviderName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // import authorizer data based on XACML
-    public void importAuthorizerData(String securityProviderName, String fileName) throws WLSAutomationException {
+    public void importAuthorizerData(String securityProviderName, String fileName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -138,18 +138,18 @@ public class MigrateSecurityDataUtils {
                         new Object[]{"XACML", fileName, new Properties()},
                         new String[]{String.class.getName(), String.class.getName(), Properties.class.getName()});
             } else
-                throw new WLSAutomationException("Authorizer with name " + securityProviderName + "  does not exist !");
+                throw new WLSJMXException("Authorizer with name " + securityProviderName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
     // export rolemapper data: type can either bei XACML or DefaultRoles
-    public void exportRoleMapperData(String roleMapperName, String exportFormat, String fileName) throws WLSAutomationException {
+    public void exportRoleMapperData(String roleMapperName, String exportFormat, String fileName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -165,17 +165,17 @@ public class MigrateSecurityDataUtils {
                         new Object[]{exportFormat, fileName, new Properties()},
                         new String[]{String.class.getName(), String.class.getName(), Properties.class.getName()});
             } else
-                throw new WLSAutomationException("RoleMapper with name " + roleMapperName + "  does not exist !");
+                throw new WLSJMXException("RoleMapper with name " + roleMapperName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
     // import rolemapper data: type can either bei XACML or DefaultRoles
-    public void importRoleMapperData(String roleMapperName, String exportFormat, String fileName) throws WLSAutomationException {
+    public void importRoleMapperData(String roleMapperName, String exportFormat, String fileName) throws WLSJMXException {
         try {
             ObjectName securityRealmMBean = new ObjectName("Security:Name=" + realmName);
 
@@ -191,12 +191,12 @@ public class MigrateSecurityDataUtils {
                         new Object[]{exportFormat, fileName, new Properties()},
                         new String[]{String.class.getName(), String.class.getName(), Properties.class.getName()});
             } else
-                throw new WLSAutomationException("RoleMapper with name " + roleMapperName + "  does not exist !");
+                throw new WLSJMXException("RoleMapper with name " + roleMapperName + "  does not exist !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 }

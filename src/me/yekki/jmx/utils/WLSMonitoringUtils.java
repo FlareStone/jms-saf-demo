@@ -17,7 +17,7 @@
  * @author Martin Heinzl
  * Copyright (C) 2013 MH-EnterpriseConsulting, All rights reserved.
  */
-package me.yekki.jmx.monitoring;
+package me.yekki.jmx.utils;
 
 import me.yekki.jmx.utils.JMXWrapper;
 

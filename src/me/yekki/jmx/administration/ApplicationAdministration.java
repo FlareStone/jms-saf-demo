@@ -22,7 +22,7 @@ package me.yekki.jmx.administration;
 
 
 import me.yekki.jmx.utils.JMXWrapperRemote;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.ObjectName;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ApplicationAdministration {
 
     private JMXWrapperRemote myJMXWrapper = null;
     
-    public ApplicationAdministration(JMXWrapperRemote _wrapper) throws WLSAutomationException
+    public ApplicationAdministration(JMXWrapperRemote _wrapper) throws WLSJMXException
     {
     	myJMXWrapper = _wrapper;
     }
@@ -45,9 +45,9 @@ public class ApplicationAdministration {
        known to the domain, regardless on which target they are deployed. This is useful e.g. for checking names, or create selection
        menus (for interactive scripts) 
      * @return
-     * @throws WLSAutomationException
+     * @throws WLSJMXException
      */
-    public ArrayList<String> getApplicationNames() throws WLSAutomationException
+    public ArrayList<String> getApplicationNames() throws WLSJMXException
     {
     	ArrayList<String> result = new ArrayList<String>();
     	try
@@ -68,7 +68,7 @@ public class ApplicationAdministration {
 		}
 		catch(Exception ex)
 		{
-			throw new WLSAutomationException("Error in getApplicationNames : "+ ex.getMessage());
+			throw new WLSJMXException("Error in getApplicationNames : "+ ex.getMessage());
 		}
     	
     }
@@ -79,7 +79,7 @@ public class ApplicationAdministration {
      * @param applicationName
      * @return
      */
-    public boolean isApplicationDeployedToDomain(String applicationName) throws WLSAutomationException
+    public boolean isApplicationDeployedToDomain(String applicationName) throws WLSJMXException
     {
     	try
     	{
@@ -89,7 +89,7 @@ public class ApplicationAdministration {
 		}
 		catch(Exception ex)
 		{
-			throw new WLSAutomationException("Error in isApplicationDeployedToDomain : "+ ex.getMessage());
+			throw new WLSJMXException("Error in isApplicationDeployedToDomain : "+ ex.getMessage());
 		}
     	
     }

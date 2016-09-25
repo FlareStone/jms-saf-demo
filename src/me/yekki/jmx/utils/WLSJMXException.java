@@ -24,27 +24,27 @@ package me.yekki.jmx.utils;
  * @author Martin Heinzl
  *
  */
-public class WLSAutomationException extends Exception {
+public class WLSJMXException extends Exception {
 
 	static final long serialVersionUID = 12876523842L;
 	
 	/**
 	 * 
 	 */
-	public WLSAutomationException() {
+	public WLSJMXException() {
 	}
 
 	/**
 	 * @param message
 	 */
-	public WLSAutomationException(String message) {
+	public WLSJMXException(String message) {
 		super(message);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public WLSAutomationException(Throwable cause) {
+	public WLSJMXException(Throwable cause) {
 		super(cause);
 	}
 
@@ -52,7 +52,7 @@ public class WLSAutomationException extends Exception {
 	 * @param message
 	 * @param cause
 	 */
-	public WLSAutomationException(String message, Throwable cause) {
+	public WLSJMXException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

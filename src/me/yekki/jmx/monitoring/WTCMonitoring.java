@@ -20,6 +20,7 @@
 package me.yekki.jmx.monitoring;
 
 import me.yekki.jmx.utils.JMXWrapper;
+import me.yekki.jmx.utils.WLSMonitoringUtils;
 import weblogic.wtc.gwt.DServiceInfo;
 import weblogic.wtc.gwt.DSessConnInfo;
 import weblogic.wtc.gwt.WTCServiceStatus;

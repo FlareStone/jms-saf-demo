@@ -20,7 +20,7 @@
 package me.yekki.jmx.security;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.MBeanInfo;
@@ -128,14 +128,14 @@ public class UserGroupManagement {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public UserGroupManagement(JMXWrapper _wrapper) throws WLSAutomationException {
+    public UserGroupManagement(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
         try {
             myRealm = new ObjectName(MYREALM);
             myDefaultAuthenticator = new ObjectName(DEFAULTAUTHENTICATOR);
         } catch (Exception ex) {
             System.out.println("Error during initialization: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
 
     }
@@ -146,7 +146,7 @@ public class UserGroupManagement {
     // #######################################################
 
     // # test if a user exists
-    public boolean testIfUserExists(String userName) throws WLSAutomationException {
+    public boolean testIfUserExists(String userName) throws WLSJMXException {
         try {
             Boolean myValue = (Boolean) myJMXWrapper.invoke(myDefaultAuthenticator,
                     "userExists",
@@ -155,12 +155,12 @@ public class UserGroupManagement {
             return myValue;
         } catch (Exception ex) {
             System.out.println("Error while testing user: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
     // # test if a user exists
-    public boolean testIfGroupExists(String groupName) throws WLSAutomationException {
+    public boolean testIfGroupExists(String groupName) throws WLSJMXException {
         try {
             Boolean myValue = (Boolean) myJMXWrapper.invoke(myDefaultAuthenticator,
                     "groupExists",
@@ -169,13 +169,13 @@ public class UserGroupManagement {
             return myValue;
         } catch (Exception ex) {
             System.out.println("Error while testing group: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // # test if user is member of a group
-    public boolean testIfUserIsMemberOfGroup(String groupName, String userName) throws WLSAutomationException {
+    public boolean testIfUserIsMemberOfGroup(String groupName, String userName) throws WLSJMXException {
         try {
             Boolean myValue = (Boolean) myJMXWrapper.invoke(myDefaultAuthenticator,
                     "isMember",
@@ -184,39 +184,39 @@ public class UserGroupManagement {
             return myValue;
         } catch (Exception ex) {
             System.out.println("Error while testing group membership: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
     // #######################################################
     // # Delete basic security artefacts
     // #######################################################
-    public void deleteUser(String userName) throws WLSAutomationException {
+    public void deleteUser(String userName) throws WLSJMXException {
         try {
             myJMXWrapper.invoke(myDefaultAuthenticator, "removeUser", new Object[]{userName}, new String[]{String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while deleting user (" + userName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
-    public void deleteGroup(String groupName) throws WLSAutomationException {
+    public void deleteGroup(String groupName) throws WLSJMXException {
         try {
             myJMXWrapper.invoke(myDefaultAuthenticator, "removeGroup", new Object[]{groupName}, new String[]{String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while deleting group (" + groupName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
-    public void removeMemberFromGroup(String groupName, String userName) throws WLSAutomationException {
+    public void removeMemberFromGroup(String groupName, String userName) throws WLSJMXException {
         try {
             myJMXWrapper.invoke(myDefaultAuthenticator, "removeMemberFromGroup",
                     new Object[]{groupName, userName},
                     new String[]{String.class.getName(), String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while removing user (" + userName + ") from group (" + groupName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
@@ -226,7 +226,7 @@ public class UserGroupManagement {
     // #######################################################
 
     // # create a new user in the default authenticator
-    public void createUser(String newUserName, String newUserPassword, String newUserDescription, boolean deleteUserFirstIfExists) throws WLSAutomationException {
+    public void createUser(String newUserName, String newUserPassword, String newUserDescription, boolean deleteUserFirstIfExists) throws WLSJMXException {
         try {
             if (testIfUserExists(newUserName)) {
                 if (deleteUserFirstIfExists) {
@@ -243,12 +243,12 @@ public class UserGroupManagement {
                     new String[]{String.class.getName(), String.class.getName(), String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while creating user (" + newUserName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
-    public void createGroup(String newGroupName, String newGroupDescription, boolean deleteGroupFirstIfExists) throws WLSAutomationException {
+    public void createGroup(String newGroupName, String newGroupDescription, boolean deleteGroupFirstIfExists) throws WLSJMXException {
         try {
             if (testIfGroupExists(newGroupName)) {
                 if (deleteGroupFirstIfExists) {
@@ -265,13 +265,13 @@ public class UserGroupManagement {
                     new String[]{String.class.getName(), String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while creating group (" + newGroupName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // # add a user to a group. Group membership is very important for correct security rules
-    public void addUserToGroup(String userName, String groupName) throws WLSAutomationException {
+    public void addUserToGroup(String userName, String groupName) throws WLSJMXException {
         try {
             // # check if user exists
             if (testIfUserExists(userName)) {
@@ -297,13 +297,13 @@ public class UserGroupManagement {
                     new String[]{String.class.getName(), String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while adding user (" + userName + ") to group (" + groupName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // # change the password of a user
-    public void changeUserpassword(String userName, String oldPassword, String newPassword) throws WLSAutomationException {
+    public void changeUserpassword(String userName, String oldPassword, String newPassword) throws WLSJMXException {
         try {
             if (testIfUserExists(userName)) {
                 myJMXWrapper.invoke(myDefaultAuthenticator, "changeUserPassword",
@@ -314,7 +314,7 @@ public class UserGroupManagement {
             }
         } catch (Exception ex) {
             System.out.println("Error while changing password of user (" + userName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
@@ -324,7 +324,7 @@ public class UserGroupManagement {
     //#######################################################
 
 
-    private boolean methodExistsOnMBean(String methodName, ObjectName myMBean) throws WLSAutomationException {
+    private boolean methodExistsOnMBean(String methodName, ObjectName myMBean) throws WLSJMXException {
         try {
             MBeanInfo myInfo = myJMXWrapper.getConnection().getMBeanInfo(myMBean);
 
@@ -337,13 +337,13 @@ public class UserGroupManagement {
             // oh no
             return false;
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // return all user names in all authentication providers
-    public ArrayList<String> returnAllUserNames() throws WLSAutomationException {
+    public ArrayList<String> returnAllUserNames() throws WLSJMXException {
         ArrayList<String> resultList = new ArrayList<String>();
 
         try {
@@ -373,13 +373,13 @@ public class UserGroupManagement {
             return resultList;
         } catch (Exception ex) {
             System.out.println("Error while returnAllUserNames: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // List all users in all authentication providers
-    public void listAllUsers() throws WLSAutomationException {
+    public void listAllUsers() throws WLSJMXException {
         ArrayList<String> resultList = returnAllUserNames();
 
         System.out.println("All users of the connected domain :");
@@ -389,7 +389,7 @@ public class UserGroupManagement {
 
 
     // return all group names in all authentication providers
-    public ArrayList<String> returnAllGroupNames() throws WLSAutomationException {
+    public ArrayList<String> returnAllGroupNames() throws WLSJMXException {
         ArrayList<String> resultList = new ArrayList<String>();
 
         try {
@@ -419,13 +419,13 @@ public class UserGroupManagement {
             return resultList;
         } catch (Exception ex) {
             System.out.println("Error while returnAllGroupNames: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // List all users in all authentication providers
-    public void listAllGroups() throws WLSAutomationException {
+    public void listAllGroups() throws WLSJMXException {
         ArrayList<String> resultList = returnAllGroupNames();
 
         System.out.println("All groups of the connected domain :");
@@ -435,7 +435,7 @@ public class UserGroupManagement {
 
 
     // List all user in the different groups in all authentication providers
-    public void listUsersInGroups() throws WLSAutomationException {
+    public void listUsersInGroups() throws WLSJMXException {
         try {
             ObjectName[] allAuthenticationProviders = (ObjectName[]) myJMXWrapper.getAttribute(myRealm, "AuthenticationProviders");
 
@@ -471,7 +471,7 @@ public class UserGroupManagement {
             }
         } catch (Exception ex) {
             System.out.println("Error while listUsersInGroups: " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
@@ -481,32 +481,32 @@ public class UserGroupManagement {
     //#######################################################
 
     // # test if a user is lockedOut
-    public boolean testIfUserAccountIsLocked(String userName) throws WLSAutomationException {
+    public boolean testIfUserAccountIsLocked(String userName) throws WLSJMXException {
         try {
             ObjectName myLockoutManager = (ObjectName) myJMXWrapper.getAttribute(myRealm, "UserLockoutManager");
 
             return (Boolean) myJMXWrapper.invoke(myLockoutManager, "isLockedOut", new Object[]{userName}, new String[]{String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while testIfUserAccountIsLocked user (" + userName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
     // test if a user is lockedOut
-    public void clearUserAccountLock(String userName) throws WLSAutomationException {
+    public void clearUserAccountLock(String userName) throws WLSJMXException {
         try {
             ObjectName myLockoutManager = (ObjectName) myJMXWrapper.getAttribute(myRealm, "UserLockoutManager");
 
             myJMXWrapper.invoke(myLockoutManager, "clearLockout", new Object[]{userName}, new String[]{String.class.getName()});
         } catch (Exception ex) {
             System.out.println("Error while clearLockout user (" + userName + "): " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
 
     // list all user lockout information
-    public void listAllUserLockoutInformation() throws WLSAutomationException {
+    public void listAllUserLockoutInformation() throws WLSJMXException {
         try {
             ArrayList<String> userList = returnAllUserNames();
             ObjectName myLockoutManager = (ObjectName) myJMXWrapper.getAttribute(myRealm, "UserLockoutManager");
@@ -520,7 +520,7 @@ public class UserGroupManagement {
                 );
         } catch (Exception ex) {
             System.out.println("Error while listAllUserLockoutInformation " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 
@@ -528,7 +528,7 @@ public class UserGroupManagement {
     // configure UserLockout Manager  -  lockoutEnabled (boolean), lockoutThreshold (int), lockoutDuration (int)
 
     // NOTE:  MUST BE CONNECTED TO THE EDIT MBEAN Tree !!!!
-    public void configureUserLockoutManager(boolean lockoutEnabled, long lockoutThreshold, long lockoutDuration) throws WLSAutomationException {
+    public void configureUserLockoutManager(boolean lockoutEnabled, long lockoutThreshold, long lockoutDuration) throws WLSJMXException {
         try {
             ObjectName myLockoutManager = (ObjectName) myJMXWrapper.getAttribute(myRealm, "UserLockoutManager");
 
@@ -542,7 +542,7 @@ public class UserGroupManagement {
             myJMXWrapper.setAttribute(myLockoutManager, new Attribute("LockoutDuration", new Long(lockoutDuration)));
         } catch (Exception ex) {
             System.out.println("Error while configureUserLockoutManager : " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 }

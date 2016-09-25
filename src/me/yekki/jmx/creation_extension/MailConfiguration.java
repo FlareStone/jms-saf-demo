@@ -20,7 +20,7 @@
 package me.yekki.jmx.creation_extension;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -30,7 +30,7 @@ public class MailConfiguration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public MailConfiguration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public MailConfiguration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
@@ -38,7 +38,7 @@ public class MailConfiguration {
     public void createMailSession(String mailSessionName,
                                   String jndiName,
                                   ObjectName[] targets,
-                                  Properties properties) throws WLSAutomationException {
+                                  Properties properties) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -64,17 +64,17 @@ public class MailConfiguration {
                 myJMXWrapper.setAttribute(myMailSessionMBean, new Attribute("JNDIName", jndiName));
                 myJMXWrapper.setAttribute(myMailSessionMBean, new Attribute("Properties", properties));
             } else
-                throw new WLSAutomationException("Mail session with name " + mailSessionName + " already exist  -  cannot create !");
+                throw new WLSJMXException("Mail session with name " + mailSessionName + " already exist  -  cannot create !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void deleteMailSession(String mailSessionName) throws WLSAutomationException {
+    public void deleteMailSession(String mailSessionName) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -88,12 +88,12 @@ public class MailConfiguration {
                 // Operation: java.lang.Void  destroyMailSession(ms:javax.management.ObjectName  )
                 myJMXWrapper.invoke(myDomainMBean, "destroyMailSession", new Object[]{myMailSessionMBean}, new String[]{ObjectName.class.getName()});
             } else
-                throw new WLSAutomationException("Mail session with name " + mailSessionName + " does not exist  -  cannot delete !");
+                throw new WLSJMXException("Mail session with name " + mailSessionName + " does not exist  -  cannot delete !");
 
-        } catch (WLSAutomationException ex) {
+        } catch (WLSJMXException ex) {
             throw ex;  // just re-throw
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 

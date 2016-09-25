@@ -20,7 +20,7 @@
 package me.yekki.jmx.troubleshooting;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -32,11 +32,11 @@ public class DebugUtils {
     private JMXWrapper myJMXWrapper = null;
 
 
-    public DebugUtils(JMXWrapper _wrapper) throws WLSAutomationException {
+    public DebugUtils(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
-    public void setDebugFlags(String serverName, Properties debugProps) throws WLSAutomationException {
+    public void setDebugFlags(String serverName, Properties debugProps) throws WLSJMXException {
         try {
             // get the server runtime(!)
             ObjectName myServer = (ObjectName) myJMXWrapper.invoke(myJMXWrapper.getDomainConfigRoot(),
@@ -58,7 +58,7 @@ public class DebugUtils {
                 System.out.println("Setting " + nextkey + " to value " + nextvalue);
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while getThreadDump of server " + serverName + " : " + ex.getMessage());
+            throw new WLSJMXException("Error while getThreadDump of server " + serverName + " : " + ex.getMessage());
         }
 
     }

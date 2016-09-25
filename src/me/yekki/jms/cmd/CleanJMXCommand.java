@@ -19,7 +19,7 @@ public class CleanJMXCommand extends JMXCommandImpl {
         try {
             connect(false, true);
             JMSAdministration jmsadmin = new JMSAdministration(jmxWrapper);
-            ObjectName dest = jmsadmin.getJMSDestinationRuntime("DemoSystemModule!DemoQueue","DemoJMSServer","AdminServer");
+            ObjectName dest = jmsadmin.getJMSDestinationRuntime("AdminServer", "DemoJMSServer", "DemoSystemModule!DemoQueue");
             jmsadmin.deleteMessagesFromJmsDestination(dest, "");
             disconnect();
         }

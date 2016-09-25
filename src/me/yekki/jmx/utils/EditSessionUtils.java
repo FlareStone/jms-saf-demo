@@ -27,12 +27,12 @@ public class EditSessionUtils {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public EditSessionUtils(JMXWrapper _wrapper) throws WLSAutomationException {
+    public EditSessionUtils(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
 
-    public boolean isEditSessionActive() throws WLSAutomationException {
+    public boolean isEditSessionActive() throws WLSJMXException {
         boolean sessionFound = false;
         try {
             ObjectName myConfigurationManager = new ObjectName("com.bea:Name=ConfigurationManager,Type=weblogic.management.mbeanservers.edit.ConfigurationManagerMBean");
@@ -107,7 +107,7 @@ public class EditSessionUtils {
  */
         } catch (Exception ex) {
             System.out.println("Error while isEditSessionActive : " + ex.getMessage());
-            throw new WLSAutomationException(ex.getMessage());
+            throw new WLSJMXException(ex.getMessage());
         }
     }
 

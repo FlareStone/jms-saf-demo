@@ -20,7 +20,7 @@
 package me.yekki.jmx.administration;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.Attribute;
 import javax.management.ObjectName;
@@ -29,53 +29,53 @@ public class JDBCAdministration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public JDBCAdministration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public JDBCAdministration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
 
-    public void startDataSource(String datasourcename) throws WLSAutomationException {
+    public void startDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "start");
     }
 
-    public void shutdownDataSource(String datasourcename) throws WLSAutomationException {
+    public void shutdownDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "shutdown");
     }
 
-    public void forceShutdownDataSource(String datasourcename) throws WLSAutomationException {
+    public void forceShutdownDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "forceShutdown");
     }
 
-    public void shrinkDataSource(String datasourcename) throws WLSAutomationException {
+    public void shrinkDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "shrink");
     }
 
-    public void suspendDataSource(String datasourcename) throws WLSAutomationException {
+    public void suspendDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "suspend");
     }
 
-    public void forceSuspendDataSource(String datasourcename) throws WLSAutomationException {
+    public void forceSuspendDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "forceSuspend");
     }
 
-    public void dumpPoolDataSource(String datasourcename) throws WLSAutomationException {
+    public void dumpPoolDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "dumpPool");
     }
 
-    public void resetDataSource(String datasourcename) throws WLSAutomationException {
+    public void resetDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "reset");
     }
 
-    public void resumeDataSource(String datasourcename) throws WLSAutomationException {
+    public void resumeDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "resume");
     }
 
-    public void clearStatementCacheDataSource(String datasourcename) throws WLSAutomationException {
+    public void clearStatementCacheDataSource(String datasourcename) throws WLSJMXException {
         doDataSourceOperation(datasourcename, "clearStatementCache");
     }
 
 
-    private void doDataSourceOperation(String datasourcename, String operationName) throws WLSAutomationException {
+    private void doDataSourceOperation(String datasourcename, String operationName) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -90,15 +90,15 @@ public class JDBCAdministration {
                 ObjectName myDataResourceMBean = (ObjectName) myJMXWrapper.getAttribute(mySystemResourceMBean, "JDBCResource");
                 myJMXWrapper.invoke(myDataResourceMBean, operationName, new Object[]{}, new String[]{});
             } else
-                throw new WLSAutomationException("Datasource " + datasourcename + " does not exist  -  cannot " + operationName + " !");
+                throw new WLSJMXException("Datasource " + datasourcename + " does not exist  -  cannot " + operationName + " !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public String testDataSource(String datasourcename) throws WLSAutomationException {
+    public String testDataSource(String datasourcename) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -113,15 +113,15 @@ public class JDBCAdministration {
                 ObjectName myDataResourceMBean = (ObjectName) myJMXWrapper.getAttribute(mySystemResourceMBean, "JDBCResource");
                 return (String) myJMXWrapper.invoke(myDataResourceMBean, "testPool", new Object[]{}, new String[]{});
             } else
-                throw new WLSAutomationException("Datasource " + datasourcename + " does not exist  -  cannot test !");
+                throw new WLSJMXException("Datasource " + datasourcename + " does not exist  -  cannot test !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void changeJDBCUrl(String datasourcename, String newURL) throws WLSAutomationException {
+    public void changeJDBCUrl(String datasourcename, String newURL) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -140,15 +140,15 @@ public class JDBCAdministration {
                 myJMXWrapper.setAttribute(myJDBCDriverParamsMBean, new Attribute("Url", new String(newURL)));
 
             } else
-                throw new WLSAutomationException("Datasource " + datasourcename + " does not exist  -  cannot change URL !");
+                throw new WLSJMXException("Datasource " + datasourcename + " does not exist  -  cannot change URL !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 
 
-    public void changeDatasourceUserAndPasswordJ(String datasourcename, String newUser, String newPassword) throws WLSAutomationException {
+    public void changeDatasourceUserAndPasswordJ(String datasourcename, String newUser, String newPassword) throws WLSJMXException {
         try {
             // e.g.: com.bea:Name=TestDomain,Type=Domain
             ObjectName myDomainMBean = myJMXWrapper.getDomainConfigRoot();
@@ -186,10 +186,10 @@ public class JDBCAdministration {
                             new String[]{String.class.getName()});
                 myJMXWrapper.setAttribute(myUserPropertyMBean, new Attribute("Value", new String(newUser)));
             } else
-                throw new WLSAutomationException("Datasource " + datasourcename + " does not exist  -  cannot change user and password !");
+                throw new WLSJMXException("Datasource " + datasourcename + " does not exist  -  cannot change user and password !");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException(ex);
+            throw new WLSJMXException(ex);
         }
     }
 

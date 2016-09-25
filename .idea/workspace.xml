@@ -7,11 +7,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="157f50f2-6e66-4a79-ab69-b3731abad7fa" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/JMSMonitoring.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerAndProcessMonitoring.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/WLSMonitoringUtils.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/PrintMBeanNames.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/parallel/JMXThreadTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/parallel/Test.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/utils/WLSAutomationException.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/utils/WLSJMXException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.properties" afterPath="$PROJECT_DIR$/config/app.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/app/Constants.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/app/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/app/JMSClient.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/app/JMSClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/app/JMXCommand.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/app/JMXCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/app/impl/JMXCommandImpl.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/app/impl/JMXCommandImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/cmd/CleanJMXCommand.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/cmd/CleanJMXCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/cmd/HelpCommand.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/cmd/HelpCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/cmd/SendCommand.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/cmd/SendCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jms/cmd/StoreAdminCommand.java" afterPath="$PROJECT_DIR$/src/me/yekki/jms/cmd/StoreAdminCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/administration/ApplicationAdministration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/administration/ApplicationAdministration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/administration/JDBCAdministration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/administration/JDBCAdministration.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/administration/JMSAdministration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/administration/JMSAdministration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapper.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapperLocal.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapperLocal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapperRemote.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapperRemote.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/administration/ServerAdministration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/administration/ServerAdministration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ContextCaseData.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ContextCaseData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JDBCConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JDBCConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JMSConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JMSConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JNDIProviderConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JNDIProviderConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/MailConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/MailConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/NetworkResourceConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/NetworkResourceConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ServerAndMachineConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ServerAndMachineConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/WorkManagerConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/WorkManagerConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ApplicationMonitoring.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ApplicationMonitoring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ClusterMonitoring.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ClusterMonitoring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/DatasourceMonitoring.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/DatasourceMonitoring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerresourcesMonitoring.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerresourcesMonitoring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServicesMonitoring.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServicesMonitoring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/WTCMonitoring.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/WTCMonitoring.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/security/MigrateSecurityDataUtils.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/security/MigrateSecurityDataUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/security/SecurityProviderConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/security/SecurityProviderConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/security/UserGroupManagement.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/security/UserGroupManagement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/security/XACMLConfiguration.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/security/XACMLConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/DebugUtils.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/DebugUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/ThreadDumpUtils.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/ThreadDumpUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/yekki/jmx/utils/EditSessionUtils.java" afterPath="$PROJECT_DIR$/src/me/yekki/jmx/utils/EditSessionUtils.java" />
     </list>
     <ignored path="jms-saf-demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,22 +70,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FileUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/FileUtils.java">
+      <file leaf-file-name="app.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/app.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6235">
-              <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+            <state relative-caret-position="195">
+              <caret line="13" column="71" lean-forward="false" selection-start-line="13" selection-start-column="71" selection-end-line="13" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditSessionUtils.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/EditSessionUtils.java">
+      <file leaf-file-name="JMSMonitor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitor/JMSMonitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="46" column="48" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
-              <folding />
+            <state relative-caret-position="210">
+              <caret line="108" column="40" lean-forward="false" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -74,25 +113,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/UninstallJMXCommand.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/security/wls_special_startups/specialtest/StartSpecialTest.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/parallel/JMXThreadTest.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/StoreAdminCommand.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/administration/JDBCAdministration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/administration/ServerAdministration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/DomainConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JDBCConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JMSConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JNDIProviderConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/MailConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/NetworkResourceConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ServerAndMachineConfiguration.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/WorkManagerConfiguration.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ApplicationMonitoring.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ClusterMonitoring.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/DatasourceMonitoring.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/JMSMonitoring.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerAndProcessMonitoring.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerresourcesMonitoring.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServicesMonitoring.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/WLSMonitoringUtils.java" />
@@ -110,21 +133,37 @@
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/tests/SecurityTests.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/ClientFactory.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/JMSClient.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/SendCommand.java" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jms/app/JMXCommand.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/app/Main.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/app/Commander.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/app/CommandApp.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/app/CommandLineApp.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/app/CommandLine.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jms/annotation/Role.java" />
-        <option value="$PROJECT_DIR$/config/app.properties" />
         <option value="$PROJECT_DIR$/config/ClientSAF.xml" />
-        <option value="$PROJECT_DIR$/src/me/yekki/jmx/administration/JMSAdministration.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapper.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/utils/AbstractJMXWrapper.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapperRemote.java" />
         <option value="$PROJECT_DIR$/src/me/yekki/jmx/utils/JMXWrapperLocal.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/JMSMonitoring.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/utils/PrettyPrinter.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/utils/PrettyPrinter.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/administration/JMSAdministration.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/CleanJMXCommand.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/SendCommand.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/StoreAdminCommand.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/HelpCommand.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/app/JMSClient.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/app/Constants.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/utils/WLSMonitoringUtils.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerAndProcessMonitoring.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitor/impl/AbstractMonitor.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitor/JMSMonitor.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ContextCaseData.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jmx/monitor/ServerAndProcessMonitor.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/app/impl/JMXCommandImpl.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/cmd/MonitorJMXCommand.java" />
+        <option value="$PROJECT_DIR$/src/me/yekki/jms/app/JMXCommand.java" />
+        <option value="$PROJECT_DIR$/config/app.properties" />
       </list>
     </option>
   </component>
@@ -239,6 +278,140 @@
               <option name="myItemId" value="jmx" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="troubleshooting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="security" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="monitoring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jmx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="monitor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -302,6 +475,110 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cmd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yekki" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jms-saf-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -350,7 +627,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Cleaner">
+  <component name="RunManager" selected="Application.JMSMonitor">
     <configuration default="false" name="SecurityTests" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -359,9 +636,29 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="me.yekki.jmx.tests.SecurityTests" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="jms-saf-demo" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="PrettyPrinter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="me.yekki.jmx.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="me.yekki.jmx.utils.PrettyPrinter" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -782,6 +1079,21 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="JMSMonitor" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="me.yekki.jms.app.CommandLine" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-r m" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="jms-saf-demo" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="Installer" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="me.yekki.jms.app.CommandLine" />
@@ -857,19 +1169,22 @@
         </option>
       </method>
     </configuration>
-    <list size="8">
+    <list size="10">
       <item index="0" class="java.lang.String" itemvalue="Application.Sender" />
       <item index="1" class="java.lang.String" itemvalue="Application.Cleaner" />
       <item index="2" class="java.lang.String" itemvalue="Application.Uninstaller" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Installer" />
-      <item index="4" class="java.lang.String" itemvalue="Application.StoreAdmin" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Help" />
-      <item index="6" class="java.lang.String" itemvalue="WebLogic Server.WebLogic 12.2.1.1.0" />
-      <item index="7" class="java.lang.String" itemvalue="Application.SecurityTests" />
+      <item index="3" class="java.lang.String" itemvalue="Application.JMSMonitor" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Installer" />
+      <item index="5" class="java.lang.String" itemvalue="Application.StoreAdmin" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Help" />
+      <item index="7" class="java.lang.String" itemvalue="WebLogic Server.WebLogic 12.2.1.1.0" />
+      <item index="8" class="java.lang.String" itemvalue="Application.SecurityTests" />
+      <item index="9" class="java.lang.String" itemvalue="Application.PrettyPrinter" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.SecurityTests" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.PrettyPrinter" />
+        <item index="1" class="java.lang.String" itemvalue="Application.SecurityTests" />
       </list>
     </recent_temporary>
   </component>
@@ -935,7 +1250,7 @@
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24842767" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20634921" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2014652" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -985,326 +1300,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/administration/ApplicationAdministration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="51" column="42" lean-forward="false" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/WTCMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-58">
-          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/WLSMonitoringUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServicesMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="36" column="68" lean-forward="false" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/JMSMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="139" column="66" lean-forward="true" selection-start-line="139" selection-start-column="66" selection-end-line="139" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/DatasourceMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ClusterMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ApplicationMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="187" column="32" lean-forward="false" selection-start-line="187" selection-start-column="32" selection-end-line="187" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/WorkManagerConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="47" column="58" lean-forward="true" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerAndProcessMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerresourcesMonitoring.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="34" column="68" lean-forward="true" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/PrintMBeanNames.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/MigrateSecurityDataUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="175" column="0" lean-forward="false" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/SecurityProviderConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/WLSAutomationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/DateUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/ThreadDumpUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/DebugUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/XACMLConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/UserGroupManagement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="454" column="0" lean-forward="true" selection-start-line="454" selection-start-column="0" selection-end-line="454" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/annotation/Role.java" />
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/ClientFactory.java" />
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/JMSClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/CommandLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/tests/SecurityTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="31" column="98" lean-forward="false" selection-start-line="31" selection-start-column="98" selection-end-line="31" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/JMXCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/SendCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="40" column="97" lean-forward="false" selection-start-line="40" selection-start-column="97" selection-end-line="40" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/AppConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1660">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/ClientSAF.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="38" lean-forward="true" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/saf.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/common_env.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/administration/JMSAdministration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3355">
-          <caret line="81" column="97" lean-forward="true" selection-start-line="81" selection-start-column="97" selection-end-line="81" selection-end-column="97" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/administration/ServerAdministration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="175" column="5" lean-forward="true" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ServerAndMachineConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2655">
-          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/NetworkResourceConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2115">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/MailConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JNDIProviderConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JMSConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-44">
-          <caret line="231" column="25" lean-forward="false" selection-start-line="231" selection-start-column="25" selection-end-line="231" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JDBCConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1515">
-          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/DomainConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ContextCaseData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/administration/CheckAndRetargetIfRequired.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/administration/JDBCAdministration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1318,17 +1313,7 @@
         <state relative-caret-position="225">
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/AbstractJMXWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1349,6 +1334,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/EditSessionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/FileUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6235">
@@ -1357,10 +1350,380 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/EditSessionUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitor/impl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="46" column="48" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+        <state relative-caret-position="75">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/PrettyPrinter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="121" column="11" lean-forward="true" selection-start-line="115" selection-start-column="8" selection-end-line="121" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#464#465#0" expanded="false" />
+            <element signature="e#506#507#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/UninstallJMXCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="52" column="35" lean-forward="false" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/InstallJMXCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/AppConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-135">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/impl/JMSClientImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/JMSClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="9" lean-forward="false" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/HelpCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="24" column="77" lean-forward="false" selection-start-line="24" selection-start-column="77" selection-end-line="24" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/SendCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-405">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/StoreAdminCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/CleanJMXCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="123" lean-forward="false" selection-start-line="21" selection-start-column="97" selection-end-line="21" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/JMSMonitoring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="37" selection-start-column="4" selection-end-line="50" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/WLSMonitoringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="43" column="5" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="43" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitor/impl/AbstractMonitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerAndProcessMonitoring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="78" column="47" lean-forward="false" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ServerresourcesMonitoring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2700">
+          <caret line="53" column="30" lean-forward="true" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/DatasourceMonitoring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-445">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/parallel/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/PrintMBeanNames.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-445">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/other_utilities/parallel/JMXThreadTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/MigrateSecurityDataUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitoring/ApplicationMonitoring.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3940">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ContextCaseData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/DomainConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JDBCConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1555">
+          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JNDIProviderConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-715">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/ThreadDumpUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="48" column="5" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="48" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/troubleshooting/DebugUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/utils/AbstractJMXWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/UserGroupManagement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1935">
+          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/security/SecurityProviderConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16230">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/administration/JMSAdministration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="57" column="113" lean-forward="false" selection-start-line="57" selection-start-column="113" selection-end-line="57" selection-end-column="113" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/JMSConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3135">
+          <caret line="231" column="25" lean-forward="false" selection-start-line="231" selection-start-column="25" selection-end-line="231" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/NetworkResourceConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4420">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/creation_extension/ServerAndMachineConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6745">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="110" column="19" lean-forward="false" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home/src.zip!/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="1780" column="18" lean-forward="false" selection-start-line="1780" selection-start-column="18" selection-end-line="1780" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/JMXCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/cmd/MonitorJMXCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/CommandLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitor/ServerAndProcessMonitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="131" column="13" lean-forward="false" selection-start-line="131" selection-start-column="13" selection-end-line="131" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jms/app/impl/JMXCommandImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="56" column="4" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/yekki/jmx/monitor/JMSMonitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="108" column="40" lean-forward="false" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="71" lean-forward="false" selection-start-line="13" selection-start-column="71" selection-end-line="13" selection-end-column="71" />
           <folding />
         </state>
       </provider>

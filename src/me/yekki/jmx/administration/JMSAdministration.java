@@ -20,26 +20,21 @@
 package me.yekki.jmx.administration;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.ObjectName;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import static java.util.Arrays.stream;
 
 
 public class JMSAdministration {
 
     private JMXWrapper myJMXWrapper = null;
 
-    public JMSAdministration(JMXWrapper _wrapper) throws WLSAutomationException {
+    public JMSAdministration(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
-    public ObjectName getJMSServerRuntime(String jmsServerName, String wlsServerName) throws WLSAutomationException {
+    public ObjectName getJMSServerRuntime(String jmsServerName, String wlsServerName) throws WLSJMXException {
         try {
             // get the runtime of the server
             ObjectName serverRuntime = myJMXWrapper.getServerRuntime(wlsServerName);
@@ -47,20 +42,20 @@ public class JMSAdministration {
             // the the jms runtime
             ObjectName jmsRuntime = (ObjectName) myJMXWrapper.getAttribute(serverRuntime, "JMSRuntime");
 
-            if (jmsRuntime == null) throw new WLSAutomationException("No JMSRuntime found on server " + wlsServerName + " ! ");
+            if (jmsRuntime == null) throw new WLSJMXException("No JMSRuntime found on server " + wlsServerName + " ! ");
 
             ObjectName jmsServerRuntime = Arrays.stream((ObjectName[]) myJMXWrapper.getAttribute((ObjectName) myJMXWrapper.getAttribute(serverRuntime, "JMSRuntime"), "JMSServers")).filter(myJMXWrapper.getNamePredicate(jmsServerName)).findFirst().get();
 
             if (jmsServerRuntime == null)
-                throw new WLSAutomationException("JMSServer " + jmsServerName + " not found on server " + wlsServerName + " ! ");
+                throw new WLSJMXException("JMSServer " + jmsServerName + " not found on server " + wlsServerName + " ! ");
             else
                 return jmsServerRuntime;
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in getJMSServerRuntime : " + ex.getMessage());
+            throw new WLSJMXException("Error in getJMSServerRuntime : " + ex.getMessage());
         }
     }
 
-    public ObjectName getJMSDestinationRuntime(String destinationName, String jmsServerName, String wlsServerName) throws WLSAutomationException {
+    public ObjectName getJMSDestinationRuntime(String wlsServerName, String jmsServerName, String destinationName) throws WLSJMXException {
         try {
 
             ObjectName jmsServerRuntime = getJMSServerRuntime(jmsServerName, wlsServerName);
@@ -70,10 +65,10 @@ public class JMSAdministration {
             if (destination != null)
                 return destination;
             else
-                throw new WLSAutomationException("No JMSRuntime found on server " + wlsServerName + " ! ");
+                throw new WLSJMXException("No JMSRuntime found on server " + wlsServerName + " ! ");
 
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in getJMSDestinationRuntime : " + ex.getMessage());
+            throw new WLSJMXException("Error in getJMSDestinationRuntime : " + ex.getMessage());
         }
 
     }
@@ -81,7 +76,7 @@ public class JMSAdministration {
 
     // *********************  JMS Server ********************************************************
 
-    public void jmsServerPauseProduction(ObjectName jmsServerRuntime) throws WLSAutomationException {
+    public void jmsServerPauseProduction(ObjectName jmsServerRuntime) throws WLSJMXException {
         try {
             if (jmsServerRuntime != null) {
                 Boolean isProductionPaused = (Boolean) myJMXWrapper.getAttribute(jmsServerRuntime, "ProductionPaused");
@@ -91,11 +86,11 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsServerRuntime, "pauseProduction", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsServerPauseProduction : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsServerPauseProduction : " + ex.getMessage());
         }
     }
 
-    public void jmsServerResumeProduction(ObjectName jmsServerRuntime) throws WLSAutomationException {
+    public void jmsServerResumeProduction(ObjectName jmsServerRuntime) throws WLSJMXException {
         try {
             if (jmsServerRuntime != null) {
                 Boolean isProductionPaused = (Boolean) myJMXWrapper.getAttribute(jmsServerRuntime, "ProductionPaused");
@@ -105,12 +100,12 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsServerRuntime, "resumeProduction", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsServerResumeProduction : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsServerResumeProduction : " + ex.getMessage());
         }
     }
 
 
-    public void jmsServerPauseInsertion(ObjectName jmsServerRuntime) throws WLSAutomationException {
+    public void jmsServerPauseInsertion(ObjectName jmsServerRuntime) throws WLSJMXException {
         try {
             if (jmsServerRuntime != null) {
                 Boolean isInsertionPaused = (Boolean) myJMXWrapper.getAttribute(jmsServerRuntime, "InsertionPaused");
@@ -120,11 +115,11 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsServerRuntime, "pauseInsertion", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsServerPauseInsertion : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsServerPauseInsertion : " + ex.getMessage());
         }
     }
 
-    public void jmsServerResumeInsertion(ObjectName jmsServerRuntime) throws WLSAutomationException {
+    public void jmsServerResumeInsertion(ObjectName jmsServerRuntime) throws WLSJMXException {
         try {
             if (jmsServerRuntime != null) {
                 Boolean isInsertionPaused = (Boolean) myJMXWrapper.getAttribute(jmsServerRuntime, "InsertionPaused");
@@ -134,12 +129,12 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsServerRuntime, "resumeInsertion", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsServerResumeInsertion : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsServerResumeInsertion : " + ex.getMessage());
         }
     }
 
 
-    public void jmsServerPauseConsumption(ObjectName jmsServerRuntime) throws WLSAutomationException {
+    public void jmsServerPauseConsumption(ObjectName jmsServerRuntime) throws WLSJMXException {
         try {
             if (jmsServerRuntime != null) {
                 Boolean isConsumptionPaused = (Boolean) myJMXWrapper.getAttribute(jmsServerRuntime, "ConsumptionPaused");
@@ -149,11 +144,11 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsServerRuntime, "pauseConsumption", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsServerPauseConsumption : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsServerPauseConsumption : " + ex.getMessage());
         }
     }
 
-    public void jmsServerResumeConsumption(ObjectName jmsServerRuntime) throws WLSAutomationException {
+    public void jmsServerResumeConsumption(ObjectName jmsServerRuntime) throws WLSJMXException {
         try {
             if (jmsServerRuntime != null) {
                 Boolean isConsumptionPaused = (Boolean) myJMXWrapper.getAttribute(jmsServerRuntime, "ConsumptionPaused");
@@ -163,14 +158,14 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsServerRuntime, "resumeConsumption", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsServerResumeConsumption : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsServerResumeConsumption : " + ex.getMessage());
         }
     }
 
 
     //  ***********************   Destination !!  ****************************************************	
 
-    public void jmsDestinationPauseProduction(ObjectName jmsDestinationRuntime) throws WLSAutomationException {
+    public void jmsDestinationPauseProduction(ObjectName jmsDestinationRuntime) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 Boolean isProductionPaused = (Boolean) myJMXWrapper.getAttribute(jmsDestinationRuntime, "ProductionPaused");
@@ -180,11 +175,11 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsDestinationRuntime, "pauseProduction", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationPauseProduction : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationPauseProduction : " + ex.getMessage());
         }
     }
 
-    public void jmsDestinationResumeProduction(ObjectName jmsDestinationRuntime) throws WLSAutomationException {
+    public void jmsDestinationResumeProduction(ObjectName jmsDestinationRuntime) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 Boolean isProductionPaused = (Boolean) myJMXWrapper.getAttribute(jmsDestinationRuntime, "ProductionPaused");
@@ -194,12 +189,12 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsDestinationRuntime, "resumeProduction", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationResumeProduction : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationResumeProduction : " + ex.getMessage());
         }
     }
 
 
-    public void jmsDestinationPauseInsertion(ObjectName jmsDestinationRuntime) throws WLSAutomationException {
+    public void jmsDestinationPauseInsertion(ObjectName jmsDestinationRuntime) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 Boolean isInsertionPaused = (Boolean) myJMXWrapper.getAttribute(jmsDestinationRuntime, "InsertionPaused");
@@ -209,11 +204,11 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsDestinationRuntime, "pauseInsertion", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationPauseInsertion : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationPauseInsertion : " + ex.getMessage());
         }
     }
 
-    public void jmsDestinationResumeInsertion(ObjectName jmsDestinationRuntime) throws WLSAutomationException {
+    public void jmsDestinationResumeInsertion(ObjectName jmsDestinationRuntime) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 Boolean isInsertionPaused = (Boolean) myJMXWrapper.getAttribute(jmsDestinationRuntime, "InsertionPaused");
@@ -223,12 +218,12 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsDestinationRuntime, "resumeInsertion", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationResumeInsertion : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationResumeInsertion : " + ex.getMessage());
         }
     }
 
 
-    public void jmsDestinationPauseConsumption(ObjectName jmsDestinationRuntime) throws WLSAutomationException {
+    public void jmsDestinationPauseConsumption(ObjectName jmsDestinationRuntime) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 Boolean isConsumptionPaused = (Boolean) myJMXWrapper.getAttribute(jmsDestinationRuntime, "ConsumptionPaused");
@@ -238,11 +233,11 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsDestinationRuntime, "pauseConsumption", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationPauseConsumption : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationPauseConsumption : " + ex.getMessage());
         }
     }
 
-    public void jmsDestinationResumeConsumption(ObjectName jmsDestinationRuntime) throws WLSAutomationException {
+    public void jmsDestinationResumeConsumption(ObjectName jmsDestinationRuntime) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 Boolean isConsumptionPaused = (Boolean) myJMXWrapper.getAttribute(jmsDestinationRuntime, "ConsumptionPaused");
@@ -252,7 +247,7 @@ public class JMSAdministration {
                     myJMXWrapper.invoke(jmsDestinationRuntime, "resumeConsumption", new Object[]{}, new String[]{});
             }
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationResumeConsumption : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationResumeConsumption : " + ex.getMessage());
         }
     }
 
@@ -260,7 +255,7 @@ public class JMSAdministration {
     // *********************************     Other actions ************************************************
 
     // selector = "" means all messages, otherwise this must be a valid message selector
-    public String deleteMessagesFromJmsDestination(ObjectName jmsDestinationRuntime, String selector) throws WLSAutomationException {
+    public String deleteMessagesFromJmsDestination(ObjectName jmsDestinationRuntime, String selector) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
 
@@ -270,16 +265,16 @@ public class JMSAdministration {
                 // return result
                 return (result != null) ? result.toString() : null;
             } else
-                throw new WLSAutomationException("Undefined destination runtime (null) not accepted as parameter !");
+                throw new WLSJMXException("Undefined destination runtime (null) not accepted as parameter !");
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in jmsDestinationPauseConsumption : " + ex.getMessage());
+            throw new WLSJMXException("Error in jmsDestinationPauseConsumption : " + ex.getMessage());
         }
     }
 
 
     // This example defines a function which will browse through all messges of a queue:
     // messageState must be null to get all messages
-    public void printMessagesFromJmsDestination(ObjectName jmsDestinationRuntime, String selector, Integer messageState) throws WLSAutomationException {
+    public void printMessagesFromJmsDestination(ObjectName jmsDestinationRuntime, String selector, Integer messageState) throws WLSJMXException {
         try {
             if (selector == null) selector = "true";
 
@@ -312,15 +307,15 @@ public class JMSAdministration {
                 // print all the messages' contents
                 System.out.println(allDestinationMessages);
             } else
-                throw new WLSAutomationException("Undefined destination runtime (null) not accepted as parameter !");
+                throw new WLSJMXException("Undefined destination runtime (null) not accepted as parameter !");
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in printMessagesFromJmsDestination : " + ex.getMessage());
+            throw new WLSJMXException("Error in printMessagesFromJmsDestination : " + ex.getMessage());
         }
     }
 
 
     // this example will query exactly ONE message from the queue and print it
-    public void printOneMessageFromJmsDestination(ObjectName jmsDestinationRuntime, String messageID) throws WLSAutomationException {
+    public void printOneMessageFromJmsDestination(ObjectName jmsDestinationRuntime, String messageID) throws WLSJMXException {
         try {
             if (jmsDestinationRuntime != null) {
                 // get the message with the provided message ID
@@ -333,9 +328,9 @@ public class JMSAdministration {
                     // print the message contents
                     System.out.println(myMessage);
             } else
-                throw new WLSAutomationException("Undefined destination runtime (null) not accepted as parameter !");
+                throw new WLSJMXException("Undefined destination runtime (null) not accepted as parameter !");
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error in printOneMessageFromJmsDestination : " + ex.getMessage());
+            throw new WLSJMXException("Error in printOneMessageFromJmsDestination : " + ex.getMessage());
         }
     }
 

@@ -20,7 +20,7 @@
 package me.yekki.jmx.troubleshooting;
 
 import me.yekki.jmx.utils.JMXWrapper;
-import me.yekki.jmx.utils.WLSAutomationException;
+import me.yekki.jmx.utils.WLSJMXException;
 
 import javax.management.ObjectName;
 
@@ -29,11 +29,11 @@ public class ThreadDumpUtils {
     private JMXWrapper myJMXWrapper = null;
 
 
-    public ThreadDumpUtils(JMXWrapper _wrapper) throws WLSAutomationException {
+    public ThreadDumpUtils(JMXWrapper _wrapper) throws WLSJMXException {
         myJMXWrapper = _wrapper;
     }
 
-    public String getThreadDump(String serverName) throws WLSAutomationException {
+    public String getThreadDump(String serverName) throws WLSJMXException {
         try {
             // get the server runtime(!)
             ObjectName serverRuntime = myJMXWrapper.getServerRuntime(serverName);
@@ -44,7 +44,7 @@ public class ThreadDumpUtils {
             // finally return the threaddump
             return (String) myJMXWrapper.getAttribute(jvmRuntime, "ThreadStackDump");
         } catch (Exception ex) {
-            throw new WLSAutomationException("Error while getThreadDump of server " + serverName + " : " + ex.getMessage());
+            throw new WLSJMXException("Error while getThreadDump of server " + serverName + " : " + ex.getMessage());
         }
     }
 

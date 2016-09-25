@@ -1,5 +1,7 @@
 package me.yekki.jms.app;
 
+import me.yekki.jms.cmd.*;
+
 public interface Constants {
 
     //keys
@@ -23,17 +25,25 @@ public interface Constants {
     static final String JMS_CONFIG_FILE = "jms.properties";
 
     public static enum Role {
-        Sender(Constants.SENDER_CONFIG_FILE_KEY), Receiver(RECEIVER_CONFIG_FILE_KEY), Cleaner(RECEIVER_CONFIG_FILE_KEY), Helper(null), Installer(RECEIVER_CONFIG_FILE_KEY), Uninstaller(RECEIVER_CONFIG_FILE_KEY), StoreAdmin(null);
+        Receiver(RECEIVER_CONFIG_FILE_KEY, null), Cleaner(RECEIVER_CONFIG_FILE_KEY, CleanJMXCommand.class), Sender(Constants.SENDER_CONFIG_FILE_KEY, SendCommand.class), Monitor(RECEIVER_CONFIG_FILE_KEY, MonitorJMXCommand.class), Helper(null, null), Installer(RECEIVER_CONFIG_FILE_KEY, InstallJMXCommand.class), Uninstaller(RECEIVER_CONFIG_FILE_KEY, UninstallJMXCommand.class), StoreAdmin(null, StoreAdminCommand.class);
 
         private String configFileKey;
+        private Class commandClass;
 
-        Role(String configFileKey) {
+        Role(String configFileKey, Class commandClass) {
+
             this.configFileKey = configFileKey;
+            this.commandClass = commandClass;
         }
 
         public String getConfigFileKey() {
 
             return configFileKey;
+        }
+
+        public Class getCommandClass() {
+
+            return commandClass;
         }
 
         public static Role getRole(String optArg) {
@@ -51,6 +61,8 @@ public interface Constants {
                     return Uninstaller;
                 case "i":
                     return Installer;
+                case "m":
+                    return Monitor;
                 default:
                     return Helper;
             }

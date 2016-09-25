@@ -20,6 +20,7 @@
 package me.yekki.jmx.monitoring;
 
 import me.yekki.jmx.utils.JMXWrapper;
+import me.yekki.jmx.utils.WLSMonitoringUtils;
 
 import javax.management.ObjectName;
 
