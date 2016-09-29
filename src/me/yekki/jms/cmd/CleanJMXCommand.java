@@ -17,7 +17,6 @@ public class CleanJMXCommand extends JMXCommand {
 
     @Override
     public void execute() throws JMSClientException {
-
         try {
             JMSAdministration jmsadmin = new JMSAdministration(jmxWrapper);
             ObjectName dest = jmsadmin.getJMSDestinationRuntime("AdminServer", "DemoJMSServer", "DemoSystemModule!DemoQueue");

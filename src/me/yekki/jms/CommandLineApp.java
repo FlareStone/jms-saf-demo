@@ -1,11 +1,17 @@
 package me.yekki.jms;
 
+import me.yekki.jms.cmd.HelpCommand;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang.SystemUtils;
 
+import java.lang.reflect.Constructor;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Optional;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import static me.yekki.jms.Constants.Role.Sender;
@@ -16,19 +22,19 @@ public class CommandLineApp {
     private static org.apache.commons.cli.CommandLine cmd;
     private static Options options;
 
-    public static void main(String... args) throws Exception {
+    public static void main(String... args) throws ParseException {
 
         options = buildOptions();
         cmd = (new DefaultParser()).parse(options, args);
+        AppConfig config = AppConfig.getInstance(cmd);
 
         Instant start = Instant.now();
 
-        Constants.Role role = JMSClient.execute(cmd);
+        execute(config);
 
         Instant end = Instant.now();
 
-        logger.info(String.format("%s executed, elapsed:%sms", role, Duration.between(start, end).toMillis()));
-
+        logger.info(String.format("%s executed, elapsed:%sms", config.getRole(), Duration.between(start, end).toMillis()));
     }
 
     private static Options buildOptions() {
@@ -57,5 +63,38 @@ public class CommandLineApp {
                 .addOption(countOpt);
 
         return options;
+    }
+
+    public static void execute(AppConfig config) {
+
+        Constants.Role role = config.getRole();
+        Thread thread = null;
+
+        try {
+            Class clz = role.getCommandClass();
+
+            if (clz != null) {
+
+                switch (role) {
+                    case Sender:
+                        role.setDescription(String.format("(Type:%s, Mode:%s, Count:%d, Threads:%d)", config.getMessageType(), config.getDeliveryModeDesc(), config.getMessageCount(), config.getSenderThreadCount()));
+                        break;
+                    default:
+                        role.setDescription("");
+                }
+
+                Constructor constructor = clz.getConstructor(AppConfig.class);
+                thread = (Thread)constructor.newInstance(config);
+            } else {
+                thread = new HelpCommand(config);
+            }
+
+            thread.start();
+            thread.join();
+        }
+        catch (Exception e) {
+
+            logger.info("Failed to execute command:" + e.getMessage());
+        }
     }
 }

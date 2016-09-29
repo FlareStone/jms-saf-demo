@@ -7,56 +7,58 @@ import org.apache.commons.cli.CommandLine;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Hashtable;
-import java.util.Properties;
-
-import static me.yekki.jms.Constants.MessageType.Text;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class AppConfig implements Constants {
+
+    private static Logger logger = Logger.getLogger(AppConfig.class.getName());
 
     private Properties properties;
     private CommandLine cmd;
     private Role role;
     private Context ctx;
-    Hashtable<String, String> env;
+    private Hashtable<String, String> env;
 
-    private static AppConfig config;
+    private static AppConfig INSTANCE;
 
-    public static AppConfig newConfig(CommandLine cmd) {
+    public static AppConfig getInstance(CommandLine cmd) {
 
-        if (config == null) {
-            Constants.Role role = Constants.Role.getRole(cmd.getOptionValue("r"));
-            config = new AppConfig(role, cmd);
+        if (INSTANCE == null) {
+            synchronized (AppConfig.class) {
+                if (INSTANCE == null) INSTANCE = new AppConfig(cmd);
+            }
         }
 
-        return config;
+        return INSTANCE;
     }
 
-    private AppConfig(Role aRole, CommandLine aCmd) {
+    private AppConfig(CommandLine cmd) {
 
-        this.cmd = aCmd;
-        this.role = aRole;
+        this.cmd = cmd;
+        this.role = Constants.Role.getRole(cmd.getOptionValue("r"));
 
-        properties = loadProperties(APP_CONFIG_FILE);
+        properties = new Properties();
 
-        if (role.getConfigFileKey() == null || "".equals(role.getConfigFileKey())) return;
+        loadProperties(APP_CONFIG_FILE);
 
-        String configFile = properties.getProperty(role.getConfigFileKey());
+        Optional.ofNullable(role.getConfigFileKey()).ifPresent((key)->{
 
-        if (Files.exists(Paths.get("config/" + configFile))) {
-            properties.putAll(loadProperties(configFile));
-            String providerUrl = properties.getProperty(PROVIDER_URL_KEY, "");
+            loadProperties(properties.getProperty(key));
 
-            //saf only support single thread
-            if (providerUrl.startsWith("file:")) properties.setProperty(SENDER_THREADS_KEY, "1");
-        }
+            Optional.ofNullable(properties.getProperty(PROVIDER_URL_KEY)).ifPresent((url)->{
+                if (url.startsWith("file:")) properties.setProperty(SENDER_THREADS_KEY, "1");
+            });
+        });
     }
 
     public Role getRole() {
@@ -69,91 +71,44 @@ public class AppConfig implements Constants {
         return cmd;
     }
 
-    private Properties loadProperties(String configFile) {
+    public Properties getProperties() {
 
-        File propertiesFile = new File("config/" + configFile);
-        Properties props = new Properties();
+        return properties;
+    }
 
-        if (propertiesFile.exists()) {
+    private void loadProperties(String configFile) {
+
+        assert configFile != null;
+
+        Path path = Paths.get("config", configFile);
+
+        if (Files.exists(path)) {
 
             try {
-                FileInputStream propFileStream = new FileInputStream(propertiesFile);
-                props.load(propFileStream);
-            } catch (IOException e) {
-                e.printStackTrace();
+                Properties props = new Properties();
+                props.load(Files.newInputStream(path));
+                properties.putAll(props);
             }
-
-            return props;
-
-        } else {
-
-            throw new RuntimeException(String.format("failed to load properties file=[%s]", propertiesFile.getAbsolutePath()));
-        }
-    }
-
-    public long getProperty(String key, long defaultValue) {
-
-        String value = properties.getProperty(key);
-
-        if (value == null || "".equals(value)) return defaultValue;
-
-        try {
-            return Long.parseLong(value);
-        }
-        catch (NumberFormatException ne) {
-
-            return defaultValue;
-        }
-    }
-
-    public String getProperty(String key, String defaultValue) {
-
-        return properties.getProperty(key, defaultValue);
-    }
-
-    public boolean getProperty(String key, boolean defaultValue) {
-
-        String value = properties.getProperty(key);
-
-        if (value == null || "".equals(value)) return defaultValue;
-
-        try {
-
-            return Boolean.parseBoolean(value);
-        }
-        catch (NumberFormatException ne) {
-
-            return defaultValue;
-        }
-    }
-
-    public int getProperty(String key, int defaultValue) {
-
-        String value = properties.getProperty(key);
-
-        if (value == null || "".equals(value)) return defaultValue;
-
-        try {
-            return Integer.parseInt(value);
-        }
-        catch (NumberFormatException ne) {
-
-            return defaultValue;
+            catch (IOException ioe) {
+                logger.info("Failed to load properties file:" + ioe.getMessage());
+            }
         }
     }
 
     public Hashtable<String, String> getEnvironment() {
 
         if ( env == null) {
+
             env = new Hashtable<>();
 
             String providerUrl = properties.getProperty(PROVIDER_URL_KEY);
 
-            if (null != providerUrl && providerUrl.startsWith("file:")) {
-                env.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jms.safclient.jndi.InitialContextFactoryImpl");
-            } else {
-                env.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-            }
+            assert providerUrl != null;
+
+            if (providerUrl.startsWith("file:"))
+                env.put(Context.INITIAL_CONTEXT_FACTORY, SAF_INITIAL_CONTEXT_FACTORY);
+            else
+                env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
 
             env.put(Context.PROVIDER_URL, properties.getProperty(PROVIDER_URL_KEY));
             env.put(Context.SECURITY_PRINCIPAL, properties.getProperty(PRINCIPAL_KEY));
@@ -169,9 +124,10 @@ public class AppConfig implements Constants {
 
         if (ctx == null) {
             try {
-                ctx = new InitialContext(env);
+                ctx = new InitialContext(getEnvironment());
             } catch (NamingException e) {
-                e.printStackTrace();
+                logger.info("Failed to new initial context:" + e.getMessage());
+                Runtime.getRuntime().exit(-1);
             }
         }
 
@@ -179,7 +135,8 @@ public class AppConfig implements Constants {
     }
 
     public MessageType getMessageType() {
-        return MessageType.getMessageType(getProperty(MESSAGE_TYPE_KEY, Text.name()));
+
+        return Optional.ofNullable(MessageType.getMessageType(properties.getProperty(MESSAGE_TYPE_KEY))).orElse(MessageType.Text);
     }
 
     public Serializable getMessageContent() {
@@ -191,24 +148,24 @@ public class AppConfig implements Constants {
         switch (msgType) {
 
             case Text:
-                msg = getProperty(MESSAGE_CONTENT_KEY, "");
+                msg = Optional.of(properties.getProperty(MESSAGE_CONTENT_KEY)).get();
                 break;
             case Binary:
-                int size = getProperty(MESSAGE_SIZE_KEY, 1);
-                msg = SizableObject.buildObject(size);
+                msg = SizableObject.buildObject(Integer.parseInt(Optional.of(properties.getProperty(MESSAGE_SIZE_KEY)).get()));
                 break;
             case File:
-
+                Path path = Paths.get(properties.getProperty(MESSAGE_FILENAME_KEY));
                 try {
-                    msg = new String(Files.readAllBytes(Paths.get(getProperty(MESSAGE_FILENAME_KEY, null))));
+                    if (Files.exists(path)) msg = new String(Files.readAllBytes(path));
                 } catch (IOException io) {
-                    io.printStackTrace();
+                    logger.info("Failed to load message file:" + path);
                 }
-
                 break;
             default:
                 throw new IllegalArgumentException("Illegal message type:" + msgType);
         }
+
+        assert msg != null;
 
         return msg;
     }
@@ -222,8 +179,16 @@ public class AppConfig implements Constants {
         return count;
     }
 
-    public String getDeliveryMode() {
-        int mode = getProperty(DELIVERY_MODE_KEY, -1);
+    public String getSenderProfile() {
+        MessageType msgType = getMessageType();
+        int msgCount = getMessageCount();
+        int threadCount = getSenderThreadCount();
+        String model = getDeliveryModeDesc();
+        return String.format("(Type:%s, Mode:%s, Count:%d, Threads:%d)", msgType, model, msgCount, threadCount);
+    }
+
+    public String getDeliveryModeDesc() {
+        int mode = getDeliveryMode();
         switch (mode) {
             case 1:
                 return "Non Persistent";
@@ -232,5 +197,28 @@ public class AppConfig implements Constants {
             default:
                 throw new IllegalArgumentException("Illegal message delivery mode:" + mode);
         }
+    }
+
+    public int getDeliveryMode() {
+
+        return Integer.parseInt(Optional.of(properties.getProperty(DELIVERY_MODE_KEY)).get());
+    }
+
+    public String getFileStorePath() {
+
+        return Optional.of(properties.getProperty(FILE_STORE_PATH_KEY)).get();
+    }
+
+    public int getSenderThreadCount() {
+
+        return Integer.parseInt(Optional.of(properties.getProperty(SENDER_THREADS_KEY)).get());
+    }
+
+    public List<String> getMonitors() {
+
+        Predicate<Map.Entry> filter = (e)->{ return e.getKey().toString().startsWith(MONITOR_KEY);};
+        Stream<String> stream = properties.entrySet().stream().filter(filter).map(e->{return (String)e.getValue();});
+
+        return stream.collect(Collectors.toList());
     }
 }

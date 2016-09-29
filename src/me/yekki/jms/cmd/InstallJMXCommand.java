@@ -19,7 +19,7 @@ public class InstallJMXCommand extends JMXCommand {
     public void execute() throws JMSClientException {
         try {
             JMSConfiguration jc = new JMSConfiguration(jmxWrapper);
-            ObjectName filestore = jc.createFileStore("DemoFileStore", "AdminServer", config.getProperty(Constants.FILE_STORE_PATH_KEY, null));
+            ObjectName filestore = jc.createFileStore("DemoFileStore", "AdminServer", config.getFileStorePath());
             jc.createAnewJMSServer("DemoJMSServer", filestore, "AdminServer");
             jc.createJMSModule("DemoSystemModule", "Server", "AdminServer");
             jc.createJmsConnectionFactory("DemoSystemModule", "DemoConnectionFactory", "democf");

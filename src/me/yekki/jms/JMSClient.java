@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.Hashtable;
+import java.util.logging.Logger;
 
 import static me.yekki.jms.Constants.Role.Sender;
 
@@ -21,39 +22,7 @@ public class JMSClient implements AutoCloseable, Constants {
     protected JMSConsumer consumer;
     protected JMSProducer producer;
 
-    public static Role execute(CommandLine cmd) {
-
-        AppConfig config = AppConfig.newConfig(cmd);
-        Role role = config.getRole();
-        Thread thread = null;
-
-        Class clz = config.getRole().getCommandClass();
-
-        if (role == Sender) {
-            MessageType msgType = config.getMessageType();
-            int msgCount = config.getMessageCount();
-            int threadCount = config.getProperty(Constants.SENDER_THREADS_KEY, -1);
-            String model = config.getDeliveryMode();
-            role.setDescription(String.format("(Type:%s, Mode:%s, Count:%d, Threads:%d)", msgType, model, msgCount, threadCount));
-        }
-
-        try {
-            if (clz == null) {
-                thread = new Thread(new HelpCommand(config));
-            }
-            else {
-                Constructor constructor = clz.getConstructor(AppConfig.class);
-                thread = new Thread((Runnable) constructor.newInstance(config));
-            }
-            thread.start();
-            thread.join();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return role;
-    }
+    protected static Logger logger = Logger.getLogger(JMSClient.class.getName());
 
     public static JMSClient newJMSClient(AppConfig config) {
 
@@ -78,14 +47,14 @@ public class JMSClient implements AutoCloseable, Constants {
             switch (role) {
                 case Sender:
                     producer = context.createProducer();
-                    producer.setDeliveryMode(config.getProperty(DELIVERY_MODE_KEY, 1));
+                    producer.setDeliveryMode(config.getDeliveryMode());
                     break;
                 case Receiver:
                     consumer = context.createConsumer(destination);
             }
         }
         catch (NamingException ne) {
-            ne.printStackTrace();
+            logger.info("Failed to initial JMSClient:" + ne.getMessage());
         }
     }
 
@@ -121,6 +90,7 @@ public class JMSClient implements AutoCloseable, Constants {
         }
     }
 
+    @Override
     public void close(){
 
         if (consumer != null) consumer.close();

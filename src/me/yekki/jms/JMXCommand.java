@@ -6,7 +6,7 @@ import me.yekki.jmx.utils.JMXWrapperRemote;
 import javax.naming.Context;
 import java.util.Hashtable;
 
-public abstract class JMXCommand implements Command {
+public abstract class JMXCommand extends Thread implements Constants {
 
     protected AppConfig config;
 
@@ -59,6 +59,8 @@ public abstract class JMXCommand implements Command {
             throw new JMSClientException("Failed to disconnect from admin server:" + e.getMessage());
         }
     }
+
+    abstract public void execute() throws JMSClientException;
 
     @Override
     public void run() {

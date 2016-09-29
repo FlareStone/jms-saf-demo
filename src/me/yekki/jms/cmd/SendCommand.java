@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class SendCommand extends JMSCommand {
 
@@ -27,7 +28,7 @@ public class SendCommand extends JMSCommand {
 
         final Serializable msg = config.getMessageContent();
 
-        MessageCalculator calculator = MessageCalculator.newInstance(total, config.getProperty(Constants.SENDER_THREADS_KEY, 1));
+        MessageCalculator calculator = MessageCalculator.newInstance(total, config.getSenderThreadCount());
 
         try {
 
@@ -72,7 +73,11 @@ public class SendCommand extends JMSCommand {
         public void run() {
 
             JMSClient client = JMSClient.newJMSClient(config);
-            for (int i = 0; i < count; i++) client.send(msg);
+
+            for (int i = 0; i < count; i++) {
+                client.send(msg);
+            }
+
             client.close();
         }
     }

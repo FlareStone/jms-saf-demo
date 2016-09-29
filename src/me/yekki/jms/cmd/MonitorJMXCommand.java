@@ -8,8 +8,12 @@ import me.yekki.jmx.utils.JMXWrapper;
 import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.logging.Logger;
 
 public class MonitorJMXCommand extends JMXCommand {
+
+    private static Logger logger = Logger.getLogger(MonitorJMXCommand.class.getName());
+
 
     public MonitorJMXCommand(AppConfig config) {
 
@@ -17,12 +21,17 @@ public class MonitorJMXCommand extends JMXCommand {
         super.init(false, true);
     }
 
-    @Override
-    public void execute() throws JMSClientException {
+    public void execute() {
+
+        config.getMonitors().forEach((m)->{
+            invoke(jmxWrapper, m);
+        });
+    }
+
+    public void invoke(JMXWrapper jmxWrapper, String monitor) {
 
         try {
-            String m = config.getProperty(MONITOR_KEY, "");
-            String[] meta = m.split(":");
+            String[] meta = monitor.split(":");
 
             if (null != meta && meta.length >= 1) {
 
@@ -33,7 +42,7 @@ public class MonitorJMXCommand extends JMXCommand {
                 Class clazz = Class.forName(clazzStr);
 
                 Constructor constructor = clazz.getConstructor(JMXWrapper.class, PrintStream.class);
-                Object monitor = constructor.newInstance(jmxWrapper, System.out);
+                Object inst = constructor.newInstance(jmxWrapper, System.out);
 
                 String[] args = (meta.length > 1) ? meta[1].split("_") : null;
 
@@ -45,12 +54,12 @@ public class MonitorJMXCommand extends JMXCommand {
 
                 Method method = clazz.getMethod(methodStr, argsClass);
 
-                method.invoke(monitor, args);
+                method.invoke(inst, args);
             }
         }
         catch (Exception e) {
 
-            throw new JMSClientException("Failed to execute monitor command:" + e.getMessage());
+            logger.info("Failed to execute monitor command:" + e.getMessage());
         }
     }
 }
